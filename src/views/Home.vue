@@ -1,8 +1,20 @@
 <template>
   <div v-if="this.isLoaded">
  <!--    <h1>Fantasy Premier League</h1> -->
-    <h4>Gameweek {{currentGw.event}}</h4>
-    <h2 class="pl-yellow">{{currentGw.points}}</h2>
+    <h4>Gameweek {{GW}}</h4>
+    <h2 class="pl-yellow">{{gameweeks.current[GW-1].points}}</h2>
+    <button
+      :disabled="GW < 1"
+      @click="changeGameweek(GW-1)"
+    >
+      Previous
+    </button>
+    <button
+      :disabled="GW > gameweeks.current.length+1"
+      @click="changeGameweek(GW+1)"
+    >
+      Next
+    </button>
     <pitch-formation
       :players="myPlayers"
     />
@@ -86,6 +98,9 @@ export default {
 
     findPlayerIndexById(id) {
       return this.myPicks.findIndex(player => player.element === id)
+    },
+    changeGameweek (n) {
+      this.GW = n
     },
 
     // Axios

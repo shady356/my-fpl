@@ -7,17 +7,25 @@
       <span v-if="isCaptain">(C)</span>
       <span v-if="isViceCaptain">(V)</span>
     </div>
-    <div class="tooltip">
-      <ul>
-        <li>Assists: 1</li>
-        <li>Goals scored: 2</li>
+
+    <base-tooltip
+      v-if="tooltip && hasScore"
+    >
+      <ul class="stats-list">
+        <li>Goals scored: {{score.goals_scored}}</li>
+        <li>Assists: {{score.assists}}</li>
+        <li>Minutes played: {{score.minutes}}</li>
+        <li>Clean Sheet: {{score.clean_sheets}}</li>
+        <li>Bonus: {{score.bonus}}</li>
       </ul>
-    </div>
+      
+    </base-tooltip>
     
   </div>
 </template>
 
 <script>
+import BaseTooltip from '@/components/base/BaseTooltip.vue'
 export default {
   name: 'PitchPlayerItem',
   data() {
@@ -25,10 +33,18 @@ export default {
       pictureBase: 'https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p'
     }
   },
+  components: {
+    'base-tooltip': BaseTooltip
+  },
   props: {
     player: {
       type: Object,
       required: true
+    },
+    tooltip: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {
@@ -48,8 +64,25 @@ export default {
     hasScore () {
       return !!this.player.gameweek.score
     },
+    score () {
+      return this.player.gameweek.score
+    },
     points () {
-      return this.player.gameweek.score.total_points * this.player.gameweek.multiplier || '-'
+      if(this.isCaptain || this.isViceCaptain) {
+        return this.player.gameweek.score.total_points * this.player.gameweek.multiplier || '-'
+      }
+      return this.player.gameweek.score.total_points || '-'
+    }
+  },
+  methods: {
+    getStats () {
+      return {
+        assists: this.score.assists,
+        bonus: this.score.bonus,
+        goalsScorder: this.score.goals_scored,
+        minutes: this.score.minutes,
+        cleanSheet: this.score.clean_sheets
+      }
     }
   }
 }
@@ -88,16 +121,10 @@ img {
   text-transform: uppercase;
   color: #aaa;
   font-family: 'Roboto Condensed';
-  color: #333;
 }
 
-.tooltip {
-  background: #000;
-  color: #ddd;
-  font-size: 10px;
-  padding: 10px;
-  position: absolute;
-  text-align: left;
-
+.stats-list li {
+  padding: 4px;
 }
+
 </style>

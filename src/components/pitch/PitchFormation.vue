@@ -9,10 +9,12 @@
         <li 
           v-for="player in goalkeepers" 
           :key="player.id"
+          @click="toggleTooltip(player.id)"
           
         >
           <pitch-player-item
             :player="player"
+            :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
       </ul>
@@ -20,9 +22,11 @@
         <li 
           v-for="player in defenders" 
           :key="player.id"
+          @click="toggleTooltip(player.id)"
         >
           <pitch-player-item
             :player="player"
+            :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
       </ul>
@@ -30,9 +34,11 @@
         <li 
           v-for="player in midfielders" 
           :key="player.id"
+          @click="toggleTooltip(player.id)"
         >
           <pitch-player-item
             :player="player"
+            :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
       </ul>
@@ -40,9 +46,11 @@
         <li 
           v-for="player in attackers" 
           :key="player.id"
+          @click="toggleTooltip(player.id)"
         >
           <pitch-player-item
             :player="player"
+            :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
       </ul>
@@ -50,9 +58,11 @@
         <li 
           v-for="player in bench" 
           :key="player.id"
+          @click="toggleTooltip(player.id)"
         >
           <pitch-player-item
             :player="player"
+            :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
       </ul>
@@ -61,11 +71,13 @@
 </template>
 
 <script>
+import BaseTooltip from '@/components/base/BaseTooltip.vue'
 import PitchPlayerItem from '@/components/pitch/PitchPlayerItem.vue'
 export default {
   name: 'PitchFormation',
   components: {
-    'pitch-player-item': PitchPlayerItem
+    'pitch-player-item': PitchPlayerItem,
+     'base-tooltip': BaseTooltip
   },
   props: {
     players: {
@@ -75,7 +87,9 @@ export default {
   },
   data() {
     return {
-      pitchImg: require('@/assets/pitch.png')
+      pitchImg: require('@/assets/pitch.png'),
+      isTooltip: false,
+      activeTooltip: null
     }
   },
   computed: {
@@ -94,7 +108,12 @@ export default {
     bench () {
       return this.players.filter(player => player.gameweek.position >= 12)
     }
-
+  },
+  methods: {
+    toggleTooltip (id) {
+      this.activeTooltip = id
+      this.isTooltip = !this.isTooltip
+    }
   }
 }
 </script>
