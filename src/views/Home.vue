@@ -1,31 +1,35 @@
 <template>
   <div v-if="this.isLoaded">
- <!--    <h1>Fantasy Premier League</h1> -->
+    <!--    <h1>Fantasy Premier League</h1> -->
     <h4>Gameweek {{GW}}</h4>
     <h2 class="pl-yellow">{{gameweeks.current[GW-1].points}}</h2>
-    <button
-      :disabled="GW < 1"
-      @click="changeGameweek(GW-1)"
-    >
-      Previous
-    </button>
-    <button
-      :disabled="GW > gameweeks.current.length+1"
-      @click="changeGameweek(GW+1)"
-    >
-      Next
-    </button>
+    <h3 class="">{{gameweeks.current[GW-1].rank | bigNumber}}</h3>
+    <div class="pagination">
+      <button
+        :disabled="GW < 2"
+        @click="changeGameweek(GW-1)"
+      >
+        Previous
+      </button>
+      <button
+        :disabled="GW === gameweeks.current.length"
+        @click="changeGameweek(GW+1)"
+      >
+        Next
+      </button>
+    </div>
     <pitch-formation
       :players="myPlayers"
+      :GW="GW"
     />
   </div>
-  <div v-else>
+  <!-- <div v-else>
     <h3>Loading ...</h3>
     Bootstrap: {{isBootstrapLoaded}}<br>
     My Picks: {{isMyPicksLoaded}}<br>
     Gameweeks: {{isGameweeksLoaded}}<br>
     Players loaded: {{numberOfPlayersLoaded}} / 15<br>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -36,26 +40,30 @@ export default {
   components: {
     'pitch-formation': PitchFormation
   },
+  filters: {
+    bigNumber(value) {
+      return new Intl.NumberFormat('en-UK', { maximumSignificantDigits: 7 }).format(value)
+    }
+  },
   data() {
     return {
       GW: 26,
       gameweeks: null,
       allPlayers: null,
       myPicks: null,
-      myPicksHistory: [],
       myPicksIds: null,
       bootstrap: null,
-      countPlayerScoreFetched: 0,
       localhostBase: 'http://localhost:8080',
-      networkBase: 'http://192.168.0.18:8080'  
+      networkBase: 'http://192.168.0.18:8080',
+      teamId: 2835090
      }
   },
   computed: {
     BASE_URL() {
       return this.networkBase
     },
-    isLoaded () {
-      return this.isBootstrapLoaded && this.isMyPicksLoaded && this.isGameweeksLoaded && this.numberOfPlayersLoaded === 15
+    isLoaded () { 
+      return this.isBootstrapLoaded && this.isMyPicksLoaded && this.isGameweeksLoaded
     },
     isBootstrapLoaded () {
       return !!this.bootstrap
@@ -74,7 +82,6 @@ export default {
         return this.gameweeks.current[this.gameweeks.current.length-1]
     },
     myPlayers () {
-      
       let index = 0
       return this.allPlayers.filter(player => {
         if(this.myPicksIds.includes(player.id)) {
@@ -83,16 +90,12 @@ export default {
           return player
         }
       })
-    
     }
   },
-
   mounted () {
-
     this.getBootstrap()
     this.getGameWeeks()
     this.getMyPicks(this.GW)
-    
   },
   methods: {
 
@@ -101,6 +104,7 @@ export default {
     },
     changeGameweek (n) {
       this.GW = n
+      this.updateGameweek(n)
     },
 
     // Axios
@@ -118,37 +122,19 @@ export default {
     },
     getMyPicks(gw) {
       axios
-      .get(`${this.BASE_URL}/api/entry/2835090/event/${gw}/picks/`)
+      .get(`${this.BASE_URL}/api/entry/${this.teamId}/event/${gw}/picks/`)
       .then(response => {
         this.myPicks = response.data.picks
         this.myPicksIds = this.myPicks.map(player => player.element)
-        this.myPicksIds.forEach(playerId => {
-          this.getPlayerHistoryByPlayerId(playerId)
-        });
       })
       .catch(error => {
         console.log(error)
-        this.errored = true
-      })
-    },
-    getPlayerHistoryByPlayerId(playerId) {
-      axios
-      .get(`${this.BASE_URL}/api/element-summary/${playerId}/`)
-      .then(response => {
-        let data = response.data.history
-        let index = this.findPlayerIndexById(playerId)
-        this.myPicks[index]['score'] = data[this.GW-1]
-        this.countPlayerScoreFetched++
-      })
-      .catch(error => {
-        console.log(error)
-        this.countPlayerScoreFetched++
         this.errored = true
       })
     },
     getGameWeeks() {
       axios
-      .get(`${this.BASE_URL}/api/entry/2835090/history/`)
+      .get(`${this.BASE_URL}/api/entry/${this.teamId}/history/`)
       .then(response => {
         this.gameweeks = response.data
       })
@@ -156,6 +142,9 @@ export default {
         console.log(error)
         this.errored = true
       })
+    },
+    updateGameweek(gw) {
+      this.getMyPicks(gw)
     }
   }
 }
@@ -163,4 +152,17 @@ export default {
 
 <style scoped>
 
+.pagination {
+  display: flex; 
+  justify-content: space-between;
+}
+
+button {
+  padding: 10px 20px;
+  background: #333;
+  border: none;
+  color: #ddd;
+  border-radius: 100px;
+  margin: 10px;
+}
 </style>

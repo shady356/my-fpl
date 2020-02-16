@@ -14,6 +14,7 @@
         >
           <pitch-player-item
             :player="player"
+            :GW="GW"
             :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
@@ -26,6 +27,7 @@
         >
           <pitch-player-item
             :player="player"
+            :GW="GW"
             :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
@@ -38,6 +40,7 @@
         >
           <pitch-player-item
             :player="player"
+            :GW="GW"
             :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
@@ -50,6 +53,7 @@
         >
           <pitch-player-item
             :player="player"
+            :GW="GW"
             :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
@@ -62,6 +66,7 @@
         >
           <pitch-player-item
             :player="player"
+            :GW="GW"
             :tooltip="isTooltip && activeTooltip === player.id"
           />
         </li>
@@ -83,13 +88,17 @@ export default {
     players: {
       type: Array,
       required: true
+    },
+    GW: {
+      type: Number,
+      required: true,
     }
   },
   data() {
     return {
       pitchImg: require('@/assets/pitch.png'),
       isTooltip: false,
-      activeTooltip: null
+      activeTooltip: null,
     }
   },
   computed: {

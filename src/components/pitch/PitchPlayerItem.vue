@@ -4,8 +4,8 @@
     <div class="player-score">{{playerScore}}</div>
     <div class="player-name">
       {{player.web_name}}
-      <span v-if="isCaptain">(C)</span>
-      <span v-if="isViceCaptain">(V)</span>
+      <span v-if="player.gameweek.is_captain">(C)</span>
+      <span v-if="player.gameweek.is_vice_captain">(V)</span>
     </div>
 
     <base-tooltip
@@ -30,6 +30,9 @@ export default {
   name: 'PitchPlayerItem',
   data() {
     return {
+      score: null,
+      localhostBase: 'http://localhost:8080',
+      networkBase: 'http://192.168.0.18:8080',
       pictureBase: 'https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p'
     }
   },
@@ -45,6 +48,10 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    GW: {
+      type: Number,
+      required: true,
     }
   },
   computed: {
@@ -62,17 +69,25 @@ export default {
       return this.player.gameweek.is_vice_captain
     },
     hasScore () {
-      return !!this.player.gameweek.score
-    },
-    score () {
-      return this.player.gameweek.score
+      return !!this.score
     },
     points () {
       if(this.isCaptain || this.isViceCaptain) {
-        return this.player.gameweek.score.total_points * this.player.gameweek.multiplier || '-'
+        return this.score.total_points * this.player.gameweek.multiplier || '-'
       }
-      return this.player.gameweek.score.total_points || '-'
+      return this.score.total_points || '-'
+    },
+    BASE_URL() {
+      return this.networkBase
+    },
+  },
+  watch: {
+    GW(value) {
+      this.getPlayerHistoryByPlayerId(this.player.id)
     }
+  },
+  mounted() {
+    this.getPlayerHistoryByPlayerId(this.player.id)
   },
   methods: {
     getStats () {
@@ -83,6 +98,17 @@ export default {
         minutes: this.score.minutes,
         cleanSheet: this.score.clean_sheets
       }
+    },
+    getPlayerHistoryByPlayerId(playerId) {
+      axios
+      .get(`${this.BASE_URL}/api/element-summary/${playerId}/`)
+      .then(response => {
+        this.score = response.data.history[this.GW-1]
+      })
+      .catch(error => {
+        console.log(error)
+        this.errored = true
+      })
     }
   }
 }
