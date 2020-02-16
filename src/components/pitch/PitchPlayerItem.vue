@@ -88,6 +88,7 @@ img {
   text-transform: uppercase;
   color: #aaa;
   font-family: 'Roboto Condensed';
+  color: #333;
 }
 
 .tooltip {
