@@ -1,21 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      foobar
-    </div>
     <router-view/>
   </div>
 </template>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+*{
+  margin: 0;
+  padding: 0;
 }
+
+#app {
+  font-family: 'Roboto', sans-serif;
+  color: #888;
+}
+
+ul li {
+  list-style: none;
+}
+
+/* Color Theme Swatches in Hex */
+.pl-red { color: #F2055C; }
+.pl-dark { color: #340040; }
+.pl-cyan { color: #07F2F2; }
+.pl-green { color: #05F26C; }
+.pl-yellow { color: #EAF205; }
+
+
+
 </style>
