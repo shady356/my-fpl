@@ -1,8 +1,20 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="app" class="grid">
+    <router-view class="main-view"/>
+    <navigation class="navigation"/>
   </div>
 </template>
+
+<script>
+import Navigation from '@/components/layout/navigation/Navigation.vue'
+export default {
+  name: 'App',
+  components: {
+    'navigation': Navigation
+  }
+}
+</script>
+
 
 <style>
 *{
@@ -13,6 +25,26 @@
 #app {
   font-family: 'Roboto', sans-serif;
   color: #888;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 1fr auto;
+}
+
+.main-view {
+  grid-row-start: 1;
+  grid-row-end: 1;
+  overflow-x: scroll;
+}
+.navigation {
+  position: sticky;
+  bottom: 0;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  align-items: center;
+  align-self: end;
 }
 
 ul li {
