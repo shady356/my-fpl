@@ -1,6 +1,9 @@
 <template>
   <ul class="navigation">
-    <li
+    <router-link 
+      :to="item.path"
+      tabindex="0"
+      tag="li"
       v-for="(item, index) in nav"
       :key="index"
       :class="{'active': active === index}"
@@ -9,7 +12,7 @@
       <div class="title">
         {{item.title}}
       </div>
-    </li>
+    </router-link>
   </ul>
 </template>
 
@@ -22,14 +25,17 @@ export default {
       nav: [
         {
           title: 'Points',
+          path: '/',
           icon: require('@/assets/icons/person_pin-24px.svg')
         },
         {
           title: 'Stats',
+          path: '/stats',
           icon: require('@/assets/icons/show_chart-24px.svg')
         },
         {
           title: 'About',
+          path: '/stats',
           icon: require('@/assets/icons/info-24px.svg')
         }
       ]
@@ -55,6 +61,7 @@ export default {
     text-transform: lowercase;
     letter-spacing: 1px;
     font-variant: small-caps;
+    outline: none;
   }
 
   .navigation li.active {

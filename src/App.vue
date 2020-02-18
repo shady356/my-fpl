@@ -1,7 +1,10 @@
 <template>
   <div id="app" class="grid">
-    <router-view class="main-view"/>
-    <navigation class="navigation"/>
+    <!-- <transition name="slide" mode="in-out">
+      <router-view class="main-view"/>
+    </transition> -->
+    <router-view />
+    <!-- <navigation class="navigation"/> -->
   </div>
 </template>
 
@@ -15,7 +18,6 @@ export default {
 }
 </script>
 
-
 <style>
 *{
   margin: 0;
@@ -28,14 +30,15 @@ export default {
 }
 
 .grid {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr auto; */
 }
 
 .main-view {
   grid-row-start: 1;
   grid-row-end: 1;
+  min-height: 100vh;
   overflow-x: scroll;
 }
 .navigation {
@@ -58,6 +61,12 @@ ul li {
 .pl-green { color: #05F26C; }
 .pl-yellow { color: #EAF205; }
 
+.slide-enter-active, .slide-leave-active {
+  transition: transform .4s;
+}
+.slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateY(100vh)
+}
 
 
 </style>
