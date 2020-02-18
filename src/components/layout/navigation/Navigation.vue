@@ -7,6 +7,7 @@
       v-for="(item, index) in nav"
       :key="index"
       :class="{'active': active === index}"
+      @click="changeActive(index)"
     >
       <img :src="item.icon" alt="icon">
       <div class="title">
@@ -40,32 +41,37 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    changeActive(index) {
+      this.active = index
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
   .navigation {
     background: #000000;
     display: flex;
     justify-content: space-evenly;
-  }
 
-  .navigation li {
-    padding: 8px;
-    text-align: center;
-    opacity: .6;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: lowercase;
-    letter-spacing: 1px;
-    font-variant: small-caps;
-    outline: none;
-  }
+    li {
+      padding: 8px;
+      text-align: center;
+      opacity: .6;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: lowercase;
+      letter-spacing: 1px;
+      font-variant: small-caps;
+      outline: none;
 
-  .navigation li.active {
-    opacity: 1;
+      &.active {
+        opacity: 1;
+      }
+    }
   }
 
 </style>

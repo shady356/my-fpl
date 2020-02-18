@@ -1,10 +1,9 @@
 <template>
   <div id="app" class="grid">
-    <!-- <transition name="slide" mode="in-out">
+    <transition name="slide" mode="in-out">
       <router-view class="main-view"/>
-    </transition> -->
-    <router-view />
-    <!-- <navigation class="navigation"/> -->
+    </transition>
+    <navigation class="navigation"/>
   </div>
 </template>
 

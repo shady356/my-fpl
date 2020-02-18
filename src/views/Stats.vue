@@ -1,5 +1,5 @@
 <template>
-  <div style="background: orange;">
+  <div class="stats-container">
     <h1>Stats</h1>
   </div>
 </template>
@@ -10,6 +10,10 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.stats-container {
+  h1 {
+    color: red;
+  }
+}
 </style>
