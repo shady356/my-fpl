@@ -13,7 +13,7 @@ export default {
 <style scoped lang="scss">
 .stats-container {
   h1 {
-    color: red;
+    color: #fff;
   }
 }
 </style>

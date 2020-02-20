@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="grid">
-    <transition name="slide" mode="in-out">
+    <transition name="opacity" mode="in-out">
       <router-view class="main-view"/>
     </transition>
     <navigation class="navigation"/>
@@ -29,9 +29,9 @@ export default {
 }
 
 .grid {
-  /* display: grid;
+  display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 1fr auto; */
+  grid-template-rows: 1fr auto;
 }
 
 .main-view {
@@ -64,7 +64,14 @@ ul li {
   transition: transform .4s;
 }
 .slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transform: translateY(100vh)
+  transform: translateX(100vw);
+}
+
+.opacity-enter-active, .opacity-leave-active {
+  transition: opacity .4s;
+}
+.opacity-enter, .opacity-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 
