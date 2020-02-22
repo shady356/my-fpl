@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="openModal()">
     <img :src="pictureBase + player.code + '.png'">
     <div class="player-score">{{playerScore}}</div>
     <div class="player-name">
@@ -8,7 +8,7 @@
       <span v-if="player.gameweek.is_vice_captain">(V)</span>
     </div>
 
-    <base-tooltip
+    <!-- <base-tooltip
       v-if="tooltip && hasScore"
     >
       <ul class="stats-list">
@@ -19,25 +19,35 @@
         <li>Bonus: {{score.bonus}}</li>
       </ul>
       
-    </base-tooltip>
+    </base-tooltip> -->
+
+    <base-modal 
+      v-if="isModal"
+    >
+      <template #header>
+        {{player.first_name}} {{player.last_name}}
+      </template>
+    </base-modal>
     
   </div>
 </template>
 
 <script>
-import BaseTooltip from '@/components/base/BaseTooltip.vue'
+import axios from 'axios'
+import BaseModal from '@/components/base/BaseModal.vue'
 export default {
   name: 'PitchPlayerItem',
   data() {
     return {
       score: null,
+      isModal: false,
       localhostBase: 'http://localhost:8080',
       networkBase: 'http://192.168.0.18:8080',
       pictureBase: 'https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p'
     }
   },
   components: {
-    'base-tooltip': BaseTooltip
+    'base-modal': BaseModal
   },
   props: {
     player: {
@@ -82,7 +92,7 @@ export default {
     },
   },
   watch: {
-    GW(value) {
+    GW() {
       this.getPlayerHistoryByPlayerId(this.player.id)
     }
   },
@@ -100,8 +110,8 @@ export default {
       }
     },
     getPlayerHistoryByPlayerId(playerId) {
-      axios
-      .get(`${this.BASE_URL}/api/element-summary/${playerId}/`)
+      
+      axios.get(`${this.BASE_URL}/api/element-summary/${playerId}/`)
       .then(response => {
         this.score = response.data.history[this.GW-1]
       })
@@ -109,6 +119,9 @@ export default {
         console.log(error)
         this.errored = true
       })
+    },
+    openModal() {
+      this.isModal = true
     }
   }
 }

@@ -76,13 +76,13 @@
 </template>
 
 <script>
-import BaseTooltip from '@/components/base/BaseTooltip.vue'
+// import BaseTooltip from '@/components/base/BaseTooltip.vue'
 import PitchPlayerItem from '@/components/pitch/PitchPlayerItem.vue'
 export default {
   name: 'PitchFormation',
   components: {
     'pitch-player-item': PitchPlayerItem,
-     'base-tooltip': BaseTooltip
+    // 'base-tooltip': BaseTooltip
   },
   props: {
     players: {

@@ -38,7 +38,6 @@ export default {
   grid-row-start: 1;
   grid-row-end: 1;
   min-height: 100vh;
-  overflow-x: scroll;
 }
 .navigation {
   position: sticky;
