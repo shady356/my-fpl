@@ -1,9 +1,21 @@
 <template>
   <div class="modal-container">
+
     <div class="modal-window">
+
       <div class="modal-header">
-        <slot name="header"/>
-        <div class="exit">x</div>
+        <div class="header-title">
+          <slot name="header" />
+        </div>
+        <div
+          @click="closeModal()"
+          class="exit"
+        >
+          x
+        </div>
+      </div>
+      <div class="modal-content">
+        <slot name="content" />
       </div>
     </div>
   </div>
@@ -11,7 +23,12 @@
 
 <script>
 export default {
-  name: 'BaseModal'
+  name: 'BaseModal',
+  methods: {
+    closeModal() {
+      this.$emit('closeModal')
+    }
+  }
 }
 </script>
 
@@ -24,6 +41,44 @@ export default {
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index: 1000;
+
+    .modal-window {
+      position: fixed;
+      overflow-y: auto;
+      border-radius: 10px 10px 0 0;
+      bottom: 0;
+      border-radius: 20px 20px 0 0;
+      height: 80vh;
+      width: 100vw;
+      background-image: linear-gradient(180deg, hsla(305, 78%, 9%, 0.85), hsla(268, 87%, 3%, 0.85));
+
+      .modal-header {
+        border-radius: 10px 10px 0 0;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        position: sticky;
+        top: 0px;
+
+        .header-title {
+          padding: 20px;
+          font-weight: 300;
+          //letter-spacing: 1px;
+          //font-style: italic;
+          color: #aaa;
+          text-align: left;
+          font-family: 'Roboto Condensed';
+        }
+
+        .exit {
+          font-size: 20px;
+          padding: 20px 30px;
+        }
+      }
+
+    }
+
   }
 
 </style>

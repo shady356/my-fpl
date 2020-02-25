@@ -1,34 +1,85 @@
 <template>
-  <div @click="openModal()">
-    <img :src="pictureBase + player.code + '.png'">
-    <div class="player-score">{{playerScore}}</div>
-    <div class="player-name">
-      {{player.web_name}}
-      <span v-if="player.gameweek.is_captain">(C)</span>
-      <span v-if="player.gameweek.is_vice_captain">(V)</span>
-    </div>
-
-    <!-- <base-tooltip
-      v-if="tooltip && hasScore"
+  <div>
+    <div
+      class="player" 
+      @click="openModal()"
     >
-      <ul class="stats-list">
-        <li>Goals scored: {{score.goals_scored}}</li>
-        <li>Assists: {{score.assists}}</li>
-        <li>Minutes played: {{score.minutes}}</li>
-        <li>Clean Sheet: {{score.clean_sheets}}</li>
-        <li>Bonus: {{score.bonus}}</li>
-      </ul>
-      
-    </base-tooltip> -->
+      <img :src="pictureBase + player.code + '.png'">
+      <div class="player-score">{{playerScore}}</div>
+      <div class="player-name">
+        {{player.web_name}}
+        <span v-if="player.gameweek.is_captain">(C)</span>
+        <span v-if="player.gameweek.is_vice_captain">(V)</span>
+      </div>
 
+      <!-- <base-tooltip
+        v-if="tooltip && hasScore"
+      >
+        
+        
+      </base-tooltip> -->
+    </div>
     <base-modal 
-      v-if="isModal"
+      v-if="modalStatus"
+      @closeModal="closeModal()"
     >
       <template #header>
-        {{player.first_name}} {{player.last_name}}
+        Player
+      </template>
+
+      <template #content>
+        <div class="player-data-grid">
+
+          <!-- Player profile -->
+          <div class="player-profile">
+            <img class="picture" :src="pictureBase + player.code + '.png'">
+            <div class="name">
+              <h3 class="first-name">{{player.first_name}}</h3>
+              <h2 class="second-name">{{player.second_name}}</h2>
+            </div>
+          </div>
+
+          <!-- Gameweek stats -->
+          <div class="gameweek-stats">
+            <h2 class="title">Gameweek {{GW}}</h2>
+
+            <table class="score-breakdown">
+              <tr>
+                <th class="breakdown">breakdown</th>
+                <th class="value">value</th>
+                <th class="points">pts</th>
+              </tr>
+              <tr>
+                <td class="breakdown">Minutes</td>
+                <td class="value">{{score.minutes}}</td>
+                <td class="points">2</td>
+              </tr>
+              <tr>
+                <td class="breakdown">Goals scored</td>
+                <td class="value">{{score.goals_scored}}</td>
+                <td class="points">5</td>
+              </tr>
+              <tr>
+                <td class="breakdown">Assists</td>
+                <td class="value">{{score.assists}}</td>
+                <td class="points">4</td>
+              </tr>
+              <tr>
+                <td class="breakdown">Clean sheet</td>
+                <td class="value">{{score.clean_sheets}}</td>
+                <td class="points">4</td>
+              </tr>
+              <tr>
+                <td class="breakdown">Bonus</td>
+                <td class="value">{{score.bonus}}</td>
+                <td class="points">3</td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
       </template>
     </base-modal>
-    
   </div>
 </template>
 
@@ -40,7 +91,7 @@ export default {
   data() {
     return {
       score: null,
-      isModal: false,
+      modalStatus: false,
       localhostBase: 'http://localhost:8080',
       networkBase: 'http://192.168.0.18:8080',
       pictureBase: 'https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p'
@@ -121,13 +172,17 @@ export default {
       })
     },
     openModal() {
-      this.isModal = true
+      this.modalStatus = true
+    },
+    closeModal () {
+      console.log('dfdf')
+      this.modalStatus = false
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .goalkeeper img { border: 1px solid #F2055C; }
 .defender img { border: 1px solid #EAF205; }
@@ -135,35 +190,124 @@ export default {
 .attacker img { border: 1px solid #07F2F2; }
 
 
-img {
-  border-radius: 50%;
-  width: 50px;
-  height: 45px;
-  object-fit: cover;
-  object-position: 50% 0%;
-  padding-top: 5px;
-  margin-bottom: 5px;
-  background: hsla(0, 0%, 20%, 0.75);
+.player {
+
+  img {
+    border-radius: 50%;
+    width: 50px;
+    height: 45px;
+    object-fit: cover;
+    object-position: 50% 0%;
+    padding-top: 5px;
+    margin-bottom: 5px;
+    background: hsla(0, 0%, 20%, 0.75);
+  }
+
+  .player-name {
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 10px;
+    margin-bottom: 4px;
+    font-family: 'Roboto Condensed';
+  }
+  .player-score {
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #aaa;
+    font-family: 'Roboto Condensed';
+  }
+
 }
 
-.player-name {
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 10px;
-  margin-bottom: 4px;
-  font-family: 'Roboto Condensed';
-}
-.player-score {
-  font-weight: 700;
-  font-size: 18px;
-  text-transform: uppercase;
-  color: #aaa;
-  font-family: 'Roboto Condensed';
+.player-data-grid {
+
+  .player-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .picture {
+      object-fit: cover;
+      object-position: 100% 0%;
+      width: 100px;
+      height: 90px;
+      padding-top: 10px;
+      border-radius: 50%;
+      background: #1b0119dc;
+      margin-bottom: 20px;
+    }
+    .name {
+      .first-name {
+        font-weight: 300;
+        color: #ccc;
+        letter-spacing: 1px;
+      }
+      .second-name {
+        color: #fff;
+        font-weight: 300;
+        letter-spacing: 1px;
+      }
+    }
+  }
+
+  .gameweek-stats {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+      font-weight: 300;
+      color: #fff;
+    }
+    table {
+      margin-top: 20px;
+      text-align: left;
+      width: 75%;
+      padding: 20px;
+      font-size: 1rem;
+
+      tr {
+
+        th {
+          font-variant: small-caps;
+          letter-spacing: 1px;
+          padding-bottom: 8px;
+          font-weight: 400;
+          color: #aaa;
+
+          &.value {
+            text-align: center;
+            //color: #40c1e9;
+          }
+          &.points {
+            text-align: center;
+           // color: #05F26C;
+          }
+        }
+        td {
+          padding: 4px 0;
+
+          &.breakdown {
+            color: #777;
+          }
+          &.value {
+            text-align: center;
+            font-weight: 700;
+          }
+          &.points {
+            text-align: center;
+            font-weight: 700;
+            
+          }
+        }
+      }
+    }
+  }
+
 }
 
-.stats-list li {
-  padding: 4px;
-}
 
 </style>
