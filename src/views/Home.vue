@@ -1,16 +1,27 @@
 <template>
   <div v-if="this.isLoaded">
-    <!--    <h1>Fantasy Premier League</h1> -->
-    <h4>Gameweek {{GW}}</h4>
-    <h2 class="pl-yellow">{{gameweeks.current[GW-1].points}}</h2>
-    <h3 class="">{{gameweeks.current[GW-1].rank | bigNumber}}</h3>
-    <div class="pagination">
+    <ul class="gameweek-score-container">
+      <li class="gameweek-points">
+        <h6 class="small-caps">avg pts</h6>
+        <h4>{{bootstrap.events[GW-1].average_entry_score}}</h4>
+      </li>
+      <li class="gameweek-points">
+        <h6 class="small-caps">pts</h6>
+        <h4>{{gameweeks.current[GW-1].points}}</h4>
+      </li>
+      <li>
+        <h6 class="small-caps">gw rank</h6>
+        <h4>{{gameweeks.current[GW-1].rank | bigNumber}}</h4>
+      </li>
+    </ul>
+    <div class="gameweek-pagination">
       <button
         :disabled="GW < 2"
         @click="changeGameweek(GW-1)"
       >
         Previous
       </button>
+      <h4>Gameweek {{GW}}</h4>
       <button
         :disabled="GW === gameweeks.current.length"
         @click="changeGameweek(GW+1)"
@@ -34,7 +45,7 @@
 
 <script>
 import PitchFormation from '@/components/pitch/PitchFormation.vue'
-
+import axios from 'axios'
 export default {
   name: 'home',
   components: {
@@ -78,8 +89,11 @@ export default {
       return this.countPlayerScoreFetched
     },
     currentGw () {
-      if(this.gameweeks !== null)
+      if(this.gameweeks !== null) {
         return this.gameweeks.current[this.gameweeks.current.length-1]
+      } else {
+        return null
+      }
     },
     myPlayers () {
       let index = 0
@@ -152,17 +166,36 @@ export default {
 
 <style scoped lang="scss">
 
-.pagination {
-  display: flex; 
-  justify-content: space-between;
+.gameweek-score-container {
+  margin: 8px;
+  display: flex;
+  justify-content: space-evenly;
+
+  li {
+    text-align: center;
+
+    h6 {
+      color: #666;
+    }
+    h4 {
+      color: #aaa;
+    }
+  }
 }
 
-button {
-  padding: 10px 20px;
-  background: #333;
-  border: none;
-  color: #ddd;
-  border-radius: 100px;
-  margin: 10px;
+.gameweek-pagination {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    padding: 6px 12px;
+    background: #333;
+    border: none;
+    color: #ddd;
+    border-radius: 100px;
+    margin: 10px;
+  }
 }
+
 </style>

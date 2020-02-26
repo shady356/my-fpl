@@ -28,10 +28,45 @@ export default {
   color: #888;
 }
 
+ul li {
+  list-style: none;
+}
+
+
+h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+h2 {
+  font-size: 1.75rem;
+  font-weight: 300;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+h4 {
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+h5 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+h6 {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.small-caps {
+  font-variant: small-caps;
+  text-transform: lowercase;
+}
+
 .grid {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 90vh 10vh;
+  grid-template-rows: 1fr 10vh;
 }
 
 .main-view {
@@ -47,9 +82,6 @@ export default {
   align-self: end;
 }
 
-ul li {
-  list-style: none;
-}
 
 
 
