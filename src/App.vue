@@ -25,7 +25,7 @@ export default {
 
 #app {
   font-family: 'Roboto', sans-serif;
-  color: #888;
+  color: #aaa;
 }
 
 ul li {

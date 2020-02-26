@@ -36,7 +36,7 @@ export default {
         },
         {
           title: 'About',
-          path: '/stats',
+          path: '/about',
           icon: require('@/assets/icons/info-24px.svg')
         }
       ]
