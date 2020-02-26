@@ -1,5 +1,6 @@
 <template>
   <div v-if="this.isLoaded">
+
     <ul class="gameweek-score-container">
       <li class="gameweek-points">
         <h6 class="small-caps">avg pts</h6>
@@ -14,12 +15,13 @@
         <h4>{{gameweeks.current[GW-1].rank | bigNumber}}</h4>
       </li>
     </ul>
+
     <div class="gameweek-pagination">
       <button
         :disabled="GW < 2"
         @click="changeGameweek(GW-1)"
       >
-        Previous
+        Prev
       </button>
       <h4>Gameweek {{GW}}</h4>
       <button
@@ -29,18 +31,12 @@
         Next
       </button>
     </div>
+
     <pitch-formation
       :players="myPlayers"
       :GW="GW"
     />
   </div>
-  <!-- <div v-else>
-    <h3>Loading ...</h3>
-    Bootstrap: {{isBootstrapLoaded}}<br>
-    My Picks: {{isMyPicksLoaded}}<br>
-    Gameweeks: {{isGameweeksLoaded}}<br>
-    Players loaded: {{numberOfPlayersLoaded}} / 15<br>
-  </div> -->
 </template>
 
 <script>

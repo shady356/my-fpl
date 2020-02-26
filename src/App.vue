@@ -58,9 +58,17 @@ h6 {
   font-weight: 700;
 }
 
+.letter-spacing {
+  letter-spacing: 1px;
+}
 .small-caps {
   font-variant: small-caps;
   text-transform: lowercase;
+}
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .grid {

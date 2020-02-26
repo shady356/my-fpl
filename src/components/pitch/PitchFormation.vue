@@ -4,7 +4,6 @@
       :style="{backgroundImage: `url(${pitchImg})`}" 
       class="pitch-container"
     >
-      
       <ul class="goalkeepers">
         <li 
           v-for="player in goalkeepers" 
@@ -127,29 +126,30 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .pitch-container {
   background-position: 48% 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-color: #111;
+
+  ul {
+    display: flex;
+    justify-content: space-evenly;
+
+    li {
+      padding: 8px;
+      text-align: center;
+      width: 50px;
+    }
+  }
 }
 
-ul {
-  display: flex;
-  justify-content: center;
-}
-
-ul li {
-  padding: 10px;
-  text-align: center;
-  width: 50px;
-}
 
 .bench {
   border-top: 1px solid #222;
-  margin-top: 50px;
+  margin-top: 16px;
   background: #111;
   flex-direction: row-reverse;
 }

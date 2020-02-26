@@ -6,7 +6,7 @@
     >
       <img :src="pictureBase + player.code + '.png'">
       <div class="player-score">{{playerScore}}</div>
-      <div class="player-name">
+      <div class="player-name ellipsis">
         {{player.web_name}}
         <span v-if="player.gameweek.is_captain">(C)</span>
         <span v-if="player.gameweek.is_vice_captain">(V)</span>
@@ -34,20 +34,20 @@
           <div class="player-profile">
             <img class="picture" :src="pictureBase + player.code + '.png'">
             <div class="name">
-              <h3 class="first-name">{{player.first_name}}</h3>
-              <h2 class="second-name">{{player.second_name}}</h2>
+              <h4 class="first-name">{{player.first_name}}</h4>
+              <h3 class="second-name">{{player.second_name}}</h3>
             </div>
           </div>
 
           <!-- Gameweek stats -->
           <div class="gameweek-stats">
-            <h2 class="title">Gameweek {{GW}}</h2>
+            <h4 class="title letter-spacing">Gameweek {{GW}}</h4>
 
             <table class="score-breakdown">
               <tr>
-                <th class="breakdown">breakdown</th>
-                <th class="value">value</th>
-                <th class="points">pts</th>
+                <th class="breakdown letter-spacing small-caps">breakdown</th>
+                <th class="value letter-spacing small-caps">value</th>
+                <th class="points letter-spacing small-caps">pts</th>
               </tr>
               <tr>
                 <td class="breakdown">Minutes</td>
@@ -253,7 +253,7 @@ export default {
   }
 
   .gameweek-stats {
-    margin-top: 40px;
+    margin-top: 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -263,17 +263,15 @@ export default {
       color: #fff;
     }
     table {
-      margin-top: 20px;
+      margin-top: 16px;
       text-align: left;
       width: 75%;
-      padding: 20px;
-      font-size: 1rem;
+      padding: 16px;
+      font-size: 1.25rem;
 
       tr {
 
         th {
-          font-variant: small-caps;
-          letter-spacing: 1px;
           padding-bottom: 8px;
           font-weight: 400;
           color: #aaa;
