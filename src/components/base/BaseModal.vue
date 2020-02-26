@@ -24,6 +24,12 @@
 <script>
 export default {
   name: 'BaseModal',
+  mounted () {
+    document.body.classList.add('disable-scroll')
+  },
+  destroyed () {
+    document.body.classList.remove('disable-scroll')
+  },
   methods: {
     closeModal() {
       this.$emit('closeModal')
@@ -64,8 +70,6 @@ export default {
         .header-title {
           padding: 20px;
           font-weight: 300;
-          //letter-spacing: 1px;
-          //font-style: italic;
           color: #aaa;
           text-align: left;
           font-family: 'Roboto Condensed';

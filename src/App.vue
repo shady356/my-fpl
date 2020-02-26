@@ -28,6 +28,10 @@ export default {
   color: #aaa;
 }
 
+.disable-scroll {
+  overflow: hidden;
+}
+
 ul li {
   list-style: none;
 }

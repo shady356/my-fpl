@@ -12,17 +12,11 @@
         <span v-if="player.gameweek.is_vice_captain">(V)</span>
       </div>
 
-      <!-- <base-tooltip
-        v-if="tooltip && hasScore"
-      >
-        
-        
-      </base-tooltip> -->
     </div>
+
     <base-modal 
       v-if="modalStatus"
-      @closeModal="closeModal()"
-    >
+      @closeModal="closeModal()">
       <template #header>
         Player
       </template>
