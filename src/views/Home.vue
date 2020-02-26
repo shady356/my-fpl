@@ -171,7 +171,7 @@ export default {
     text-align: center;
 
     h6 {
-      color: #666;
+      color: $pl-red;
     }
     h4 {
       color: #aaa;
