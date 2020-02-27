@@ -55,10 +55,10 @@ h4 {
 }
 h5 {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 300;
 }
 h6 {
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -78,7 +78,7 @@ h6 {
 .grid {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1fr 10vh;
+  grid-template-rows: 1fr 8vh;
 }
 
 .main-view {
@@ -93,23 +93,5 @@ h6 {
   align-items: center;
   align-self: end;
 }
-
-
-
-
-.slide-enter-active, .slide-leave-active {
-  transition: transform .3s;
-}
-.slide-enter, .slide-leave-to {
-  transform: translateX(100vw);
-}
-
-.opacity-enter-active, .opacity-leave-active {
-  transition: opacity .3s;
-}
-.opacity-enter, .opacity-leave-to {
-  opacity: 0;
-}
-
 
 </style>

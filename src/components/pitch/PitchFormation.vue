@@ -139,9 +139,9 @@ export default {
     justify-content: space-evenly;
 
     li {
-      padding: 8px;
+      padding: 8px 0;
+      width: 70px;
       text-align: center;
-      width: 50px;
     }
   }
 }

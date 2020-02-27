@@ -61,13 +61,13 @@ export default {
   }
   pre {
     background: #0a0a0a;
-    border-left: 2px solid #08a;
+    border-left: 2px solid $pl-blue;
     padding: 4px 8px;
     margin: 4px 0;
   }
   .endpoints {
     overflow-x: scroll;
-    width: 90vw;
+    width: 85vw;
     li {
       margin: 8px 0;
     }

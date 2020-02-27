@@ -1,23 +1,26 @@
 <template>
   <div class="modal-container">
-
-    <div class="modal-window">
-
-      <div class="modal-header">
-        <div class="header-title">
-          <slot name="header" />
+    <transition 
+      name="slide-v" 
+      appear
+    >
+      <div class="modal-window">
+        <div class="modal-header">
+          <div class="header-title">
+            <slot name="header" />
+          </div>
+          <div
+            @click="closeModal()"
+            class="exit"
+          >
+            x
+          </div>
         </div>
-        <div
-          @click="closeModal()"
-          class="exit"
-        >
-          x
+        <div class="modal-content">
+          <slot name="content" />
         </div>
       </div>
-      <div class="modal-content">
-        <slot name="content" />
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -55,8 +58,9 @@ export default {
       border-radius: 10px 10px 0 0;
       bottom: 0;
       border-radius: 20px 20px 0 0;
-      height: 80vh;
       width: 100vw;
+      max-height: 90vh;
+      padding-bottom: 1rem;
       background-image: linear-gradient(180deg, hsla(305, 78%, 9%, 0.85), hsla(268, 87%, 3%, 0.85));
 
       .modal-header {

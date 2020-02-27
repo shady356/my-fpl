@@ -4,13 +4,16 @@
       class="player" 
       @click="openModal()"
     >
-      <img :src="pictureBase + player.code + '.png'">
-      <div class="player-score">{{playerScore}}</div>
+      <img 
+        :src="pictureBase + player.code + '.png'"
+        alt="player picture"
+      >
       <div class="player-name ellipsis">
         {{player.web_name}}
         <span v-if="player.gameweek.is_captain">(C)</span>
         <span v-if="player.gameweek.is_vice_captain">(V)</span>
       </div>
+      <div class="player-score">{{playerScore}}</div>
 
     </div>
 
@@ -26,10 +29,13 @@
 
           <!-- Player profile -->
           <div class="player-profile">
-            <img class="picture" :src="pictureBase + player.code + '.png'">
+            <img 
+              class="picture" 
+              :src="pictureBase + player.code + '.png'"
+            >
             <div class="name">
-              <h4 class="first-name">{{player.first_name}}</h4>
-              <h3 class="second-name">{{player.second_name}}</h3>
+              <h5 class="first-name letter-spacing">{{player.first_name}}</h5>
+              <h3 class="second-name letter-spacing">{{player.second_name}}</h3>
             </div>
           </div>
 
@@ -155,7 +161,6 @@ export default {
       }
     },
     getPlayerHistoryByPlayerId(playerId) {
-      
       axios.get(`${this.BASE_URL}/api/element-summary/${playerId}/`)
       .then(response => {
         this.score = response.data.history[this.GW-1]
@@ -178,38 +183,39 @@ export default {
 
 <style lang="scss" scoped>
 
-.goalkeeper img { border: 1px solid #F2055C; }
-.defender img { border: 1px solid #EAF205; }
-.midfielder img { border: 1px solid #05F26C; }
-.attacker img { border: 1px solid #07F2F2; }
+.goalkeeper img { border: 1px solid $pl-red; }
+.defender img { border: 1px solid $pl-yellow; }
+.midfielder img { border: 1px solid $pl-green; }
+.attacker img { border: 1px solid $pl-blue; }
 
 
 .player {
+  //background: $pl-purple;
 
   img {
     border-radius: 50%;
-    width: 50px;
-    height: 45px;
+    width: 45px;
+    height: 40px;
     object-fit: cover;
     object-position: 50% 0%;
     padding-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     background: hsla(0, 0%, 20%, 0.75);
   }
-
   .player-name {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 10px;
+    font-size: 0.6rem;
     margin-bottom: 4px;
+    color: #aaa;
     font-family: 'Roboto Condensed';
   }
   .player-score {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 1rem;
     text-transform: uppercase;
-    color: #aaa;
+    color: #ccc;
     font-family: 'Roboto Condensed';
   }
 
@@ -230,18 +236,14 @@ export default {
       padding-top: 10px;
       border-radius: 50%;
       background: #1b0119dc;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     .name {
       .first-name {
-        font-weight: 300;
         color: #ccc;
-        letter-spacing: 1px;
       }
       .second-name {
         color: #fff;
-        font-weight: 300;
-        letter-spacing: 1px;
       }
     }
   }
@@ -261,7 +263,7 @@ export default {
       text-align: left;
       width: 75%;
       padding: 16px;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
 
       tr {
 

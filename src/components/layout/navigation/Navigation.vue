@@ -22,17 +22,17 @@ export default {
   name: 'Navigation',
   data() {
     return {
-      active: 0,
+      active: 1,
       nav: [
-        {
-          title: 'Points',
-          path: '/',
-          icon: require('@/assets/icons/person_pin-24px.svg')
-        },
         {
           title: 'Stats',
           path: '/stats',
           icon: require('@/assets/icons/show_chart-24px.svg')
+        },
+        {
+          title: 'Fantasy',
+          path: '/',
+          icon: require('@/assets/icons/person_pin-24px.svg')
         },
         {
           title: 'About',
@@ -61,7 +61,7 @@ export default {
       padding: 8px;
       text-align: center;
       opacity: .6;
-      font-size: 11px;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: lowercase;
       letter-spacing: 1px;
