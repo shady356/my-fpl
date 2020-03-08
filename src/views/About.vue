@@ -52,6 +52,7 @@ export default {
   }
   h2 {
     margin: 1.5rem 0 1rem;
+    color: #ddd;
   }
   h3 {
     margin: 1.5rem 0 1rem;

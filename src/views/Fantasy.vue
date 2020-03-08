@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div v-if="!hasTeamNumber">
+  <div v-if="!hasTeamId">
     <login />
   </div>
   <div v-else>
@@ -65,7 +65,7 @@ export default {
   },
   data() {
     return {
-      GW: 26,
+      GW: 29,
       gameweeks: null,
       allPlayers: null,
       myPicks: null,
@@ -79,6 +79,9 @@ export default {
   computed: {
     BASE_URL() {
       return this.networkBase
+    },
+    hasTeamId () {
+      return !!this.teamId
     },
     isLoaded () { 
       return this.isBootstrapLoaded && this.isMyPicksLoaded && this.isGameweeksLoaded
