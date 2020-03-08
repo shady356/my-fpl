@@ -46,7 +46,7 @@ export default {
 
 <style scoped lang="scss">
 .about-container {
-  margin: 1.5rem;
+  margin: $l;
   h1 {
     color: #fff;
   }
@@ -62,18 +62,18 @@ export default {
   pre {
     background: #0a0a0a;
     border-left: 2px solid $pl-blue;
-    padding: 4px 8px;
-    margin: 4px 0;
+    padding: $xs $s;
+    margin: $xs 0;
   }
   .endpoints {
     overflow-x: scroll;
     width: 85vw;
     li {
-      margin: 8px 0;
+      margin: $s 0;
     }
   }
   p {
-    margin: 1rem 0;
+    margin: $m 0;
     line-height: 1.35rem;
   }
 }

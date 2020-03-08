@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/Home.vue'
+import Fantasy from '@/views/Fantasy.vue'
 
 Vue.use(Router)
 
@@ -8,8 +8,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'fantasy',
+      component: Fantasy
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/Login.vue')
     },
     {
       path: '/stats',
