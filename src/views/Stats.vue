@@ -1,5 +1,5 @@
 <template>
-  <div class="stats-container">
+  <div class="stats-container default-page-margin">
     <h1>Stats</h1>
   </div>
 </template>
@@ -12,8 +12,6 @@ export default {
 
 <style scoped lang="scss">
 .stats-container {
-  h1 {
-    color: #fff;
-  }
+
 }
 </style>

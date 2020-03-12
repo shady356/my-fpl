@@ -26,5 +26,10 @@ export default {
     color: #fff;
     letter-spacing: 1px;
     border-radius: $l;
+
+    &.ghost {
+      background: none;
+      border: 1px solid #333;
+    }
   }
 </style>

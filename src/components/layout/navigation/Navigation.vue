@@ -35,9 +35,9 @@ export default {
           icon: require('@/assets/icons/person_pin-24px.svg')
         },
         {
-          title: 'About',
-          path: '/about',
-          icon: require('@/assets/icons/info-24px.svg')
+          title: 'Settings',
+          path: '/settings',
+          icon: require('@/assets/icons/settings-24px.svg')
         }
       ]
     }

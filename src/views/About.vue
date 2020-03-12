@@ -1,5 +1,5 @@
 <template>
-  <div class="about-container">
+  <div class="about-container default-page-margin">
     <h1>About</h1>
     <p>
       This is a Fantasy Premier League (FPL) web-application for displaying a given player's score throughout the gameweeks. 
@@ -46,7 +46,7 @@ export default {
 
 <style scoped lang="scss">
 .about-container {
-  margin: $l;
+
   h1 {
     color: #fff;
   }

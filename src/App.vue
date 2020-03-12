@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="grid">
     <transition name="opacity" mode="out-in">
-      <router-view class="main-view"/>
+      <router-view class="main-layout"/>
     </transition>
-    <navigation class="navigation"/>
+    <navigation class="navigation-layout"/>
   </div>
 </template>
 
@@ -37,19 +37,17 @@ ul li {
 }
 
 
-
-
 .grid {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 1fr 8vh;
 }
 
-.main-view {
+.main-layout {
   grid-row-start: 1;
   grid-row-end: 1;
 }
-.navigation {
+.navigation-layout {
   position: sticky;
   bottom: 0;
   grid-row-start: 2;
