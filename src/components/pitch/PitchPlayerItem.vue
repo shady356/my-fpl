@@ -139,7 +139,7 @@ export default {
       return this.score.total_points || '-'
     },
     BASE_URL() {
-      return this.networkBase
+      return this.localhostBase
     },
   },
   watch: {
