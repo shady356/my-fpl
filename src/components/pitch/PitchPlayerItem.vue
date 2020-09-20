@@ -6,7 +6,6 @@
     >
       <img 
         :src="pictureBase + player.code + '.png'"
-        alt="player picture"
       >
       <div class="player-name ellipsis">
         {{player.web_name}}
@@ -93,7 +92,7 @@ export default {
       score: null,
       modalStatus: false,
       localhostBase: process.env.VUE_APP_FPL_API_URL,
-      pictureBase: 'https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p'
+      pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p'
     }
   },
   components: {
@@ -173,7 +172,6 @@ export default {
       this.modalStatus = true
     },
     closeModal () {
-      console.log('dfdf')
       this.modalStatus = false
     }
   }
@@ -194,10 +192,10 @@ export default {
   img {
     border-radius: 50%;
     width: 45px;
-    height: 40px;
+    height: 45px;
     object-fit: cover;
     object-position: 50% 0%;
-    padding-top: 5px;
+    //padding-top: 5px;
     margin-bottom: 4px;
     background: hsla(0, 0%, 20%, 0.75);
   }
