@@ -5,58 +5,32 @@
     </div>
     <div v-else>
       <div v-if="this.isLoaded">
-        <div class="gameweek-pagination">
-          <button :disabled="GW < 2" @click="changeGameweek(GW - 1)">
-            Prev
-          </button>
-
-          <h4>Gameweek {{ GW }}</h4>
-
-          <button
-            :disabled="GW === gameweeks.current.length"
-            @click="changeGameweek(GW + 1)"
-          >
-            Next
-          </button>
-        </div>
-
-        <ul class="gameweek-score-container">
-          <li class="gameweek-average-points">
-            <h4>{{ bootstrap.events[GW - 1].average_entry_score }}</h4>
-            <h6 class="small-caps">avg pts</h6>
-          </li>
-          <li class="gameweek-points">
-            <h2>{{ gameweeks.current[GW - 1].points }}</h2>
-            <h6 class="small-caps">your score</h6>
-          </li>
-          <li>
-            <h4>{{ gameweeks.current[GW - 1].rank | bigNumber }}</h4>
-            <h6 class="small-caps">gw rank</h6>
-          </li>
-        </ul>
-
-        <pitch-formation :players="myPlayers" :GW="GW" />
+        <FantasyHeader 
+          :GW="GW"
+          :bootstrap="bootstrap"
+          :gameweeks="gameweeks"
+          @updateGameweek="updateGameweek"
+        />
+        <pitch-formation 
+          :players="myPlayers" 
+          :GW="GW" 
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import FantasyHeader from '@/components/fantasy/FantasyHeader.vue'
 import PitchFormation from "@/components/pitch/PitchFormation.vue";
 import Login from "@/views/Login.vue";
 import axios from "axios";
 export default {
   name: "Fantasy",
   components: {
+    FantasyHeader,
     "pitch-formation": PitchFormation,
     login: Login,
-  },
-  filters: {
-    bigNumber(value) {
-      return new Intl.NumberFormat("en-UK", {
-        maximumSignificantDigits: 7,
-      }).format(value);
-    },
   },
   data() {
     return {
@@ -121,11 +95,6 @@ export default {
     findPlayerIndexById(id) {
       return this.myPicks.findIndex((player) => player.element === id);
     },
-    changeGameweek(n) {
-      this.GW = n;
-      this.updateGameweek(n);
-    },
-
     // Axios
     getBootstrap() {
       axios
@@ -163,6 +132,7 @@ export default {
         });
     },
     updateGameweek(gw) {
+      this.GW = gw;
       this.getMyPicks(gw);
     },
   },
@@ -170,48 +140,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.gameweek-pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: $pl-purple;
 
-  h4 {
-    //font-style: italic;
-    color: #fff;
-  }
-
-  button {
-    padding: $xs $m;
-    background: none;
-    border: none;
-    color: #ddd;
-    margin: $s;
-  }
-}
-
-.gameweek-score-container {
-  padding: $s;
-  background: $pl-purple;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: baseline;
-
-  li {
-    text-align: center;
-
-    h6 {
-      font-weight: 300;
-    }
-    h4 {
-      color: #ddd;
-    }
-    &.gameweek-points {
-      h2 {
-        color: $pl-green;
-        font-weight: 700;
-      }
-    }
-  }
-}
 </style>
