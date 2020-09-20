@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script lang="vue">
+<script>
 import PitchFormation from "@/components/pitch/PitchFormation.vue";
 import Login from "@/views/Login.vue";
 import axios from "axios";
