@@ -41,12 +41,12 @@
   </div>
 </template>
 
-<script>
+<script lang="vue">
 import PitchFormation from "@/components/pitch/PitchFormation.vue";
 import Login from "@/views/Login.vue";
 import axios from "axios";
 export default {
-  name: "home",
+  name: "Fantasy",
   components: {
     "pitch-formation": PitchFormation,
     login: Login,
