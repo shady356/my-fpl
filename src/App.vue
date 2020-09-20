@@ -40,7 +40,8 @@ ul li {
 .grid {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 92vh 8vh;
+  grid-template-rows: auto 8vh;
+  min-height: 100vh;
 }
 
 .main-layout {
