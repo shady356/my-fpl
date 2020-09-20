@@ -92,8 +92,7 @@ export default {
     return {
       score: null,
       modalStatus: false,
-      localhostBase: 'http://localhost:8080',
-      networkBase: 'http://192.168.0.18:8080',
+      localhostBase: process.env.VUE_APP_FPL_API_URL,
       pictureBase: 'https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p'
     }
   },

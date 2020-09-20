@@ -66,8 +66,7 @@ export default {
       myPicks: null,
       myPicksIds: null,
       bootstrap: null,
-      localhostBase: "http://localhost:8080",
-      networkBase: "http://192.168.0.18:8080",
+      localhostBase: process.env.VUE_APP_FPL_API_URL,
       teamId: 82673,
     };
   },
