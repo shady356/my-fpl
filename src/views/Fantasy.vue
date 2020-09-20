@@ -60,7 +60,7 @@ export default {
   },
   data() {
     return {
-      GW: 29,
+      GW: 1,
       gameweeks: null,
       allPlayers: null,
       myPicks: null,
@@ -68,7 +68,7 @@ export default {
       bootstrap: null,
       localhostBase: "http://localhost:8080",
       networkBase: "http://192.168.0.18:8080",
-      teamId: 2835090,
+      teamId: 82673,
     };
   },
   computed: {
