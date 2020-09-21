@@ -10,9 +10,7 @@
         tag="li"
         :to="{ name: 'statsTeamItem', params: {team: team }}"
       >
-        <StatsTeamListItem 
-          :team="team"
-        />
+        <StatsTeamListItem :team="team"/>
       </router-link>
     </ul>
   </div>

@@ -32,7 +32,7 @@
 <script>
 export default {
   name: 'FantasyHeader',
-    filters: {
+  filters: {
     bigNumber(value) {
       return new Intl.NumberFormat("en-UK", {
         maximumSignificantDigits: 7,
