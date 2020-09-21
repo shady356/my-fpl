@@ -19,17 +19,18 @@ export default new Router({
     {
       path: '/stats',
       name: 'stats',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ '@/views/Stats.vue')
     },
     {
+      path: '/stats/team/:teamId',
+      name: 'statsTeamItem',
+      props: true,
+      component: () => import(/* webpackChunkName: "about" */ '@/components/stats/StatsTeamItem.vue')
+    },
+
+    {
       path: '/settings',
       name: 'settings',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ '@/views/Settings.vue')
     },
     {

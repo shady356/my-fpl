@@ -6,9 +6,6 @@
       class="team-badge"
     >
     <h4>{{team.name}}</h4>
-  <!--   <div v-if="team.name === 'Arsenal'">
-      <pre>{{team}}</pre>
-    </div> -->
   </div>
 </template>
 

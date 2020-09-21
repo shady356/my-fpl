@@ -4,12 +4,16 @@
     class="stats-container default-page-margin">
     <h1>Stats</h1>
     <ul>
-      <StatsTeamListItem 
+      <router-link
         v-for="team in teams"
         :key="team.id"
-        :team="team"
         tag="li"
-      />
+        :to="{ name: 'statsTeamItem', params: {team: team }}"
+      >
+        <StatsTeamListItem 
+          :team="team"
+        />
+      </router-link>
     </ul>
   </div>
 </template>
@@ -34,7 +38,6 @@ export default {
     this.getBootstrap();
   },
   methods: {
-    
     getBootstrap() {
       axios
         .get(`${this.BASE_URL}/api/bootstrap-static/`)
@@ -47,13 +50,11 @@ export default {
           console.log(error);
           // this.errored = true;
         });
-    },
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.stats-container {
 
-}
 </style>
