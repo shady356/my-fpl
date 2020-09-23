@@ -10,23 +10,13 @@
     </div>
     <h3>Players</h3>
     <ul class="player-list">
-      <li
+      <TeamPlayer
         class="player"
         v-for="player in sortedTeam"
         :key="player.id"
-      >
-        <img
-          class="player-image" 
-          :src="pictureBase + player.code + '.png'" 
-          alt=""
-        >
-        <div>
-          <h5>{{player.first_name}}</h5>
-          <h4>{{player.web_name}}</h4>
-          <div :class="['position-tag']">foobar</div>
-        </div>
-        <h6>{{player.now_cost | playerCost}}</h6>
-      </li>
+        :player="player"
+        tag="li"
+      />
     </ul>
   </div>
 </template>
@@ -34,6 +24,7 @@
 <script>
 import axios from 'axios'
 import orderBy from 'lodash/orderBy'
+import TeamPlayer from '@/components/stats/TeamPlayer'
 export default {
   name: 'StatsTeamItem',
   props: {
@@ -42,16 +33,13 @@ export default {
       required: true
     }
   },
-  filters: {
-    playerCost(value) {
-      return '£' + (value / 10).toFixed(1) 
-    }
+  components: {
+    TeamPlayer
   },
   data() {
     return {
       teamPlayers: null,
-      BASE_URL: process.env.VUE_APP_FPL_API_URL,
-      pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p'
+      BASE_URL: process.env.VUE_APP_FPL_API_URL
     }
   },
   computed: {
@@ -97,28 +85,5 @@ export default {
   }
   .player-list {
     margin: $m 0;
-
-    .player {
-      display: flex;
-      border: 1px solid #222;
-      background: #1a1a1a;
-      border-radius: $s;
-      padding: $m $m 0;
-      margin: $m 0;
-
-      .player-image {
-        width: 64px;
-        margin-right: $m;
-      }
-    }
-  }
-  .position-tag {
-    padding: 10px 20px;
-    font-size: 1rem;
-    
-    .goal-keeper {
-      background: yellow;
-      color: #333;
-    }
   }
 </style>
