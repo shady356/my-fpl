@@ -12,7 +12,7 @@
     <ul class="player-list">
       <li
         class="player"
-        v-for="player in teamPlayers"
+        v-for="player in sortedTeam"
         :key="player.id"
       >
         <img
@@ -23,8 +23,9 @@
         <div>
           <h5>{{player.first_name}}</h5>
           <h4>{{player.web_name}}</h4>
-          <h6>{{player.now_cost | playerCost}}</h6>
+          <div :class="['position-tag']">foobar</div>
         </div>
+        <h6>{{player.now_cost | playerCost}}</h6>
       </li>
     </ul>
   </div>
@@ -32,6 +33,7 @@
 
 <script>
 import axios from 'axios'
+import orderBy from 'lodash/orderBy'
 export default {
   name: 'StatsTeamItem',
   props: {
@@ -55,6 +57,9 @@ export default {
   computed: {
     teamBadge () {
       return `https://fantasy.premierleague.com/dist/img/badges/badge_${this.team.code}_80.png#/`
+    },
+    sortedTeam() {
+      return orderBy(this.teamPlayers, ['element_type','form'],['asc', 'desc'])
     }
   },
   mounted () {
@@ -105,6 +110,15 @@ export default {
         width: 64px;
         margin-right: $m;
       }
+    }
+  }
+  .position-tag {
+    padding: 10px 20px;
+    font-size: 1rem;
+    
+    .goal-keeper {
+      background: yellow;
+      color: #333;
     }
   }
 </style>
