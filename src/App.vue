@@ -25,7 +25,7 @@ export default {
 
 #app {
   font-family: 'Roboto', sans-serif;
-  color: #aaa;
+  color: #ddd;
 }
 
 .disable-scroll {

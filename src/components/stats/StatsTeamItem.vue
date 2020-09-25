@@ -11,7 +11,6 @@
     <h3>Players</h3>
     <ul class="player-list">
       <TeamPlayer
-        class="player"
         v-for="player in sortedTeam"
         :key="player.id"
         :player="player"
@@ -47,7 +46,7 @@ export default {
       return `https://fantasy.premierleague.com/dist/img/badges/badge_${this.team.code}_80.png#/`
     },
     sortedTeam() {
-      return orderBy(this.teamPlayers, ['element_type','form'],['asc', 'desc'])
+      return orderBy(this.teamPlayers, ['element_type','total_points'],['asc', 'desc'])
     }
   },
   mounted () {
