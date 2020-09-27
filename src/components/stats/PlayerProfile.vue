@@ -22,6 +22,22 @@
         </div>
       </div>
     </div>
+    <!-- Goals / Assists -->
+    <div class="stats-container">
+      <div class="stat-item">
+        <h6>Value</h6>
+        <h1>{{player.now_cost | playerCost}}</h1>
+      </div>
+      <div class="stat-item">
+        <h6>Selected By</h6>
+        <h1>{{player.selected_by_percent}}%</h1>
+      </div>
+      <div class="stat-item">
+        <h6>Total Points</h6>
+        <h1>{{player.total_points}}</h1>
+      </div>
+    </div>
+    <!-- ICT detailed -->
     <div class="stats-container">
       <div class="stat-item">
         <h6>Influence</h6>
@@ -48,6 +64,7 @@
         <h4>{{player.threat_rank | toRank}}</h4>
       </div>
     </div>
+    <!-- ICT index -->
     <div class="stats-container">
       <div class="stat-item">
         <h4>ICT Index</h4>
@@ -56,6 +73,24 @@
       <div class="stat-item">
         <h4>Rank</h4>
         <h1>{{player.ict_index_rank | toRank}}</h1>
+      </div>
+    </div>
+    <!-- Goals / Assists -->
+    <div class="stats-container">
+      <div class="stat-item">
+        <h4>Goals</h4>
+        <h1>{{player.goals_scored}}</h1>
+      </div>
+      <div class="stat-item">
+        <h4>Assists</h4>
+        <h1>{{player.assists}}</h1>
+      </div>
+    </div>
+    <!-- Clean sheets -->
+    <div class="stats-container">
+      <div class="stat-item">
+        <h4>Clean sheets</h4>
+        <h1>{{player.clean_sheets}}</h1>
       </div>
     </div>
   </div>
@@ -79,6 +114,9 @@ export default {
         case 3: return value + 'rd'
         default: return value + 'th'
       }
+    },
+    playerCost(value) {
+      return '£' + (value / 10).toFixed(1) 
     }
   },
   data() {
@@ -161,7 +199,7 @@ export default {
 
     .stat-item {
       width: 30%;
-      margin: $s;
+      margin: $xs;
     }
   }
 </style>
