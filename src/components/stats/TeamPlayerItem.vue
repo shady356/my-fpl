@@ -119,22 +119,22 @@ export default {
     border-radius: $xs;
     letter-spacing: 1px;
 
-      &.gk {
-        background: $pl-yellow;
-        color: darken($pl-yellow, 40%);
-      }
-      &.def {
-        background: $pl-green;
-        color: darken($pl-green, 40%);
-      }
-      &.mid {
-        background: $pl-blue;
-        color: darken($pl-blue, 40%);
-      }
-      &.fwd {
-        background: $pl-red;
-        color: #fff;
-      }
+    &.gk {
+      background: $pl-yellow;
+      color: darken($pl-yellow, 40%);
+    }
+    &.def {
+      background: $pl-green;
+      color: darken($pl-green, 40%);
+    }
+    &.mid {
+      background: $pl-blue;
+      color: darken($pl-blue, 40%);
+    }
+    &.fwd {
+      background: $pl-red;
+      color: #fff;
+    }
   }
 }
 </style>
