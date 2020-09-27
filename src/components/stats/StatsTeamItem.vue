@@ -1,5 +1,10 @@
 <template>
   <div class="default-page-margin">
+    <router-link
+      :to="{name: 'stats'}"
+    >
+      <img :src="arrowBackIcon" alt="Go back: teams">
+    </router-link>
     <div class="cover">
       <img 
         :src="teamBadge" 
@@ -56,7 +61,8 @@ export default {
           players: []
         },
       ],
-      BASE_URL: process.env.VUE_APP_FPL_API_URL
+      BASE_URL: process.env.VUE_APP_FPL_API_URL,
+      arrowBackIcon: require('@/assets/icons/arrow_back-24px.svg')
     }
   },
   computed: {
