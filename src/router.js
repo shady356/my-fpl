@@ -5,6 +5,7 @@ import Fantasy from '@/views/Fantasy.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -26,6 +27,12 @@ export default new Router({
       name: 'statsTeamItem',
       props: true,
       component: () => import(/* webpackChunkName: "about" */ '@/components/stats/StatsTeamItem.vue')
+    },
+    {
+      path: '/stats/:player',
+      name: 'playerProfile',
+      props: true,
+      component: () => import(/* webpackChunkName: "about" */ '@/components/stats/PlayerProfile.vue')
     },
 
     {

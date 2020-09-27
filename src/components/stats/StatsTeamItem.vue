@@ -15,12 +15,14 @@
     </div>
     <h3>Players</h3>
     <ul class="player-list">
-      <TeamPlayer
+      <router-link
         v-for="player in sortedTeam"
         :key="player.id"
-        :player="player"
+        :to="{ name: 'playerProfile', params: {player: player }}"
         tag="li"
-      />
+      >
+        <TeamPlayerItem :player="player"/>
+      </router-link>
     </ul>
   </div>
 </template>
@@ -28,7 +30,7 @@
 <script>
 import axios from 'axios'
 import orderBy from 'lodash/orderBy'
-import TeamPlayer from '@/components/stats/TeamPlayer'
+import TeamPlayerItem from '@/components/stats/TeamPlayerItem'
 export default {
   name: 'StatsTeamItem',
   props: {
@@ -38,7 +40,7 @@ export default {
     }
   },
   components: {
-    TeamPlayer
+    TeamPlayerItem
   },
   data() {
     return {
