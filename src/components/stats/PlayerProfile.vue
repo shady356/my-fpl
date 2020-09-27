@@ -23,17 +23,39 @@
       </div>
     </div>
     <div class="stats-container">
-      <div>
-        <h6>Influence rank</h6>
+      <div class="stat-item">
+        <h6>Influence</h6>
+        <h4>{{player.influence}}</h4>
+      </div>
+      <div class="stat-item">
+        <h6>Creativity</h6>
+        <h4>{{player.creativity}}</h4>
+      </div>
+      <div class="stat-item">
+        <h6>Threat</h6>
+        <h4>{{player.threat}}</h4>
+      </div>
+      <div class="stat-item">
+        <h6>Rank</h6>
         <h4>{{player.influence_rank | toRank}}</h4>
       </div>
-      <div>
-        <h6>Creativity rank</h6>
+      <div class="stat-item">
+        <h6>Rank</h6>
         <h4>{{player.creativity_rank | toRank}}</h4>
       </div>
-      <div>
-        <h6>threat rank</h6>
+      <div class="stat-item">
+        <h6>Rank</h6>
         <h4>{{player.threat_rank | toRank}}</h4>
+      </div>
+    </div>
+    <div class="stats-container">
+      <div class="stat-item">
+        <h4>ICT Index</h4>
+        <h1>{{player.ict_index}}</h1>
+      </div>
+      <div class="stat-item">
+        <h4>Rank</h4>
+        <h1>{{player.ict_index_rank | toRank}}</h1>
       </div>
     </div>
   </div>
@@ -86,7 +108,6 @@ export default {
   .cover {
     display: flex;
     flex-direction: column;
-    margin-bottom: $l;
     border-bottom: 1px solid #333;
 
     .player {
@@ -127,11 +148,20 @@ export default {
         }
       }
     }
-
   }
   .stats-container {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     text-align: center;
+    box-sizing: border-box;
+    border-bottom: 1px solid #333;
+    padding: $l 0;
+    text-align: center;
+
+    .stat-item {
+      width: 30%;
+      margin: $s;
+    }
   }
 </style>
