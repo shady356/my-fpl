@@ -38,6 +38,24 @@ export default {
   data() {
     return {
       teamPlayers: null,
+      teamPlayersPosition: [
+        {
+          position: 'goalkeepers',
+          players: []
+        },
+        {
+          position: 'defenders',
+          players: []
+        },
+        {
+          position: 'midfielders',
+          players: []
+        },
+        {
+          position: 'forwards',
+          players: []
+        },
+      ],
       BASE_URL: process.env.VUE_APP_FPL_API_URL
     }
   },
@@ -53,19 +71,23 @@ export default {
     this.getBootstrap()
   },
   methods: {
+    setTeamPlayerPosition () {
+      this.teamPlayers.forEach(player => {
+        this.teamPlayersPosition[player.element_type-1].players.push(player)
+      });
+    },
     getBootstrap() {
       axios
         .get(`${this.BASE_URL}/api/bootstrap-static/`)
         .then((response) => {
           const allPlayers = response.data.elements;
-          console.log(allPlayers)
           this.teamPlayers = allPlayers.filter(player => {
             return player.team_code === this.team.code
           })
+          this.setTeamPlayerPosition()
         })
         .catch((error) => {
           console.log(error);
-          // this.errored = true;
         })
     },
   }
