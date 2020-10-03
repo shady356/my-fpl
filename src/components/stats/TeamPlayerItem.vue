@@ -10,7 +10,9 @@
       <h5 class="last-name">{{player.web_name}}</h5>
       <h4 :class="['position-tag', playerPosition]">{{playerPosition}}</h4>
     </div>
-    <div class="player-stats">
+    <div 
+      class="player-stats"
+    >
       <h6 :class="['cost', costChange]">
         {{player.now_cost | playerCost}}m
       </h6>

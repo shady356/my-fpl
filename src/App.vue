@@ -24,7 +24,7 @@ export default {
 }
 
 #app {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   color: #ddd;
 }
 
@@ -35,7 +35,6 @@ export default {
 ul li {
   list-style: none;
 }
-
 
 .grid {
   display: grid;

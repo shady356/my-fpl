@@ -3,36 +3,67 @@
     v-if="bootstrap" 
     class="stats-container default-page-margin">
     <h1>Stats</h1>
-    <ul>
-      <router-link
-        v-for="team in teams"
-        :key="team.id"
-        tag="li"
-        :to="{ name: 'statsTeamItem', params: {team: team }}"
-      >
-        <StatsTeamListItem :team="team"/>
-      </router-link>
-    </ul>
+    <section class="section">
+      <h2>Top scorers</h2>
+      <div class="top-scorers-list">
+        <PlayerItemMini
+          class="top-scorer-player-item"
+          v-for="player in topScorers"
+          :key="player.id"
+          :player="player"
+          :statValue="player.goals_scored"
+        />
+      </div>
+    </section>
+    <section class="section">
+      <h2 @click="showTeams = !showTeams">Teams</h2>
+      <ul v-show="showTeams">
+        <router-link
+          v-for="team in teams"
+          :key="team.id"
+          tag="li"
+          :to="{ name: 'statsTeamItem', params: {team: team }}"
+        >
+          <StatsTeamListItem :team="team"/>
+        </router-link>
+      </ul>
+    </section>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import orderBy from 'lodash/orderBy'
+import PlayerItemMini from '@/components/stats/PlayerItemMini'
 import StatsTeamListItem from '@/components/stats/StatsTeamListItem.vue'
 
 export default {
   name: 'Stats',
   components: {
+    PlayerItemMini,
     StatsTeamListItem
   },
   data () {
     return {
       bootstrap: null,
       teams: null,
+      showTeams: true,
       BASE_URL: process.env.VUE_APP_FPL_API_URL,
     }
   },
-  mounted() {
+  computed: {
+    playersSortedByGoalsScored () {
+      return orderBy(this.bootstrap.elements, 'goals_scored','desc')
+    },
+    topScorers () {
+      return this.playersSortedByGoalsScored.filter((player, index) => {
+        if (index < 10) {
+          return player
+        }
+      })
+    }
+  },
+  mounted () {
     this.getBootstrap();
   },
   methods: {
@@ -48,6 +79,9 @@ export default {
           console.log(error);
           // this.errored = true;
         });
+    },
+    getListOfPlayersCostChange () {
+
     }
   }
 }
@@ -55,4 +89,17 @@ export default {
 
 <style scoped lang="scss">
 
+  .section {
+    margin: $l 0;
+    .top-scorers-list {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+      width: calc(100vw - 32px);
+
+      .top-scorer-player-item {
+        margin: $s;
+      }
+    }
+  }
 </style>

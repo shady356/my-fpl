@@ -21,7 +21,9 @@
         :to="{ name: 'playerProfile', params: {player: player }}"
         tag="li"
       >
-        <TeamPlayerItem :player="player"/>
+        <TeamPlayerItem 
+          :player="player"
+        />
       </router-link>
     </ul>
   </div>
