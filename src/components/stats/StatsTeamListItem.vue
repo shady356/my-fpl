@@ -28,16 +28,17 @@ export default {
 
 <style lang="scss" scoped>
   .team-container {
-    background: #1a1a1a;
-    display: flex;
     align-items: center;
+    background: #fff;
+    border-radius: $s;
+    box-shadow: 0 5px $s #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: $m 0;
     padding: $m;
-    border-radius: $s;
-    border: 1px solid #333;
 
     .team-badge {
-      margin-right: $m;
       width: $l;
       height: auto;
     }

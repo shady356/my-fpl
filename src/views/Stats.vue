@@ -96,9 +96,11 @@ export default {
       flex-wrap: nowrap;
       overflow-x: scroll;
       width: calc(100vw - 32px);
+      padding: $s 0;
 
       .top-scorer-player-item {
         margin: $s;
+        min-width: 100px;
       }
     }
   }

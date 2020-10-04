@@ -3,7 +3,7 @@ h1 {
   margin: 0;
 }
 h2 {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 300;
 }
 h3 {
@@ -34,13 +34,4 @@ h6 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.light {
-  h1,h2,h3,h4,h5,h6 {
-    color: #222;
-  }
-  p {
-    color: #444;
-  }
 }

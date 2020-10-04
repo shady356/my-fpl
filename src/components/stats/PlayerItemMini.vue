@@ -1,5 +1,6 @@
 <template>
-  <div class="player-mini">
+  <div
+    class="player-mini">
     <img
       class="player-image" 
       :src="pictureBase + player.code + '.png'" 
@@ -7,7 +8,7 @@
     >
     <div class="player-name">
       <h6 class="first-name">{{player.first_name}}</h6>
-      <h5 class="last-name">{{player.web_name}}</h5>
+      <h4 class="last-name">{{player.web_name}}</h4>
     </div>
     <div class="stat-value">
       <h1>{{statValue}}</h1>
@@ -38,8 +39,8 @@ export default {
 </script>
 <style lang="scss" scoped>
   .player-mini {
-    background: $pl-purple;
-    border: 1px solid #222;
+    background: #fff;
+    box-shadow: 0 5px $s #ddd;
     border-radius: $s;
     display: flex;
     flex-direction: column;
@@ -48,10 +49,12 @@ export default {
     text-align: center;
 
     .player-image {
-      width: $xxl;
-      height: $xxl;
+      width: 100px;
+      height: 95px;
+      padding-top: 5px;
       object-fit: contain;
-      //background: #333;
+      object-position: 50% 0%;
+      background: #eee;
       border-radius: 50%;
     }
     .player-name {
@@ -61,7 +64,7 @@ export default {
       }
     }
     .stat-value {
-      color: $pl-green;
+     
     }
 
   }
