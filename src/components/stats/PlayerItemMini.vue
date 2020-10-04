@@ -59,12 +59,13 @@ export default {
     }
     .player-name {
       margin: $m 0;
+      
       .last-name {
         white-space: nowrap;
       }
     }
     .stat-value {
-     
+    
     }
 
   }

@@ -16,6 +16,18 @@
       </div>
     </section>
     <section class="section">
+      <h2>Top assisters</h2>
+      <div class="horizontal-list">
+        <PlayerItemMini
+          class="top-scorer-player-item"
+          v-for="player in topAssisters"
+          :key="player.id"
+          :player="player"
+          :statValue="player.assists"
+        />
+      </div>
+    </section>
+    <section class="section">
       <h2 @click="showTeams = !showTeams">Teams</h2>
       <ul class="horizontal-list">
         <router-link
@@ -56,8 +68,18 @@ export default {
     playersSortedByGoalsScored () {
       return orderBy(this.bootstrap.elements, 'goals_scored','desc')
     },
+    playersSortedByAssists () {
+      return orderBy(this.bootstrap.elements, 'assists','desc')
+    },
     topScorers () {
       return this.playersSortedByGoalsScored.filter((player, index) => {
+        if (index < 10) {
+          return player
+        }
+      })
+    },
+    topAssisters () {
+      return this.playersSortedByAssists.filter((player, index) => {
         if (index < 10) {
           return player
         }
