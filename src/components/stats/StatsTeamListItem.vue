@@ -5,7 +5,7 @@
       alt="team-badge"
       class="team-badge"
     >
-    <h4>{{team.name}}</h4>
+    <h4 class="team-name">{{team.name}}</h4>
   </div>
 </template>
 
@@ -37,10 +37,15 @@ export default {
     justify-content: center;
     margin: $m 0;
     padding: $m;
+    height: 128px;
 
     .team-badge {
-      width: $l;
+      width: $xl;
       height: auto;
+    }
+    .team-name {
+      margin-top: $m;
+      text-align: center;
     }
   }
 </style>

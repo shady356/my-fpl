@@ -5,7 +5,7 @@
     <h1>Stats</h1>
     <section class="section">
       <h2>Top scorers</h2>
-      <div class="top-scorers-list">
+      <div class="horizontal-list">
         <PlayerItemMini
           class="top-scorer-player-item"
           v-for="player in topScorers"
@@ -17,11 +17,12 @@
     </section>
     <section class="section">
       <h2 @click="showTeams = !showTeams">Teams</h2>
-      <ul v-show="showTeams">
+      <ul class="horizontal-list">
         <router-link
           v-for="team in teams"
           :key="team.id"
           tag="li"
+          class="team-item"
           :to="{ name: 'statsTeamItem', params: {team: team }}"
         >
           <StatsTeamListItem :team="team"/>
@@ -79,9 +80,6 @@ export default {
           console.log(error);
           // this.errored = true;
         });
-    },
-    getListOfPlayersCostChange () {
-
     }
   }
 }
@@ -91,7 +89,8 @@ export default {
 
   .section {
     margin: $l 0;
-    .top-scorers-list {
+
+    .horizontal-list {
       display: flex;
       flex-wrap: nowrap;
       overflow-x: scroll;
@@ -101,6 +100,10 @@ export default {
       .top-scorer-player-item {
         margin: $s;
         min-width: 100px;
+      }
+      .team-item {
+        margin: $s;
+        min-width: 110px;
       }
     }
   }
