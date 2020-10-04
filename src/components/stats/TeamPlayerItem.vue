@@ -72,14 +72,14 @@ export default {
 
 <style lang="scss" scoped>
 .player {
-  position: relative;
-  display: flex;
-  border: 1px solid #222;
-  background: #1a1a1a;
-  border-radius: $s;
-  padding: $m $m 0;
-  margin: $m 0;
+  background: #fff;
   border-left: 1px solid transparent;
+  border-radius: $s;
+  box-shadow: 0 5px $s #ddd;
+  display: flex;
+  margin: $m 0;
+  padding: $m $m 0;
+  position: relative;
 
   .player-image {
     width: 64px;
