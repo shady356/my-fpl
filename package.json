@@ -13,7 +13,7 @@
     "lodash": "^4.17.20",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.10",
-    "vue-chartjs": "^3.5.0",
+    "vue-chartjs": "^3.5.1",
     "vue-router": "^3.0.3"
   },
   "devDependencies": {
