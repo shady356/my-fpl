@@ -6,13 +6,17 @@
     <section class="section">
       <h2>Top scorers</h2>
       <div class="horizontal-list">
-        <PlayerItemMini
-          class="top-scorer-player-item"
+        <router-link
           v-for="player in topScorers"
           :key="player.id"
-          :player="player"
-          :statValue="player.goals_scored"
-        />
+          :to="{ name: 'playerProfile', params: {player: player }}"
+        >
+          <PlayerItemMini
+            class="top-scorer-player-item"
+            :player="player"
+            :statValue="player.goals_scored"
+          />
+        </router-link>
       </div>
     </section>
     <section class="section">
