@@ -23,15 +23,24 @@
       </div>
     </div>
 
-    <!-- Charts -->
-    <PlayerBaseStatChart
-      v-if="isChartGenerated"
-      :chart-data="baseStatChartData"
-      :options="baseStatChartOptions"
-      :styles="chartStyles"
-      class="stat-chart-container"
-      ref="baseStatsChart"
+    <PlayerStatsChartController
+      v-if="playerSummary"
+      :playerChartData="playerChartData"
+      :playerSummary="playerSummary"
     />
+
+    <button @click="setChartDataAttributes('goals_scored', 0, 1)">
+      Goals Scored
+    </button>
+    <button @click="setChartDataAttributes('minutes', 0, 45)">
+      Minutes played
+    </button>
+    <button @click="setChartDataAttributes('assists', 0, 1)">
+      Assists
+    </button>
+    <button @click="setChartDataAttributes('value', playerMinimumCost, 1)">
+      value
+    </button>
 
     <div v-show="false">
       <!-- Cost / Selection / tot points -->
@@ -110,12 +119,12 @@
 </template>
 
 <script>
-import PlayerBaseStatChart from '@/components/stats/PlayerBaseStatChart'
 import axios from "axios";
+import PlayerStatsChartController from '@/components/stats/PlayerStatsChartController.vue'
 export default {
   name: 'PlayerProfile',
   components: {
-    PlayerBaseStatChart
+    PlayerStatsChartController
   },
   props: {
     player: {
@@ -139,47 +148,26 @@ export default {
   data() {
     return {
       playerPosition: null,
-      playerSummary: null,
       pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p',
       arrowBackIcon: require('@/assets/icons/arrow_back-24px.svg'),
       BASE_URL: process.env.VUE_APP_FPL_API_URL,
-
-      isChartGenerated: false,
-      baseStatChartData: {
-        labels: [],
-        datasets: [
-          {
-            backgroundColor: '#00aaddcc',
-            borderColor: '#00aaddcc',
-            pointRadius: 5,
-            borderWidth: 2,
-            data: []
-          }
-        ]
-      },
-      baseStatChartOptions: {
-        responsive: true,
-        maintainAspectRatio: true,
-        legend: {
-          display: false
-        },
-        scales: {
-          yAxes:[{
-            ticks: {
-              stepSize: 45,
-              min: 0
-            } 
-          }]
-        }
+      
+      playerSummary: null,
+      playerChartData: {
+        key: 'goals_scored',
+        min: 0,
+        stepSize: 1
       }
     }
   },
   computed: {
-    chartStyles () {
-      return {
-        width: '75%',
-        position: 'relative'
-      }
+    playerMinimumCost() {
+      let minCost = this.playerSummary.history[0].value
+      this.playerSummary.history.forEach(gameweek => {
+        if(gameweek.value < minCost)
+          minCost = gameweek.value
+      });
+      return minCost
     }
   },
   mounted () {
@@ -187,23 +175,6 @@ export default {
     this.playerPosition = this.getPlayerPosition()
   },
   methods: {
-    setChartData () {
-      const labels = []
-      const datasets = []
-
-      this.baseStatChartData.labels = []
-      this.baseStatChartData.datasets.data = []
-
-      this.playerSummary.history.forEach((gameweek, index) => {
-        labels.push(index + 1)
-        datasets.push(gameweek.minutes)
-      });
-
-      this.baseStatChartData.labels = labels
-      this.baseStatChartData.datasets[0].data = datasets
-      this.isChartGenerated = true
-      
-    },
     getPlayerPosition () {
       switch (this.player.element_type) {
         case 1: return 'goalkeeper'
@@ -217,12 +188,16 @@ export default {
         .get(`${this.BASE_URL}api/element-summary/${id}/`)
         .then((response) => {
           this.playerSummary = response.data;
-          this.setChartData()
         })
         .catch((error) => {
           console.log(error);
           // this.errored = true;
         });
+    },
+    setChartDataAttributes(key, min, stepSize) {
+      this.playerChartData.key = key
+      this.playerChartData.min = min
+      this.playerChartData.stepSize = stepSize
     }
   }
 }
@@ -287,9 +262,5 @@ export default {
       width: 30%;
       margin: $xs;
     }
-  }
-  .stat-chart-container {
-    width: 100%;
-    height: 300px;
   }
 </style>
