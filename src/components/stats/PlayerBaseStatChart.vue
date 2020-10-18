@@ -18,9 +18,9 @@ export default {
   },
   methods: {
     update() {
-      this.$data._chart.destroy()
-      this.renderChart(this.chartData, this.options)
-      //this.$data._chart.update()
+      //this.$data._chart.destroy()
+      //this.renderChart(this.chartData, this.options)
+      this.$data._chart.update()
     }
   }
 }

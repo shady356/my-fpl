@@ -24,7 +24,6 @@
     </div>
     <div class="player-stat-chart-master-container">
       <BaseButton
-        class="ghost" 
         @click="setChartDataAttributes('goals_scored', 0, 1)">
         Goals Scored
       </BaseButton>
@@ -38,6 +37,7 @@
         value
       </BaseButton>
 
+      <h2>Goals Scored</h2>
       <PlayerStatsChartController
         v-if="playerSummary"
         class="player-stat-chart-layout"
@@ -274,7 +274,6 @@ export default {
     margin: $l 0;
 
     .player-stat-chart-layout {
-      background: #333;
       margin-top: $m;
     }
   }

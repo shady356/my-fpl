@@ -19,13 +19,14 @@ export default {
 
 <style lang="scss" scoped>
   button {
-    background: $pl-purple;
-    border: none;
-    padding: $s $m;
-    font-size: 1.25rem;
-    color: #333;
-    letter-spacing: 1px;
+    background: $pl-green;
     border-radius: $l;
+    border: none;
+    color: $pl-purple;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: $s $m;
 
     &.ghost {
       background: none;

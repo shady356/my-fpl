@@ -35,10 +35,14 @@ export default {
         labels: [],
         datasets: [
           {
-            backgroundColor: '#00aaddcc',
-            borderColor: '#00aaddcc',
-            pointRadius: 5,
+            backgroundColor: '#05F26C22',
+            borderColor: '#05F26C',
+            pointRadius: 2,
             borderWidth: 2,
+            lineTension: 0.8,
+            pointBackgroundColor: '#05F26C',
+            pointBorderWidth: 2,
+            cubicInterpolationMode: 'monotone',
             data: []
           }
         ]
@@ -50,12 +54,35 @@ export default {
           display: false
         },
         scales: {
+          xAxes:[{
+            gridLines: {
+              color: '#07F2F222'
+            },
+            ticks: {
+              fontFamily: "Roboto condensed",
+              fontColor: '#333'
+            }
+          }],
           yAxes:[{
+            gridLines: {
+              color: '#07F2F222'
+            },
             ticks: {
               stepSize: 1,
-              min: 0
-            } 
-          }]
+              min: 0,
+              fontFamily: "Roboto condensed",
+              fontColor: '#333',
+              fontSize: 14
+            }
+          }],
+        },
+        tooltips: {
+          fontFamily: "Roboto condensed",
+          bodyAlign: 'center',
+          backgroundColor: '#fff',
+          bodyFontColor: '#340040',
+          titleFontColor: '#340040',
+          displayColors: false
         }
       }
     }
@@ -63,7 +90,7 @@ export default {
   computed: {
     chartStyles () {
       return {
-        width: '90%',
+        width: '99%',
         position: 'relative'
       }
     }
