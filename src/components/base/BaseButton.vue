@@ -21,9 +21,9 @@ export default {
   button {
     background: $pl-purple;
     border: none;
-    padding: $m $xl;
+    padding: $s $m;
     font-size: 1.25rem;
-    color: #fff;
+    color: #333;
     letter-spacing: 1px;
     border-radius: $l;
 

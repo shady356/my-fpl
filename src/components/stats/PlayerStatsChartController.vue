@@ -1,6 +1,5 @@
 <template>
   <div>
-    <pre>{{playerChartData}}</pre>
     <PlayerBaseStatChart
       v-if="isChartGenerated"
       :chart-data="baseStatChartData" 

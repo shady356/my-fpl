@@ -22,25 +22,30 @@
         </div>
       </div>
     </div>
+    <div class="player-stat-chart-master-container">
+      <BaseButton
+        class="ghost" 
+        @click="setChartDataAttributes('goals_scored', 0, 1)">
+        Goals Scored
+      </BaseButton>
+      <BaseButton @click="setChartDataAttributes('minutes', 0, 45)">
+        Minutes played
+      </BaseButton>
+      <BaseButton @click="setChartDataAttributes('assists', 0, 1)">
+        Assists
+      </BaseButton>
+      <BaseButton @click="setChartDataAttributes('value', playerMinimumCost, 1)">
+        value
+      </BaseButton>
 
-    <PlayerStatsChartController
-      v-if="playerSummary"
-      :playerChartData="playerChartData"
-      :playerSummary="playerSummary"
-    />
+      <PlayerStatsChartController
+        v-if="playerSummary"
+        class="player-stat-chart-layout"
+        :playerChartData="playerChartData"
+        :playerSummary="playerSummary"
+      />
+    </div>
 
-    <button @click="setChartDataAttributes('goals_scored', 0, 1)">
-      Goals Scored
-    </button>
-    <button @click="setChartDataAttributes('minutes', 0, 45)">
-      Minutes played
-    </button>
-    <button @click="setChartDataAttributes('assists', 0, 1)">
-      Assists
-    </button>
-    <button @click="setChartDataAttributes('value', playerMinimumCost, 1)">
-      value
-    </button>
 
     <div v-show="false">
       <!-- Cost / Selection / tot points -->
@@ -120,10 +125,12 @@
 
 <script>
 import axios from "axios";
+import BaseButton from '@/components/base/BaseButton.vue'
 import PlayerStatsChartController from '@/components/stats/PlayerStatsChartController.vue'
 export default {
   name: 'PlayerProfile',
   components: {
+    BaseButton,
     PlayerStatsChartController
   },
   props: {
@@ -261,6 +268,14 @@ export default {
     .stat-item {
       width: 30%;
       margin: $xs;
+    }
+  }
+  .player-stat-chart-master-container {
+    margin: $l 0;
+
+    .player-stat-chart-layout {
+      background: #333;
+      margin-top: $m;
     }
   }
 </style>
