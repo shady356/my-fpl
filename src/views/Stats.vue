@@ -22,13 +22,17 @@
     <section class="section">
       <h2>Top assisters</h2>
       <div class="horizontal-list">
-        <PlayerItemMini
-          class="top-scorer-player-item"
+        <router-link
           v-for="player in topAssisters"
           :key="player.id"
-          :player="player"
-          :statValue="player.assists"
-        />
+          :to="{ name: 'playerProfile', params: {player: player }}"
+        >
+          <PlayerItemMini
+            class="top-scorer-player-item"
+            :player="player"
+            :statValue="player.assists"
+          />
+        </router-link>
       </div>
     </section>
     <section class="section">
@@ -125,7 +129,7 @@ export default {
 
       .top-scorer-player-item {
         margin: $s;
-        min-width: 100px;
+        min-width: 164px;
       }
       .team-item {
         margin: $s;

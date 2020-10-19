@@ -32,6 +32,10 @@ export default {
   overflow: hidden;
 }
 
+a {
+  text-decoration: none;
+}
+
 ul li {
   list-style: none;
 }
