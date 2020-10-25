@@ -19,22 +19,13 @@
       >  
         <fa-icon icon="bars"/>
       </div>
-      <Menu
-        v-if="isMenuOpen"
-        @closeMenu="closeMenu()"
-        class="menu"
-      />
     </div>
   </header>
 </template>
 
 <script>
-import Menu from  '@/components/layout/Menu.vue'
 export default {
   name: "Header",
-  components: {
-    Menu
-  },
   props: {
     routerBack: {
       type: String,

@@ -223,12 +223,10 @@ export default {
     letter-spacing: 1px;
     font-size: 0.8rem;
     margin-bottom: 4px;
-    color: $pl-purple;
   }
   .player-score {
     font-weight: 700;
     font-size: 1.25rem;
-    color: $pl-purple;
   }
   .captain-badge, .viceCaptain-badge {
     position: absolute;
