@@ -9,11 +9,22 @@
       >
       <div class="player-name ellipsis">
         {{player.web_name}}
-        <span v-if="player.gameweek.is_captain">(C)</span>
-        <span v-if="player.gameweek.is_vice_captain">(V)</span>
       </div>
-      <div class="player-score">{{playerScore}}</div>
-
+      <div class="player-score">
+        {{playerScore}}
+      </div>
+      <div
+        v-if="player.gameweek.is_captain"
+        class="captain-badge" 
+      >
+        C
+      </div>
+      <div
+        v-if="player.gameweek.is_vice_captain"
+        class="viceCaptain-badge"
+      >
+        V
+      </div>
     </div>
 
     <base-modal 
@@ -191,8 +202,7 @@ export default {
 <style lang="scss" scoped>
 
 .player {
-  //border: 1px solid #ddd;
-  //background: #fff;
+  position: relative;
   padding: $s;
   border-radius: $s;
 
@@ -214,14 +224,30 @@ export default {
     font-size: 0.8rem;
     margin-bottom: 4px;
     color: $pl-purple;
-    font-family: 'Roboto Condensed';
   }
   .player-score {
     font-weight: 700;
-    font-size: 1rem;
-    text-transform: uppercase;
+    font-size: 1.25rem;
     color: $pl-purple;
-    font-family: 'Roboto Condensed';
+  }
+  .captain-badge, .viceCaptain-badge {
+    position: absolute;
+    top: 0;
+    right: $s;
+    line-height: 10px;
+    text-align: center;
+    font-weight: 700;
+    color: #fff;
+    width: 10px;
+    height: 10px;
+    padding: $s;
+    border-radius: 50%;
+  }
+  .captain-badge {
+    background: $pl-red;
+  }
+  .viceCaptain-badge {
+    background: $pl-purple;
   }
 
 }
