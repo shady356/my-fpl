@@ -3,10 +3,10 @@
     <transition name="opacity" mode="out-in">
       <router-view class="main-layout" />
     </transition>
-    <Menu 
-      v-if="isMenuOpen" 
+    <Menu
+      v-if="isMenuOpen"
       class="menu"
-      @closeMenu="closeMenu()" 
+      @closeMenu="closeMenu()"
     />
   </div>
 </template>
