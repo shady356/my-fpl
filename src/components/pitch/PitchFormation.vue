@@ -132,7 +132,7 @@ export default {
   background-position: 48% 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #111;
+  background-color: #eee;
 
   ul {
     display: flex;
@@ -145,12 +145,10 @@ export default {
     }
   }
 }
-
-
 .bench {
-  border-top: 1px solid #222;
-  margin-top: 16px;
-  background: #111;
+  background: #eee;
+  border-top: 1px solid #ccc;
   flex-direction: row-reverse;
+  margin-top: 16px;
 }
 </style>
