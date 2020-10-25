@@ -8,7 +8,10 @@
     <div v-if="!hasTeamId">
       <login />
     </div>
-    <div v-else>
+    <div 
+      v-else
+      class="fantasy-container"
+    >
       <div v-if="this.isLoaded">
         <FantasyHeader 
           :GW="GW"
@@ -147,5 +150,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+  .fantasy-container {
+    margin-top: $l;
+  }
 </style>

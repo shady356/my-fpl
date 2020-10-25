@@ -15,15 +15,15 @@
     <ul class="gameweek-score-container">
       <li class="gameweek-average-points">
         <h4>{{ bootstrap.events[GW - 1].average_entry_score }}</h4>
-        <h6 class="small-caps">avg pts</h6>
+        <h5 class="small-caps">avg pts</h5>
       </li>
       <li class="gameweek-points">
         <h2>{{ gameweeks.current[GW - 1].points }}</h2>
-        <h6 class="small-caps">your score</h6>
+        <h5 class="small-caps">your score</h5>
       </li>
       <li>
         <h4>{{ gameweeks.current[GW - 1].rank | bigNumber }}</h4>
-        <h6 class="small-caps">gw rank</h6>
+        <h5 class="small-caps">gw rank</h5>
       </li>
     </ul>
   </div>
@@ -36,7 +36,7 @@ export default {
     bigNumber(value) {
       return new Intl.NumberFormat("en-UK", {
         maximumSignificantDigits: 7,
-      }).format(value);
+      }).format(value)
     },
   },
   props: {
@@ -66,41 +66,38 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: $pl-purple;
 
   h4 {
-    //font-style: italic;
-    color: #fff;
+    font-style: italic;
   }
 
   button {
     padding: $xs $m;
-    background: none;
     border: none;
-    color: #ddd;
+    font-style: italic;
+    font-weight: 700;
+    background: $pl-blue;
     margin: $s;
+
+    :disabled {
+      background: #f00;
+    }
   }
 }
 
 .gameweek-score-container {
   padding: $s;
-  background: $pl-purple;
   display: flex;
   justify-content: space-evenly;
   align-items: baseline;
+  color: $pl-purple;
 
   li {
     text-align: center;
+    width: calc(100% / 3);
 
-    h6 {
-      font-weight: 300;
-    }
-    h4 {
-      color: #ddd;
-    }
     &.gameweek-points {
       h2 {
-        color: $pl-green;
         font-weight: 700;
       }
     }
