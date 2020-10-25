@@ -4,15 +4,15 @@
       class="column"
       :to="{ name: routerBack }"
     >
-      <!-- <fa-icon 
+      <fa-icon 
         icon="chevron-left" 
         class="go-back" 
-      /> -->
+      />
     </router-link>
     <div class="column">
       <slot name="title" />
     </div>
-    <div 
+    <div
       class="column"
       @click="openMenu()"
     >  
