@@ -1,37 +1,46 @@
 <template>
-  <div class="default-page-margin">
-    <h1>Settings</h1>
-    
-    <ul class="settings-list">
-      <li 
-        v-for="item in settingsList" 
-        :key="item.name"
-      >
-        <img
-          class="item-icon"
-          :src="item.icon"
-          :alt="item.name + ' icon'"
+  <div>
+    <Header>
+      <template #title>
+        <h3>Settings</h3>
+      </template> 
+    </Header>
+    <div class="default-page-margin">
+      <h1>Settings</h1>
+      
+      <ul class="settings-list">
+        <li 
+          v-for="item in settingsList" 
+          :key="item.name"
         >
-        <h3>{{item.name}}</h3>
-      </li>
-    </ul>
-    
-    <!-- About button -->
-    <router-link to="/about">
-      <base-button class="ghost">
-        About
-      </base-button>
-    </router-link>
+          <img
+            class="item-icon"
+            :src="item.icon"
+            :alt="item.name + ' icon'"
+          >
+          <h3>{{item.name}}</h3>
+        </li>
+      </ul>
+      
+      <!-- About button -->
+      <router-link to="/about">
+        <base-button class="ghost">
+          About
+        </base-button>
+      </router-link>
 
+    </div>
   </div>
 </template>
 
 <script>
+import Header from '@/components/layout/Header.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 export default {
   name: 'Settings',
   components: {
-    BaseButton
+    BaseButton,
+    Header
   },
   data() {
     return {

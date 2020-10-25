@@ -1,5 +1,10 @@
 <template>
   <div>
+    <Header>
+      <template #title>
+        <h3>Fantasy</h3>
+      </template> 
+    </Header>
     <div v-if="!hasTeamId">
       <login />
     </div>
@@ -22,12 +27,14 @@
 
 <script>
 import FantasyHeader from '@/components/fantasy/FantasyHeader.vue'
+import Header from '@/components/layout/Header.vue'
 import PitchFormation from "@/components/pitch/PitchFormation.vue";
 import Login from "@/views/Login.vue";
 import axios from "axios";
 export default {
   name: "Fantasy",
   components: {
+    Header,
     FantasyHeader,
     "pitch-formation": PitchFormation,
     login: Login,

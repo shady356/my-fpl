@@ -1,46 +1,57 @@
 <template>
-  <div class="about-container default-page-margin">
-    <h1>About</h1>
-    <p>
-      This is a Fantasy Premier League (FPL) web-application for displaying a given player's score throughout the gameweeks. 
-      The data is fetched by Fantasy Premier League's official API. 
-    </p>
-    <h2>How do I use it?</h2>
-    <p>
-      Assuming that you already have a FPL-profile – You can simply enter your <i>team id</i> at the home screen,
-      and the application will gather the data based on your team.
-    </p> 
-    <h2>Site navigation</h2>
-    <h6>Home</h6>
-    <h6>Stats</h6>
-    <h6>About</h6>
-    
-    <h2>API Endpoints</h2>
-    <p>
-      Base URL: <pre>https://fantasy.premierleague.com/</pre>
-    </p>
-    <h3>List of endpoints</h3>
-    <ul class="endpoints">
-      <li>
-        <pre>BASE_URL/api/bootstrap-static/</pre>
-      </li>
-      <li>
-        <pre>BASE_URL/api/entry/${teamId}/event/${gw}/picks/</pre>
-      </li>
-      <li>
-        <pre>BASE_URL/api/entry/${teamId}/history/</pre>
-      </li>
-      <li>
-        <pre>BASE_URL/api/element-summary/${playerId}/</pre>
-      </li>
-    </ul>
+  <div>
+    <Header>
+      <template #title>
+        <h3>About</h3>
+      </template> 
+    </Header>
+    <div class="about-container default-page-margin">
+      <h1>About</h1>
+      <p>
+        This is a Fantasy Premier League (FPL) web-application for displaying a given player's score throughout the gameweeks. 
+        The data is fetched by Fantasy Premier League's official API. 
+      </p>
+      <h2>How do I use it?</h2>
+      <p>
+        Assuming that you already have a FPL-profile – You can simply enter your <i>team id</i> at the home screen,
+        and the application will gather the data based on your team.
+      </p> 
+      <h2>Site navigation</h2>
+      <h6>Home</h6>
+      <h6>Stats</h6>
+      <h6>About</h6>
+      
+      <h2>API Endpoints</h2>
+      <p>
+        Base URL: <pre>https://fantasy.premierleague.com/</pre>
+      </p>
+      <h3>List of endpoints</h3>
+      <ul class="endpoints">
+        <li>
+          <pre>BASE_URL/api/bootstrap-static/</pre>
+        </li>
+        <li>
+          <pre>BASE_URL/api/entry/${teamId}/event/${gw}/picks/</pre>
+        </li>
+        <li>
+          <pre>BASE_URL/api/entry/${teamId}/history/</pre>
+        </li>
+        <li>
+          <pre>BASE_URL/api/element-summary/${playerId}/</pre>
+        </li>
+      </ul>
 
+    </div>
   </div>
 </template>
 
 <script>
+import Header from '@/components/layout/Header.vue'
 export default {
-  name: 'About'
+  name: 'About',
+  components: {
+    Header
+  }
 }
 </script>
 

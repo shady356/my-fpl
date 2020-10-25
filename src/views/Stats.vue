@@ -1,60 +1,68 @@
 <template>
-  <div
-    v-if="bootstrap" 
-    class="stats-container default-page-margin">
-    <h1>Stats</h1>
-    <section class="section">
-      <h2>Top scorers</h2>
-      <div class="horizontal-list">
-        <router-link
-          v-for="player in topScorers"
-          :key="player.id"
-          :to="{ name: 'playerProfile', params: {player: player }}"
-        >
-          <PlayerItemMini
-            class="top-scorer-player-item"
-            :player="player"
-            :statValue="player.goals_scored"
-          />
-        </router-link>
-      </div>
-    </section>
-    <section class="section">
-      <h2>Top assisters</h2>
-      <div class="horizontal-list">
-        <router-link
-          v-for="player in topAssisters"
-          :key="player.id"
-          :to="{ name: 'playerProfile', params: {player: player }}"
-        >
-          <PlayerItemMini
-            class="top-scorer-player-item"
-            :player="player"
-            :statValue="player.assists"
-          />
-        </router-link>
-      </div>
-    </section>
-    <section class="section">
-      <h2 @click="showTeams = !showTeams">Teams</h2>
-      <ul class="horizontal-list">
-        <router-link
-          v-for="team in teams"
-          :key="team.id"
-          tag="li"
-          class="team-item"
-          :to="{ name: 'statsTeamItem', params: {team: team }}"
-        >
-          <StatsTeamListItem :team="team"/>
-        </router-link>
-      </ul>
-    </section>
+  <div>
+    <Header>
+      <template #title>
+        <h3>Stats</h3>
+      </template> 
+    </Header>
+    <div
+      v-if="bootstrap" 
+      class="stats-container default-page-margin">
+      <h1>Stats</h1>
+      <section class="section">
+        <h2>Top scorers</h2>
+        <div class="horizontal-list">
+          <router-link
+            v-for="player in topScorers"
+            :key="player.id"
+            :to="{ name: 'playerProfile', params: {player: player }}"
+          >
+            <PlayerItemMini
+              class="top-scorer-player-item"
+              :player="player"
+              :statValue="player.goals_scored"
+            />
+          </router-link>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Top assisters</h2>
+        <div class="horizontal-list">
+          <router-link
+            v-for="player in topAssisters"
+            :key="player.id"
+            :to="{ name: 'playerProfile', params: {player: player }}"
+          >
+            <PlayerItemMini
+              class="top-scorer-player-item"
+              :player="player"
+              :statValue="player.assists"
+            />
+          </router-link>
+        </div>
+      </section>
+      <section class="section">
+        <h2 @click="showTeams = !showTeams">Teams</h2>
+        <ul class="horizontal-list">
+          <router-link
+            v-for="team in teams"
+            :key="team.id"
+            tag="li"
+            class="team-item"
+            :to="{ name: 'statsTeamItem', params: {team: team }}"
+          >
+            <StatsTeamListItem :team="team"/>
+          </router-link>
+        </ul>
+      </section>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import orderBy from 'lodash/orderBy'
+import Header from '@/components/layout/Header.vue'
 import PlayerItemMini from '@/components/stats/PlayerItemMini'
 import StatsTeamListItem from '@/components/stats/StatsTeamListItem.vue'
 
@@ -62,7 +70,8 @@ export default {
   name: 'Stats',
   components: {
     PlayerItemMini,
-    StatsTeamListItem
+    StatsTeamListItem,
+    Header
   },
   data () {
     return {
