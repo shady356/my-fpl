@@ -140,7 +140,7 @@ export default {
 
     li {
       padding: 8px 0;
-      width: 70px;
+      width: 100px;
       text-align: center;
     }
   }

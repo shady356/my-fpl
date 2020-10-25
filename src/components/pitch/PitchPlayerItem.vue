@@ -1,10 +1,10 @@
 <template>
   <div>
     <div
-      class="player" 
+      :class="['player', playerType]"
       @click="openModal()"
     >
-      <img 
+      <img
         :src="pictureBase + player.code + '.png'"
       >
       <div class="player-name ellipsis">
@@ -29,7 +29,7 @@
           <!-- Player profile -->
           <div class="player-profile">
             <img 
-              class="picture" 
+              class="picture"
               :src="pictureBase + player.code + '.png'"
             >
             <div class="name">
@@ -87,14 +87,6 @@ import axios from 'axios'
 import BaseModal from '@/components/base/BaseModal.vue'
 export default {
   name: 'PitchPlayerItem',
-  data() {
-    return {
-      score: null,
-      modalStatus: false,
-      localhostBase: process.env.VUE_APP_FPL_API_URL,
-      pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p'
-    }
-  },
   components: {
     'base-modal': BaseModal
   },
@@ -111,6 +103,15 @@ export default {
     GW: {
       type: Number,
       required: true,
+    }
+  },
+  data() {
+    return {
+      score: null,
+      modalStatus: false,
+      playerType: '',
+      localhostBase: process.env.VUE_APP_FPL_API_URL,
+      pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p'
     }
   },
   computed: {
@@ -147,6 +148,7 @@ export default {
   },
   mounted() {
     this.getPlayerHistoryByPlayerId(this.player.id)
+    this.playerType = this.getPlayerPosition(this.player.element_type)
   },
   methods: {
     getStats () {
@@ -156,6 +158,14 @@ export default {
         goalsScorder: this.score.goals_scored,
         minutes: this.score.minutes,
         cleanSheet: this.score.clean_sheets
+      }
+    },
+    getPlayerPosition (playerType) {
+      switch (playerType) {
+        case 1: return 'goalkeeper' 
+        case 2: return 'defender' 
+        case 3: return 'midfielder' 
+        case 4: return 'forward' 
       }
     },
     getPlayerHistoryByPlayerId(playerId) {
@@ -180,39 +190,37 @@ export default {
 
 <style lang="scss" scoped>
 
-.goalkeeper img { border: 1px solid $pl-red; }
-.defender img { border: 1px solid $pl-yellow; }
-.midfielder img { border: 1px solid $pl-green; }
-.attacker img { border: 1px solid $pl-blue; }
-
-
 .player {
-  //background: $pl-purple;
+  //border: 1px solid #ddd;
+  //background: #fff;
+  padding: $s;
+  border-radius: $s;
+
+/*   &.goalkeeper { border-bottom: 2px solid $pl-yellow; }
+  &.defender   { border-bottom: 2px solid $pl-green; }
+  &.midfielder { border-bottom: 2px solid $pl-blue; }
+  &.forward    { border-bottom: 2px solid $pl-red; } */
 
   img {
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
     object-position: 50% 0%;
-    //padding-top: 5px;
-    margin-bottom: 4px;
-    background: hsla(0, 0%, 20%, 0.75);
   }
   .player-name {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     margin-bottom: 4px;
-    color: #aaa;
+    color: $pl-purple;
     font-family: 'Roboto Condensed';
   }
   .player-score {
     font-weight: 700;
     font-size: 1rem;
     text-transform: uppercase;
-    color: #ccc;
+    color: $pl-purple;
     font-family: 'Roboto Condensed';
   }
 
