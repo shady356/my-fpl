@@ -2,13 +2,12 @@
   <div>
     <Header>
       <template #title>
-        <h3>Stats</h3>
+        <h1>Stats</h1>
       </template> 
     </Header>
     <div
       v-if="bootstrap" 
       class="stats-container default-page-margin">
-      <h1>Stats</h1>
       <section class="section">
         <h2>Top scorers</h2>
         <div class="horizontal-list">

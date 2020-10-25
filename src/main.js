@@ -7,11 +7,13 @@ import "normalize.css"
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faChevronLeft
+  faChevronLeft,
+  faBars
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(
-  faChevronLeft
+  faChevronLeft,
+  faBars
 )
 Vue.component('fa-icon', FontAwesomeIcon)
 

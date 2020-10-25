@@ -1,29 +1,28 @@
 <template>
   <header class="header">
-    <router-link
-      class="column"
-      :to="{ name: routerBack }"
-    >
-      <fa-icon 
-        icon="chevron-left" 
-        class="go-back" 
-      />
-    </router-link>
-    <div class="column">
+    <div class="row back-button">
+      <router-link
+        class="column"
+        :to="{ name: routerBack }"
+      >
+        <fa-icon 
+          icon="chevron-left" 
+          class="go-back" 
+        />
+      </router-link>
+    </div>
+    <div class="row">
       <slot name="title" />
-    </div>
-    <div
-      class="column"
-      @click="openMenu()"
-    >  
-      Menu
-    </div>
-    <div
-      v-if="isMenuOpen"
-       
-      class="menu">
+      <div
+        class="menu-bar-icon"
+        @click="openMenu()"
+      >  
+        <fa-icon icon="bars"/>
+      </div>
       <Menu
+        v-if="isMenuOpen"
         @closeMenu="closeMenu()"
+        class="menu"
       />
     </div>
   </header>
@@ -40,7 +39,7 @@ export default {
     routerBack: {
       type: String,
       required: false,
-      default: 'Home'
+      default: 'fantasy'
     }
   },
   data() {
@@ -62,35 +61,24 @@ export default {
 <style lang="scss" scoped>
 .header {
   align-items: center;
-  background: hsla(0, 0%, 100%, 0.9);
-  border-bottom: 1px solid #ddd;
-  display: flex;
   padding: $s;
   position: sticky;
   top: 0;
+  padding: 16px 16px 0;
+  background: #eee;
 
-  .column {
-    text-align: center;
-
-    &:nth-child(1) {
-      flex-grow: 1;
-    }
-    &:nth-child(2) {
-      flex-grow: 12;
-    }
-    &:nth-child(3) {
-      flex-grow: 1;
-    }
-  }
-}
-.dark {
-  .header {
-    background: hsla(0, 0%, 10%, 0.9);
-    border-bottom: 1px solid #333;
-    color: #fff;
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     
-    .go-back {
-      color: #fff;
+    &.back-button {
+      margin-bottom: $s;
+      font-size: 1.25rem;
+    }
+
+    .menu-bar-icon {
+      font-size: 1.75rem;
     }
   }
 }
