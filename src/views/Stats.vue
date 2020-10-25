@@ -133,7 +133,7 @@ export default {
       display: flex;
       flex-wrap: nowrap;
       overflow-x: scroll;
-      width: calc(100vw - 32px);
+      width: calc(100vw - 33px);
       padding: $s 0;
 
       .top-scorer-player-item {

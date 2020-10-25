@@ -35,7 +35,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: $m 0;
     padding: $m;
     height: 128px;
 
