@@ -5,25 +5,25 @@
       <h1 @click="closeMenu()">X</h1>
     </div>
     <ul class="menu-list">
-      <router-link
-        :to="item.path"
+      <li
         tabindex="0"
-        tag="li"
         v-for="(item, index) in nav"
         :key="index"
-        :class="['menu-item', { active: active === index }]"
-        @click="changeActive(index)"
+        class="menu-item"
+        @click="goToLink(item.path)"
       >
         <img :src="item.icon" alt="icon" />
         <div class="title">
           {{ item.title }}
         </div>
-      </router-link>
+      </li>
+
     </ul>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Menu",
   data() {
@@ -49,12 +49,14 @@ export default {
     };
   },
   methods: {
-    changeActive(index) {
-      this.active = index;
-    },
+    ...mapActions(["commitMenuStatus"]),
     closeMenu() {
-      this.$emit("closeMenu");
+      this.commitMenuStatus(false);
     },
+    goToLink(path) {
+      this.$router.push({path: path})
+      this.closeMenu()
+    }
   },
 };
 </script>

@@ -16,8 +16,13 @@ import Menu from "@/components/layout/Menu.vue";
 export default {
   name: "App",
   components: {
-    Menu,
+    Menu
   },
+  computed: {
+    isMenuOpen () {
+      return this.$store.state.isMenuOpen
+    }
+  }
 };
 </script>
 

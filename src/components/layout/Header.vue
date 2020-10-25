@@ -1,16 +1,15 @@
 <template>
   <header class="header">
-    <div class="row back-button">
-      <router-link
-        class="column"
-        :to="{ name: routerBack }"
-      >
-        <fa-icon 
-          icon="chevron-left" 
-          class="go-back" 
-        />
-      </router-link>
-    </div>
+    <router-link
+      v-if="isBackButton"
+      class="row back-button"
+      :to="{ name: routerBack }"
+    >
+      <fa-icon 
+        icon="chevron-left" 
+        class="go-back" 
+      />
+    </router-link>
     <div class="row">
       <slot name="title" />
       <div
@@ -24,26 +23,25 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Header",
   props: {
     routerBack: {
       type: String,
       required: false,
-      default: 'fantasy'
+      default: ''
     }
   },
-  data() {
-    return {
-      isMenuOpen: false
+  computed: {
+    isBackButton () {
+      return this.routerBack.length > 0
     }
   },
   methods: {
+    ...mapActions(["commitMenuStatus"]),
     openMenu () {
-      this.isMenuOpen = true
-    },
-    closeMenu () {
-      this.isMenuOpen = false
+      this.commitMenuStatus(true)
     }
   }
 };
