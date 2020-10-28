@@ -8,13 +8,21 @@ import "normalize.css"
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faChevronLeft,
-  faBars
+  faBars,
+  faCog,
+  faChartBar,
+  faUsers,
+  faFutbol
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import store from './store'
 library.add(
   faChevronLeft,
-  faBars
+  faBars,
+  faCog,
+  faChartBar,
+  faUsers,
+  faFutbol
 )
 Vue.component('fa-icon', FontAwesomeIcon)
 

@@ -2,7 +2,9 @@
   <div class="menu-container">
     <div class="header">
       <h1>Menu</h1>
-      <h1 @click="closeMenu()">X</h1>
+      <h1 @click="closeMenu()">
+        Close
+      </h1>
     </div>
     <ul class="menu-list">
       <li
@@ -12,12 +14,14 @@
         class="menu-item"
         @click="goToLink(item.path)"
       >
-        <img :src="item.icon" alt="icon" />
-        <div class="title">
+        <fa-icon 
+          :icon="item.icon"
+          class="item-icon"
+        />
+        <div class="item-title">
           {{ item.title }}
         </div>
       </li>
-
     </ul>
   </div>
 </template>
@@ -33,17 +37,17 @@ export default {
         {
           title: "Fantasy",
           path: "/",
-          icon: require("@/assets/icons/person_pin-24px.svg"),
+          icon: 'futbol'
         },
         {
           title: "Stats",
           path: "/stats",
-          icon: require("@/assets/icons/show_chart-24px.svg"),
+          icon: 'chart-bar'
         },
         {
           title: "Settings",
           path: "/settings",
-          icon: require("@/assets/icons/settings-24px.svg"),
+          icon: 'cog'
         },
       ],
     };
@@ -63,8 +67,8 @@ export default {
 
 <style lang="scss" scoped>
 .menu-container {
-  background: $pl-purple;
-  color: #fff;
+  position: relative;
+  background: #fff;
   height: 100vh;
   left: 0;
   padding: 16px;
@@ -80,15 +84,18 @@ export default {
   }
 
   .menu-list {
-    margin: 20px;
+    margin: $m $xs;
 
     .menu-item {
       display: flex;
       font-size: 2rem;
-      color: #fff;
-      padding: $s;
+      align-items: center;
+      padding: $m;
 
-      .title {
+      .item-icon {
+        font-size: 1.25rem;
+      }
+      .item-title {
         margin-left: $s;
         font-weight: 700;
       }
