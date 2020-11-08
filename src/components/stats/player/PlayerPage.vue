@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="player-stat-chart-master-container">
-      <BaseButton
+      <!-- <BaseButton
         @click="setChartDataAttributes('goals_scored', 0, 1)">
         Goals Scored
       </BaseButton>
@@ -33,11 +33,20 @@
       <BaseButton @click="setChartDataAttributes('assists', 0, 1)">
         Assists
       </BaseButton>
-      <BaseButton @click="setChartDataAttributes('value', playerMinimumCost, 1)">
-        value
-      </BaseButton>
-
-      <h2>Goals Scored</h2>
+      -->
+      <div class="stat-selector-container">
+        <select 
+          name="select-stat-list"
+          v-model="selectedChartStat"
+          @change="selectChartStat(selectedChartStat)"
+        >
+          <option value="goals_scored">Goals scored</option>
+          <option value="minutes">Minutes</option>
+          <option value="assists">Assists</option>
+          <option value="value">Value</option>
+          <option value="saves">Saves</option>
+        </select>
+      </div>
       <PlayerStatsChartController
         v-if="playerSummary"
         class="player-stat-chart-layout"
@@ -125,12 +134,12 @@
 
 <script>
 import axios from "axios";
-import BaseButton from '@/components/base/BaseButton.vue'
+//import BaseButton from '@/components/base/BaseButton.vue'
 import PlayerStatsChartController from '@/components/stats/player/PlayerStatsChartController.vue'
 export default {
   name: 'PlayerPage',
   components: {
-    BaseButton,
+    //BaseButton,
     PlayerStatsChartController
   },
   props: {
@@ -164,7 +173,8 @@ export default {
         key: 'goals_scored',
         min: 0,
         stepSize: 1
-      }
+      },
+      selectedChartStat: 'goals_scored'
     }
   },
   computed: {
@@ -180,6 +190,7 @@ export default {
   mounted () {
     this.getPlayerSummary(this.player.id)
     this.playerPosition = this.getPlayerPosition()
+    this.selectChartStat(this.selectedChartStat)
   },
   methods: {
     getPlayerPosition () {
@@ -200,6 +211,15 @@ export default {
           console.log(error);
           // this.errored = true;
         });
+    },
+    selectChartStat(statName) {
+      switch(statName) {
+        case 'goals_scored': this.setChartDataAttributes('goals_scored', 0, 1); break;
+        case 'assists': this.setChartDataAttributes('assists', 0, 1); break;
+        case 'minutes': this.setChartDataAttributes('minutes', 0, 45); break;
+        case 'value': this.setChartDataAttributes('value', this.playerMinimumCost, 1); break;
+        case 'saves': this.setChartDataAttributes('saves', 0, 1); break;
+      }
     },
     setChartDataAttributes(key, min, stepSize) {
       this.playerChartData.key = key
