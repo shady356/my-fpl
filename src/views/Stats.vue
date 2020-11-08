@@ -14,9 +14,9 @@
           <router-link
             v-for="player in topScorers"
             :key="player.id"
-            :to="{ name: 'playerProfile', params: {player: player }}"
+            :to="{ name: 'playerPage', params: {player: player }}"
           >
-            <PlayerItemMini
+            <PlayerItemCard
               class="top-scorer-player-item"
               :player="player"
               :statValue="player.goals_scored"
@@ -30,9 +30,9 @@
           <router-link
             v-for="player in topAssisters"
             :key="player.id"
-            :to="{ name: 'playerProfile', params: {player: player }}"
+            :to="{ name: 'playerPage', params: {player: player }}"
           >
-            <PlayerItemMini
+            <PlayerItemCard
               class="top-scorer-player-item"
               :player="player"
               :statValue="player.assists"
@@ -48,9 +48,9 @@
             :key="team.id"
             tag="li"
             class="team-item"
-            :to="{ name: 'statsTeamItem', params: {team: team }}"
+            :to="{ name: 'teamPage', params: {team: team }}"
           >
-            <StatsTeamListItem :team="team"/>
+            <TeamItemCard :team="team"/>
           </router-link>
         </ul>
       </section>
@@ -62,14 +62,14 @@
 import axios from "axios";
 import orderBy from 'lodash/orderBy'
 import Header from '@/components/layout/Header.vue'
-import PlayerItemMini from '@/components/stats/PlayerItemMini'
-import StatsTeamListItem from '@/components/stats/StatsTeamListItem.vue'
+import PlayerItemCard from '@/components/stats/player/PlayerItemCard'
+import TeamItemCard from '@/components/stats/team/TeamItemCard.vue'
 
 export default {
   name: 'Stats',
   components: {
-    PlayerItemMini,
-    StatsTeamListItem,
+    PlayerItemCard,
+    TeamItemCard,
     Header
   },
   data () {

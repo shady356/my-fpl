@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'TeamPlayer',
+  name: 'TeamPlayerItem',
   props: {
     player: {
       type: Object,

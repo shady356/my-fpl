@@ -24,15 +24,15 @@ export default new Router({
     },
     {
       path: '/stats/team/:teamId',
-      name: 'statsTeamItem',
+      name: 'teamPage',
       props: true,
-      component: () => import(/* webpackChunkName: "about" */ '@/components/stats/StatsTeamItem.vue')
+      component: () => import(/* webpackChunkName: "about" */ '@/components/stats/team/TeamPage.vue')
     },
     {
       path: '/stats/:player',
-      name: 'playerProfile',
+      name: 'playerPage',
       props: true,
-      component: () => import(/* webpackChunkName: "about" */ '@/components/stats/PlayerProfile.vue')
+      component: () => import(/* webpackChunkName: "about" */ '@/components/stats/player/PlayerPage.vue')
     },
 
     {

@@ -126,9 +126,9 @@
 <script>
 import axios from "axios";
 import BaseButton from '@/components/base/BaseButton.vue'
-import PlayerStatsChartController from '@/components/stats/PlayerStatsChartController.vue'
+import PlayerStatsChartController from '@/components/stats/player/PlayerStatsChartController.vue'
 export default {
-  name: 'PlayerProfile',
+  name: 'PlayerPage',
   components: {
     BaseButton,
     PlayerStatsChartController

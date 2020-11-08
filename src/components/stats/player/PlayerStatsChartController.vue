@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import PlayerBaseStatChart from '@/components/stats/PlayerBaseStatChart'
+import PlayerBaseStatChart from '@/components/stats/player/PlayerBaseStatChart'
 export default {
   name: 'PlayerStatsChartController',
   components: {

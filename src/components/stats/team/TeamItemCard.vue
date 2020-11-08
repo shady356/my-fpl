@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'StatsTeamListItem',
+  name: 'TeamItemCard',
   props: {
     team: {
       type: Object,

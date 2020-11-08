@@ -18,7 +18,7 @@
       <router-link
         v-for="player in sortedTeam"
         :key="player.id"
-        :to="{ name: 'playerProfile', params: {player: player }}"
+        :to="{ name: 'playerPage', params: {player: player }}"
         tag="li"
       >
         <TeamPlayerItem 
@@ -32,9 +32,9 @@
 <script>
 import axios from 'axios'
 import orderBy from 'lodash/orderBy'
-import TeamPlayerItem from '@/components/stats/TeamPlayerItem'
+import TeamPlayerItem from '@/components/stats/team/TeamPlayerItem'
 export default {
-  name: 'StatsTeamItem',
+  name: 'TeamPage',
   props: {
     team: {
       type: Object,

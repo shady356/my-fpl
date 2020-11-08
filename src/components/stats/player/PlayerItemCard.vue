@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'PlayerItemMini',
+  name: 'PlayerItemCard',
   filters: {
     firstChar(value) {
       return value.charAt(0) + '.'
