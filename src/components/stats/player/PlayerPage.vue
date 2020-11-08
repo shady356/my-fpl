@@ -23,17 +23,6 @@
       </div>
     </div>
     <div class="player-stat-chart-master-container">
-      <!-- <BaseButton
-        @click="setChartDataAttributes('goals_scored', 0, 1)">
-        Goals Scored
-      </BaseButton>
-      <BaseButton @click="setChartDataAttributes('minutes', 0, 45)">
-        Minutes played
-      </BaseButton>
-      <BaseButton @click="setChartDataAttributes('assists', 0, 1)">
-        Assists
-      </BaseButton>
-      -->
       <div class="stat-selector-container">
         <select 
           name="select-stat-list"
