@@ -1,134 +1,136 @@
 <template>
-  <div class="default-page-margin">
-    <div class="cover">
-      <router-link :to="{name: 'stats'}">
-        <img
-          :src="arrowBackIcon" 
-          alt="Go back: teams"
-        >
-      </router-link>
-      <div class="player">
-        <img
-          class="player-image" 
-          :src="pictureBase + player.code + '.png'" 
-          alt="player image"
-        >
-        <div class="player-name">
-          <h3>{{player.first_name}}</h3>
-          <h2>{{player.web_name}}</h2>
-          <h4 :class="['position-tag', playerPosition]">
-            {{playerPosition}}
-          </h4>
+  <div>
+    <BaseModalCard>
+      <div class="default-page-margin">
+        <div class="cover">
+          <router-link :to="{name: 'stats'}">
+            <img
+              :src="arrowBackIcon" 
+              alt="Go back: teams"
+            >
+          </router-link>
+          <div class="player">
+            <img
+              class="player-image" 
+              :src="pictureBase + player.code + '.png'" 
+              alt="player image"
+            >
+            <div class="player-name">
+              <h3>{{player.first_name}}</h3>
+              <h2>{{player.web_name}}</h2>
+              <h4 :class="['position-tag', playerPosition]">
+                {{playerPosition}}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="player-stat-chart-master-container">
+          <div class="stat-selector-container">
+            <select 
+              name="select-stat-list"
+              v-model="selectedChartStat"
+              @change="selectChartStat(selectedChartStat)"
+            >
+              <option value="goals_scored">Goals scored</option>
+              <option value="minutes">Minutes</option>
+              <option value="assists">Assists</option>
+              <option value="value">Value</option>
+              <option value="saves">Saves</option>
+            </select>
+          </div>
+          <PlayerStatsChartController
+            v-if="playerSummary"
+            class="player-stat-chart-layout"
+            :playerChartData="playerChartData"
+            :playerSummary="playerSummary"
+          />
+        </div>
+        <div>
+          <!-- Cost / Selection / tot points -->
+          <div class="stats-container">
+            <div class="stat-item">
+              <h6>Value</h6>
+              <h1>{{player.now_cost | playerCost}}</h1>
+            </div>
+            <div class="stat-item">
+              <h6>Selected By</h6>
+              <h1>{{player.selected_by_percent}}%</h1>
+            </div>
+            <div class="stat-item">
+              <h6>Total Points</h6>
+              <h1>{{player.total_points}}</h1>
+            </div>
+          </div>
+          <!-- ICT detailed -->
+          <div class="stats-container">
+            <div class="stat-item">
+              <h6>Influence</h6>
+              <h4>{{player.influence}}</h4>
+            </div>
+            <div class="stat-item">
+              <h6>Creativity</h6>
+              <h4>{{player.creativity}}</h4>
+            </div>
+            <div class="stat-item">
+              <h6>Threat</h6>
+              <h4>{{player.threat}}</h4>
+            </div>
+            <div class="stat-item">
+              <h6>Rank</h6>
+              <h4>{{player.influence_rank | toRank}}</h4>
+            </div>
+            <div class="stat-item">
+              <h6>Rank</h6>
+              <h4>{{player.creativity_rank | toRank}}</h4>
+            </div>
+            <div class="stat-item">
+              <h6>Rank</h6>
+              <h4>{{player.threat_rank | toRank}}</h4>
+            </div>
+          </div>
+          <!-- ICT index -->
+          <div class="stats-container">
+            <div class="stat-item">
+              <h4>ICT Index</h4>
+              <h1>{{player.ict_index}}</h1>
+            </div>
+            <div class="stat-item">
+              <h4>Rank</h4>
+              <h1>{{player.ict_index_rank | toRank}}</h1>
+            </div>
+          </div>
+          <!-- Goals / Assists -->
+          <div class="stats-container">
+            <div class="stat-item">
+              <h4>Goals</h4>
+              <h1>{{player.goals_scored}}</h1>
+            </div>
+            <div class="stat-item">
+              <h4>Assists</h4>
+              <h1>{{player.assists}}</h1>
+            </div>
+          </div>
+          <!-- Clean sheets -->
+          <div class="stats-container">
+            <div class="stat-item">
+              <h4>Clean sheets</h4>
+              <h1>{{player.clean_sheets}}</h1>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="player-stat-chart-master-container">
-      <div class="stat-selector-container">
-        <select 
-          name="select-stat-list"
-          v-model="selectedChartStat"
-          @change="selectChartStat(selectedChartStat)"
-        >
-          <option value="goals_scored">Goals scored</option>
-          <option value="minutes">Minutes</option>
-          <option value="assists">Assists</option>
-          <option value="value">Value</option>
-          <option value="saves">Saves</option>
-        </select>
-      </div>
-      <PlayerStatsChartController
-        v-if="playerSummary"
-        class="player-stat-chart-layout"
-        :playerChartData="playerChartData"
-        :playerSummary="playerSummary"
-      />
-    </div>
-
-
-    <div v-show="false">
-      <!-- Cost / Selection / tot points -->
-      <div class="stats-container">
-        <div class="stat-item">
-          <h6>Value</h6>
-          <h1>{{player.now_cost | playerCost}}</h1>
-        </div>
-        <div class="stat-item">
-          <h6>Selected By</h6>
-          <h1>{{player.selected_by_percent}}%</h1>
-        </div>
-        <div class="stat-item">
-          <h6>Total Points</h6>
-          <h1>{{player.total_points}}</h1>
-        </div>
-      </div>
-      <!-- ICT detailed -->
-      <div class="stats-container">
-        <div class="stat-item">
-          <h6>Influence</h6>
-          <h4>{{player.influence}}</h4>
-        </div>
-        <div class="stat-item">
-          <h6>Creativity</h6>
-          <h4>{{player.creativity}}</h4>
-        </div>
-        <div class="stat-item">
-          <h6>Threat</h6>
-          <h4>{{player.threat}}</h4>
-        </div>
-        <div class="stat-item">
-          <h6>Rank</h6>
-          <h4>{{player.influence_rank | toRank}}</h4>
-        </div>
-        <div class="stat-item">
-          <h6>Rank</h6>
-          <h4>{{player.creativity_rank | toRank}}</h4>
-        </div>
-        <div class="stat-item">
-          <h6>Rank</h6>
-          <h4>{{player.threat_rank | toRank}}</h4>
-        </div>
-      </div>
-      <!-- ICT index -->
-      <div class="stats-container">
-        <div class="stat-item">
-          <h4>ICT Index</h4>
-          <h1>{{player.ict_index}}</h1>
-        </div>
-        <div class="stat-item">
-          <h4>Rank</h4>
-          <h1>{{player.ict_index_rank | toRank}}</h1>
-        </div>
-      </div>
-      <!-- Goals / Assists -->
-      <div class="stats-container">
-        <div class="stat-item">
-          <h4>Goals</h4>
-          <h1>{{player.goals_scored}}</h1>
-        </div>
-        <div class="stat-item">
-          <h4>Assists</h4>
-          <h1>{{player.assists}}</h1>
-        </div>
-      </div>
-      <!-- Clean sheets -->
-      <div class="stats-container">
-        <div class="stat-item">
-          <h4>Clean sheets</h4>
-          <h1>{{player.clean_sheets}}</h1>
-        </div>
-      </div>
-    </div>
+    </BaseModalCard>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-//import BaseButton from '@/components/base/BaseButton.vue'
+import BaseModalCard from '@/components/base/BaseModalCard.vue'
 import PlayerStatsChartController from '@/components/stats/player/PlayerStatsChartController.vue'
 export default {
   name: 'PlayerPage',
   components: {
-    //BaseButton,
+    BaseModalCard,
     PlayerStatsChartController
   },
   props: {
@@ -223,7 +225,7 @@ export default {
   .cover {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #33333366;
 
     .player {
       margin-top: $l;
@@ -265,13 +267,14 @@ export default {
     }
   }
   .stats-container {
+    border-bottom: 1px solid $pl-blue;
+    box-sizing: border-box;
+    color: $pl-blue;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    text-align: center;
-    box-sizing: border-box;
-    border-bottom: 1px solid #333;
     padding: $l 0;
+    text-align: center;
     text-align: center;
 
     .stat-item {
