@@ -26,7 +26,8 @@
         </div>
         <div class="player-stat-chart-master-container">
           <div class="stat-selector-container">
-            <select 
+            <select
+              class="dropdown"
               name="select-stat-list"
               v-model="selectedChartStat"
               @change="selectChartStat(selectedChartStat)"
@@ -263,6 +264,22 @@ export default {
           background: $pl-red;
           color: #fff;
         }
+      }
+    }
+  }
+  .player-stat-chart-master-container {
+    .stat-selector-container {
+      display: flex;
+      justify-content: center;
+      margin: $l 0;
+      
+      .dropdown {
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        color: #fff;
+        text-align: right;
+        font-weight: 700;
       }
     }
   }

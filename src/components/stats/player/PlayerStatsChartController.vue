@@ -60,7 +60,7 @@ export default {
             },
             ticks: {
               fontFamily: "Roboto condensed",
-              fontColor: '#333'
+              fontColor: '#fff'
             }
           }],
           yAxes:[{
@@ -71,8 +71,8 @@ export default {
               stepSize: 1,
               min: 0,
               fontFamily: "Roboto condensed",
-              fontColor: '#333',
-              fontSize: 14
+              fontColor: '#fff',
+              fontSize: 12
             }
           }],
         },

@@ -6,7 +6,7 @@
         <router-link
           v-for="player in topScorers"
           :key="player.id"
-          :to="{ name: 'playerPage', params: { player: player } }"
+          :to="{ name: 'playerPage', params: { player: player }}"
         >
           <PlayerItemCard
             class="top-scorer-player-item"
