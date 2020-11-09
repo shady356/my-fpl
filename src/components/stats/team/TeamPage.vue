@@ -1,37 +1,42 @@
 <template>
-  <div class="default-page-margin">
-    <router-link
-      :to="{name: 'stats'}"
-    >
-      <img :src="arrowBackIcon" alt="Go back: teams">
-    </router-link>
-    <div class="cover">
-      <img 
-        :src="teamBadge" 
-        class="team-badge"
-        alt=""
-      >
-      <h2>{{team.name}}</h2>
-    </div>
-    <h3>Players</h3>
-    <ul class="player-list">
-      <router-link
-        v-for="player in sortedTeam"
-        :key="player.id"
-        :to="{ name: 'playerPage', params: {player: player }}"
-        tag="li"
-      >
-        <TeamPlayerItem 
-          :player="player"
-        />
-      </router-link>
-    </ul>
+  <div>
+    <BaseModalCard>
+      <div class="default-page-margin">
+        <router-link
+          :to="{name: 'stats'}"
+        >
+          <img :src="arrowBackIcon" alt="Go back: teams">
+        </router-link>
+        <div class="cover">
+          <img 
+            :src="teamBadge" 
+            class="team-badge"
+            alt=""
+          >
+          <h2>{{team.name}}</h2>
+        </div>
+        <h3>Players</h3>
+        <ul class="player-list">
+          <router-link
+            v-for="player in sortedTeam"
+            :key="player.id"
+            :to="{ name: 'playerPage', params: {player: player }}"
+            tag="li"
+          >
+            <TeamPlayerItem 
+              :player="player"
+            />
+          </router-link>
+        </ul>
+      </div>
+    </BaseModalCard>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import orderBy from 'lodash/orderBy'
+import BaseModalCard from '@/components/base/BaseModalCard.vue'
 import TeamPlayerItem from '@/components/stats/team/TeamPlayerItem'
 export default {
   name: 'TeamPage',
@@ -42,6 +47,7 @@ export default {
     }
   },
   components: {
+    BaseModalCard,
     TeamPlayerItem
   },
   data() {

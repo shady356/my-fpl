@@ -72,10 +72,10 @@ export default {
 
 <style lang="scss" scoped>
 .player {
-  background: #fff;
+  background: #ffffff44;
   border-left: 1px solid transparent;
   border-radius: $s;
-  box-shadow: 0 5px $s #ddd;
+  box-shadow: 0 5px $s #00000022;
   display: flex;
   margin: $m 0;
   padding: $m $m 0;
