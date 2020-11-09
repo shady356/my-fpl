@@ -7,7 +7,9 @@
     </Header>
     <div
       v-if="bootstrap" 
-      class="stats-container default-page-margin">
+      class="stats-container default-page-margin"
+    >
+      <h4 @click="openPlayerStatFilters()">Filter</h4>
       <section class="section">
         <h2>Top scorers</h2>
         <div class="horizontal-list">
@@ -41,6 +43,22 @@
         </div>
       </section>
       <section class="section">
+        <h2>Top most points</h2>
+        <div class="horizontal-list">
+          <router-link
+            v-for="player in topTotalPoints"
+            :key="player.id"
+            :to="{ name: 'playerPage', params: {player: player }}"
+          >
+            <PlayerItemCard
+              class="top-scorer-player-item"
+              :player="player"
+              :statValue="player.total_points"
+            />
+          </router-link>
+        </div>
+      </section>
+      <section class="section">
         <h2 @click="showTeams = !showTeams">Teams</h2>
         <ul class="horizontal-list">
           <router-link
@@ -55,6 +73,16 @@
         </ul>
       </section>
     </div>
+    <BaseModal
+      v-if="showPlayerStatFilters"
+      @closeModal="closePlayerStatFilters()">
+      <template #header>
+        Players stat filters
+      </template>
+      <template #content>
+        Player
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -62,12 +90,14 @@
 import axios from "axios";
 import orderBy from 'lodash/orderBy'
 import Header from '@/components/layout/Header.vue'
+import BaseModal from '@/components/base/BaseModal.vue'
 import PlayerItemCard from '@/components/stats/player/PlayerItemCard'
 import TeamItemCard from '@/components/stats/team/TeamItemCard.vue'
 
 export default {
   name: 'Stats',
   components: {
+    BaseModal,
     PlayerItemCard,
     TeamItemCard,
     Header
@@ -77,6 +107,7 @@ export default {
       bootstrap: null,
       teams: null,
       showTeams: true,
+      showPlayerStatFilters: false,
       BASE_URL: process.env.VUE_APP_FPL_API_URL,
     }
   },
@@ -86,6 +117,9 @@ export default {
     },
     playersSortedByAssists () {
       return orderBy(this.bootstrap.elements, 'assists','desc')
+    },
+    playersSortedByTotalPoints () {
+      return orderBy(this.bootstrap.elements, 'total_points','desc')
     },
     topScorers () {
       return this.playersSortedByGoalsScored.filter((player, index) => {
@@ -100,12 +134,25 @@ export default {
           return player
         }
       })
+    },
+    topTotalPoints () {
+      return this.playersSortedByTotalPoints.filter((player, index) => {
+        if (index < 50) {
+          return player
+        }
+      })
     }
   },
   mounted () {
     this.getBootstrap();
   },
   methods: {
+    openPlayerStatFilters() {
+      this.showPlayerStatFilters = true
+    },
+    closePlayerStatFilters() {
+      this.showPlayerStatFilters = false
+    },
     getBootstrap() {
       axios
         .get(`${this.BASE_URL}/api/bootstrap-static/`)
