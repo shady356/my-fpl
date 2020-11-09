@@ -5,6 +5,12 @@
         <h1>Stats</h1>
       </template> 
     </Header>
+    <BaseTabs
+      :items="pageTabItems"
+      :activeIndex="activePageTabIndex"
+      @selectTab="setPageTab"
+      class="page-tabs-layout"
+    />
     <div
       v-if="bootstrap" 
       class="stats-container default-page-margin"
@@ -91,6 +97,7 @@ import axios from "axios";
 import orderBy from 'lodash/orderBy'
 import Header from '@/components/layout/Header.vue'
 import BaseModal from '@/components/base/BaseModal.vue'
+import BaseTabs from '@/components/base/BaseTabs.vue'
 import PlayerItemCard from '@/components/stats/player/PlayerItemCard'
 import TeamItemCard from '@/components/stats/team/TeamItemCard.vue'
 
@@ -98,17 +105,23 @@ export default {
   name: 'Stats',
   components: {
     BaseModal,
+    BaseTabs,
     PlayerItemCard,
     TeamItemCard,
     Header
   },
   data () {
     return {
+      activePageTabIndex: 0,
       bootstrap: null,
       teams: null,
       showTeams: true,
       showPlayerStatFilters: false,
       BASE_URL: process.env.VUE_APP_FPL_API_URL,
+      pageTabItems: [
+        { name: 'Players' },
+        { name: 'Teams' }
+      ]
     }
   },
   computed: {
@@ -153,6 +166,9 @@ export default {
     closePlayerStatFilters() {
       this.showPlayerStatFilters = false
     },
+    setPageTab(index) {
+      this.activePageTabIndex = index
+    },
     getBootstrap() {
       axios
         .get(`${this.BASE_URL}/api/bootstrap-static/`)
@@ -171,6 +187,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+  .page-tabs-layout {
+    text-align: center;
+    margin: $l 0;
+  }
 
   .section {
     margin: $l 0;
