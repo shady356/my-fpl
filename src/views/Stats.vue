@@ -65,9 +65,6 @@ export default {
       return this.activePageTabIndex === 0
     }
   },
-  mounted () {
-    this.getBootstrap();
-  },
   methods: {
     openPlayerStatFilters() {
       this.showPlayerStatFilters = true

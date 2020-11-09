@@ -12,15 +12,39 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapActions } from "vuex";
 import Menu from "@/components/layout/Menu.vue";
 export default {
   name: "App",
   components: {
     Menu
   },
+  data () {
+    return {
+      BASE_URL: process.env.VUE_APP_FPL_API_URL
+    }
+  },
   computed: {
     isMenuOpen () {
       return this.$store.state.isMenuOpen
+    }
+  },
+  created () {
+    this.setBootstrapData()
+  },
+  methods: {
+    ...mapActions(["commitSetBootstrapData"]),
+    setBootstrapData() {
+      axios
+        .get(`${this.BASE_URL}/api/bootstrap-static/`)
+        .then((response) => {
+          this.commitSetBootstrapData(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+          // this.errored = true;
+        })
     }
   }
 };

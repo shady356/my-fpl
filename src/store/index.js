@@ -5,16 +5,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isMenuOpen: false
+    isMenuOpen: false,
+    bootstrap: null
   },
   mutations: {
     setMenuStatus(state, status) {
       state.isMenuOpen = status
     },
+    setBootstrapData (state, data) {
+      state.bootstrap = data
+    }
   },
   actions: {
     commitMenuStatus(state, status) {
       state.commit('setMenuStatus', status)
+    },
+    commitSetBootstrapData(state, data) {
+      state.commit('setBootstrapData', data)
     },
   },
   modules: {},

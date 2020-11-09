@@ -59,7 +59,7 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient($pl-blue);
+    background: $pl-blue;
 
     .player-image {
       width: 150px;
