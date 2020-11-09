@@ -1,5 +1,5 @@
 <template>
-  <div v-if="bootstrap">
+  <div v-if="players">
     <section class="section">
       <h2>Top scorers</h2>
       <div class="horizontal-list">
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import orderBy from "lodash/orderBy";
 import PlayerItemCard from "@/components/stats/player/PlayerItemCard";
 export default {
@@ -30,14 +29,12 @@ export default {
   },
   data() {
     return {
-      teams: null,
-      bootstrap: null,
-      BASE_URL: process.env.VUE_APP_FPL_API_URL
+      players: this.$store.state.bootstrap.elements
     };
   },
   computed: {
     playersSortedByGoalsScored() {
-      return orderBy(this.bootstrap.elements, "goals_scored", "desc");
+      return orderBy(this.players, "goals_scored", "desc");
     },
     topScorers() {
       return this.playersSortedByGoalsScored.filter((player, index) => {
@@ -45,22 +42,6 @@ export default {
           return player;
         }
       });
-    }
-  },
-  mounted () {
-    this.getBootstrap()
-  },
-  methods: {
-    getBootstrap() {
-      axios
-        .get(`${this.BASE_URL}/api/bootstrap-static/`)
-        .then((response) => {
-          this.bootstrap = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-          // this.errored = true;
-        });
     }
   }
 };

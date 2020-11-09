@@ -23,7 +23,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ '@/views/Stats.vue')
     },
     {
-      path: '/stats/team/:teamId',
+      path: '/stats/team/:team',
       name: 'teamPage',
       props: true,
       component: () => import(/* webpackChunkName: "about" */ '@/components/stats/team/TeamPage.vue')
