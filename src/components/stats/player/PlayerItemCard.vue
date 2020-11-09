@@ -11,9 +11,14 @@
         <h4 class="last-name">{{player.web_name}}</h4>
       </div>
     </div>
+    <!-- <img
+      class="team-logo"
+      :src="teamBadge"
+      alt=""
+    > -->
     <img
       class="player-image" 
-      :src="pictureBase + player.code + '.png'" 
+      :src="pictureBase + player.code + '.png'"
       alt=""
     >
   </div>
@@ -41,57 +46,67 @@ export default {
   computed: {
     playerImage () {
       return this.pictureBase + this.player.code + '.png'
+    },
+    teamBadge () {
+      return `https://fantasy.premierleague.com/dist/img/badges/badge_${this.player.team_code}_80.png#/`
     }
   },
   data () {
     return {
       pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p'
-      //resources.premierleague.com/premierleague/photos/players/110x140/p101668.png
     }
   }
 }
 </script>
 <style lang="scss" scoped>
   .player-mini {
-    box-shadow: 0 5px $s #ddd;
-    border-radius: $m;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    // background: #0346f2;
+    background: cyan;
+    border-radius: $s;
+    box-shadow: 0 5px $s #ddd;
+    display: flex;
     flex-direction: column;
-    background: $pl-blue;
+    justify-content: center;
+    position: relative;
+
+    .team-logo {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: $l;
+      border-radius: $s 0 $s 0;
+      background: #fff;
+      padding: $xs;
+    }
 
     .player-image {
-      width: 150px;
-      height: 116px;
       border-radius: $m;
-      object-fit:cover;
+      height: 116px;
+      object-fit: cover;
       object-position: 50% 0%;
+      width: 130px;
     }
 
     .text-container {
       display: flex;
-      padding: $m;
+      justify-content: flex-start;
+      padding: $m 0;
 
       .stat-value {
-        margin-right: $m;
-        h1{
-
-          font-weight: 700;
-          color: $pl-purple;
-        }
+        padding: 0 $s;
       }
 
       .player-name {
+        padding: 0 $s;
+
         .first-name {
-          color: $pl-purple;
           line-height: 8px;
           margin-top: 8px;
         }
         .last-name {
           white-space: nowrap;
           font-weight: 700;
-          color: $pl-purple;
         }
       }
     }
