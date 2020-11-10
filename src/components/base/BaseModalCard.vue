@@ -10,7 +10,10 @@
         </div>
       </div>
     </transition>
-    <div class="close-button">
+    <div
+      class="close-button"
+      @click="closeModal()"
+    >
       <img :src="clear" alt="">
     </div>
   </div>
@@ -32,7 +35,7 @@ export default {
   },
   methods: {
     closeModal() {
-      this.$emit('closeModal')
+      this.$emit('close')
     }
   }
 }
@@ -56,7 +59,7 @@ export default {
       top: 1vh;
       left: 2vw;
       width: 96vw;
-      height: 80vh;
+      height: 96vh;
       padding-bottom: 1rem;
       background-image: linear-gradient(180deg, hsla(180, 100%, 50%, 0.85), hsla(249, 71%, 35%, 0.85));
     }
@@ -64,7 +67,7 @@ export default {
       background: #000;
       border-radius: 50%;
       transform: translateX(50%);
-      bottom: 10vh;
+      bottom: 4vh;
       color: #fff;
       font-size: 36px;
       height: 40px;

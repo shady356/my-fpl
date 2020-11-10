@@ -1,14 +1,16 @@
 <template>
   <div>
-    <BaseModalCard>
+    <BaseModalCard
+      @close="goBack"
+    >
       <div class="default-page-margin">
         <div class="cover">
-          <router-link :to="{name: 'stats'}">
+          <!-- <router-link :to="{name: 'stats'}">
             <img
               :src="arrowBackIcon" 
               alt="Go back: teams"
             >
-          </router-link>
+          </router-link> -->
           <div class="player">
             <img
               class="player-image" 
@@ -217,6 +219,9 @@ export default {
       this.playerChartData.key = key
       this.playerChartData.min = min
       this.playerChartData.stepSize = stepSize
+    },
+    goBack() {
+      this.$router.push( {name: 'stats'})
     }
   }
 }
