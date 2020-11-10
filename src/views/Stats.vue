@@ -51,9 +51,7 @@ export default {
   data () {
     return {
       activePageTabIndex: 0,
-      bootstrap: null,
       showPlayerStatFilters: false,
-      BASE_URL: process.env.VUE_APP_FPL_API_URL,
       pageTabItems: [
         { name: 'Players' },
         { name: 'Teams' }
