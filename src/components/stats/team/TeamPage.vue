@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="team">
     <BaseModalCard>
       <div class="default-page-margin">
         <router-link
@@ -34,15 +34,14 @@
 </template>
 
 <script>
-import axios from 'axios'
 import orderBy from 'lodash/orderBy'
 import BaseModalCard from '@/components/base/BaseModalCard.vue'
 import TeamPlayerItem from '@/components/stats/team/TeamPlayerItem'
 export default {
   name: 'TeamPage',
   props: {
-    team: {
-      type: Object,
+    teamId: {
+      type: Number,
       required: true
     }
   },
@@ -52,6 +51,9 @@ export default {
   },
   data() {
     return {
+      teams: this.$store.state.bootstrap.teams,
+      allPlayers: this.$store.state.bootstrap.elements,
+      team: null,
       teamPlayers: null,
       teamPlayersPosition: [
         {
@@ -71,7 +73,6 @@ export default {
           players: []
         },
       ],
-      BASE_URL: process.env.VUE_APP_FPL_API_URL,
       arrowBackIcon: require('@/assets/icons/arrow_back-24px.svg')
     }
   },
@@ -84,7 +85,9 @@ export default {
     }
   },
   mounted () {
-    this.getBootstrap()
+    this.team = this.getTeamById(this.teamId)
+    this.teamPlayers = this.getTeamPlayers()
+    this.setTeamPlayerPosition()
   },
   methods: {
     setTeamPlayerPosition () {
@@ -92,20 +95,16 @@ export default {
         this.teamPlayersPosition[player.element_type-1].players.push(player)
       });
     },
-    getBootstrap() {
-      axios
-        .get(`${this.BASE_URL}/api/bootstrap-static/`)
-        .then((response) => {
-          const allPlayers = response.data.elements;
-          this.teamPlayers = allPlayers.filter(player => {
-            return player.team_code === this.team.code
-          })
-          this.setTeamPlayerPosition()
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+    getTeamById (id) {
+      return this.teams.find(team => {
+        return id === team.id
+      })
     },
+    getTeamPlayers () {
+      return this.allPlayers.filter(player => {
+        return player.team_code === this.team.code
+      })
+    }
   }
 }
 </script>

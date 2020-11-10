@@ -8,7 +8,7 @@
           :key="team.id"
           tag="li"
           class="team-item"
-          :to="{ name: 'teamPage', params: {team: team }}"
+          :to="{ name: 'teamPage', params: {teamId: team.id }}"
         >
           <TeamItemCard :team="team"/>
         </router-link>
@@ -28,8 +28,7 @@ export default {
     return {
       teams: this.$store.state.bootstrap.teams
     }
-  },
-  methods: {}
+  }
 }
 </script>
 
