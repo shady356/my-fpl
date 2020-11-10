@@ -230,7 +230,7 @@ export default {
       this.playerChartData.stepSize = stepSize
     },
     goBack() {
-      this.$router.push( {name: 'stats'})
+      this.$router.back()
     }
   }
 }

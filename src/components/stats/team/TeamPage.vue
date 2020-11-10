@@ -41,7 +41,7 @@ export default {
   name: 'TeamPage',
   props: {
     teamId: {
-      type: Number,
+      type: [String,Number],
       required: true
     }
   },
@@ -54,6 +54,7 @@ export default {
       teams: this.$store.state.bootstrap.teams,
       allPlayers: this.$store.state.bootstrap.elements,
       team: null,
+      teamBadge: null,
       teamPlayers: null,
       teamPlayersPosition: [
         {
@@ -77,17 +78,16 @@ export default {
     }
   },
   computed: {
-    teamBadge () {
-      return `https://fantasy.premierleague.com/dist/img/badges/badge_${this.team.code}_80.png#/`
-    },
     sortedTeam() {
       return orderBy(this.teamPlayers, ['element_type','total_points'],['asc', 'desc'])
     }
   },
   mounted () {
     this.team = this.getTeamById(this.teamId)
+    console.log(this.team)
     this.teamPlayers = this.getTeamPlayers()
     this.setTeamPlayerPosition()
+    this.setTeamBadge()
   },
   methods: {
     setTeamPlayerPosition () {
@@ -96,6 +96,7 @@ export default {
       });
     },
     getTeamById (id) {
+      id = parseInt(id)
       return this.teams.find(team => {
         return id === team.id
       })
@@ -104,7 +105,10 @@ export default {
       return this.allPlayers.filter(player => {
         return player.team_code === this.team.code
       })
-    }
+    },
+    setTeamBadge () {
+      this.teamBadge = `https://fantasy.premierleague.com/dist/img/badges/badge_${this.team.code}_80.png#/`
+    },
   }
 }
 </script>
