@@ -1,13 +1,21 @@
 <template>
   <div id="app">
-    <transition name="opacity" mode="out-in">
-      <router-view class="main-layout" />
-    </transition>
-    <Menu
-      v-if="isMenuOpen"
-      class="menu"
-      @closeMenu="closeMenu()"
-    />
+    <div v-if="isAppLoaded">
+      <transition name="opacity" mode="out-in">
+        <router-view class="main-layout" />
+      </transition>
+      <Menu
+        v-if="isMenuOpen"
+        class="menu"
+        @closeMenu="closeMenu()"
+      />
+    </div>
+    <div 
+      v-else
+      class="loading-app-feedback"
+    >
+      <h3>Loading FPL App ...</h3>
+    </div>
   </div>
 </template>
 
@@ -22,6 +30,7 @@ export default {
   },
   data () {
     return {
+      isAppLoaded: false,
       BASE_URL: process.env.VUE_APP_FPL_API_URL
     }
   },
@@ -39,6 +48,7 @@ export default {
       axios
         .get(`${this.BASE_URL}/api/bootstrap-static/`)
         .then((response) => {
+          this.isAppLoaded = true
           this.commitSetBootstrapData(response.data)
         })
         .catch((error) => {
@@ -71,5 +81,12 @@ a {
 
 ul li {
   list-style: none;
+}
+
+.loading-app-feedback {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 </style>
