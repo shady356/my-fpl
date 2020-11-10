@@ -29,7 +29,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ '@/components/stats/team/TeamPage.vue')
     },
     {
-      path: '/stats/:player',
+      path: '/stats/:playerId',
       name: 'playerPage',
       props: true,
       component: () => import(/* webpackChunkName: "about" */ '@/components/stats/player/PlayerPage.vue')

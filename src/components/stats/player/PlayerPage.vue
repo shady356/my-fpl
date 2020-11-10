@@ -1,6 +1,7 @@
 <template>
   <div>
     <BaseModalCard
+       v-if="player"
       @close="goBack"
     >
       <div class="default-page-margin">
@@ -137,8 +138,8 @@ export default {
     PlayerStatsChartController
   },
   props: {
-    player: {
-      type: Object,
+    playerId: {
+      type: Number,
       required: true
     }
   },
@@ -157,6 +158,8 @@ export default {
   },
   data() {
     return {
+      allPlayers: this.$store.state.bootstrap.elements,
+      player: null,
       playerPosition: null,
       pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p',
       arrowBackIcon: require('@/assets/icons/arrow_back-24px.svg'),
@@ -182,11 +185,17 @@ export default {
     }
   },
   mounted () {
-    this.getPlayerSummary(this.player.id)
+    this.player = this.getPlayerById(this.playerId)
+    this.getPlayerSummary(this.playerId)
     this.playerPosition = this.getPlayerPosition()
     this.selectChartStat(this.selectedChartStat)
   },
   methods: {
+    getPlayerById (id) {
+      return this.allPlayers.find(player => {
+        return player.id === id
+      })
+    },
     getPlayerPosition () {
       switch (this.player.element_type) {
         case 1: return 'goalkeeper'

@@ -20,7 +20,7 @@
           <router-link
             v-for="player in sortedTeam"
             :key="player.id"
-            :to="{ name: 'playerPage', params: {player: player }}"
+            :to="{ name: 'playerPage', params: {playerId: player.id }}"
             tag="li"
           >
             <TeamPlayerItem 
