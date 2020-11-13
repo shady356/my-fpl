@@ -1,9 +1,10 @@
 import store from '@/store/index.js'
 
 export const $getTeamById = (teamId) => {
+  teamId = parseInt(teamId)
   const teams = store.state.bootstrap.teams
   return teams.find(team => {
-    return teamId === team.id
+    return team.id === teamId
   })
 }
 export const $getTeamPlayersByTeamCode = (teamCode) => {
