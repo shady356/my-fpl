@@ -38,7 +38,6 @@ import BaseTabs from '@/components/base/BaseTabs.vue'
 import StatsPlayersPage from '@/components/stats/StatsPlayersPage.vue'
 import StatsTeamsPage from '@/components/stats/StatsTeamsPage.vue'
 
-
 export default {
   name: 'Stats',
   components: {
