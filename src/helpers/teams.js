@@ -13,3 +13,6 @@ export const $getTeamPlayersByTeamCode = (teamCode) => {
     return player.team_code === teamCode
   })
 }
+export const $getTeamBadgeByTeamCode = (teamCode) => {
+  return `https://fantasy.premierleague.com/dist/img/badges/badge_${teamCode}_80.png#/`
+}
