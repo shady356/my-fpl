@@ -131,6 +131,7 @@
 import axios from "axios";
 import BaseModalCard from '@/components/base/BaseModalCard.vue'
 import PlayerStatsChartController from '@/components/stats/player/PlayerStatsChartController.vue'
+import { $getPlayerById, $getPlayerPositionByType } from '@/helpers/players.js'
 export default {
   name: 'PlayerPage',
   components: {
@@ -139,7 +140,7 @@ export default {
   },
   props: {
     playerId: {
-      type: Number,
+      type: [Number, String],
       required: true
     }
   },
@@ -171,7 +172,7 @@ export default {
         min: 0,
         stepSize: 1
       },
-      selectedChartStat: 'goals_scored'
+      selectedChartStat: 'minutes'
     }
   },
   computed: {
@@ -185,25 +186,12 @@ export default {
     }
   },
   mounted () {
-    this.player = this.getPlayerById(this.playerId)
+    this.player = $getPlayerById(this.playerId)
     this.getPlayerSummary(this.playerId)
-    this.playerPosition = this.getPlayerPosition()
+    this.playerPosition = $getPlayerPositionByType(this.player.element_type)
     this.selectChartStat(this.selectedChartStat)
   },
   methods: {
-    getPlayerById (id) {
-      return this.allPlayers.find(player => {
-        return player.id === id
-      })
-    },
-    getPlayerPosition () {
-      switch (this.player.element_type) {
-        case 1: return 'goalkeeper'
-        case 2: return 'defense';
-        case 3: return 'midfielder';
-        default: return 'forward';
-      }
-    },
     getPlayerSummary (id) {
       axios
         .get(`${this.BASE_URL}api/element-summary/${id}/`)

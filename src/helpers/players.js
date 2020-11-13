@@ -7,8 +7,8 @@ export const $getPlayerById = (playerId) => {
     return player.id === playerId
   })
 }
-export const $getPlayerPosition = (position) => {
-  switch (position) {
+export const $getPlayerPositionByType = (type) => {
+  switch (type) {
     case 1: return 'goalkeeper'
     case 2: return 'defense';
     case 3: return 'midfielder';

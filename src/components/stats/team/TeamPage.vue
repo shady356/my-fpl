@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { $getTeamById, $getTeamPlayersByTeamCode } from '@/helpers/teams.js'
 import orderBy from 'lodash/orderBy'
 import BaseModalCard from '@/components/base/BaseModalCard.vue'
 import TeamPlayerItem from '@/components/stats/team/TeamPlayerItem'
@@ -41,7 +42,7 @@ export default {
   name: 'TeamPage',
   props: {
     teamId: {
-      type: [String,Number],
+      type: [String, Number],
       required: true
     }
   },
@@ -83,9 +84,8 @@ export default {
     }
   },
   mounted () {
-    this.team = this.getTeamById(this.teamId)
-    console.log(this.team)
-    this.teamPlayers = this.getTeamPlayers()
+    this.team = $getTeamById(this.teamId)
+    this.teamPlayers = $getTeamPlayersByTeamCode(this.team.code)
     this.setTeamPlayerPosition()
     this.setTeamBadge()
   },
@@ -94,17 +94,6 @@ export default {
       this.teamPlayers.forEach(player => {
         this.teamPlayersPosition[player.element_type-1].players.push(player)
       });
-    },
-    getTeamById (id) {
-      id = parseInt(id)
-      return this.teams.find(team => {
-        return id === team.id
-      })
-    },
-    getTeamPlayers () {
-      return this.allPlayers.filter(player => {
-        return player.team_code === this.team.code
-      })
     },
     setTeamBadge () {
       this.teamBadge = `https://fantasy.premierleague.com/dist/img/badges/badge_${this.team.code}_80.png#/`
