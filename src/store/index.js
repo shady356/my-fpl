@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isMenuOpen: false,
-    bootstrap: null
+    bootstrap: null,
+    fixtures: null
   },
   mutations: {
     setMenuStatus(state, status) {
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     setBootstrapData (state, data) {
       state.bootstrap = data
+    },
+    setFixturesData (state, data) {
+      state.fixtures = data
     }
   },
   actions: {
@@ -22,6 +26,9 @@ export default new Vuex.Store({
     },
     commitSetBootstrapData(state, data) {
       state.commit('setBootstrapData', data)
+    },
+    commitSetFixturesData(state, data) {
+      state.commit('setFixturesData', data)
     },
   },
   modules: {},

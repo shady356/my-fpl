@@ -30,32 +30,49 @@ export default {
   },
   data () {
     return {
-      isAppLoaded: false,
+      isBootstrapLoaded: false,
+      isFixturesLoaded: false,
       BASE_URL: process.env.VUE_APP_FPL_API_URL
     }
   },
   computed: {
     isMenuOpen () {
       return this.$store.state.isMenuOpen
+    },
+    isAppLoaded () {
+      return this.isBootstrapLoaded && this.isFixturesLoaded 
     }
   },
   created () {
     this.setBootstrapData()
+    this.setFixturesData()
   },
   methods: {
-    ...mapActions(["commitSetBootstrapData"]),
+    ...mapActions(['commitSetBootstrapData', 'commitSetFixturesData']),
     setBootstrapData() {
       axios
         .get(`${this.BASE_URL}/api/bootstrap-static/`)
         .then((response) => {
-          this.isAppLoaded = true
+          this.isBootstrapLoaded = true
           this.commitSetBootstrapData(response.data)
         })
         .catch((error) => {
           console.log(error)
           // this.errored = true;
         })
-    }
+    },
+    setFixturesData () {
+      axios
+        .get(`${this.BASE_URL}api/fixtures/`)
+        .then((response) => {
+          this.isFixturesLoaded = true
+          this.commitSetFixturesData(response.data)
+        })
+        .catch((error) => {
+          console.log(error);
+          // this.errored = true;
+        });
+    },
   }
 };
 </script>

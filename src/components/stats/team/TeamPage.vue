@@ -7,6 +7,7 @@
         >
           <img :src="arrowBackIcon" alt="Go back: teams">
         </router-link>
+        <!-- Cover -->
         <div class="cover">
           <img 
             :src="teamBadge" 
@@ -15,6 +16,20 @@
           >
           <h2>{{team.name}}</h2>
         </div>
+        <!-- Fixtures -->
+        <div class="fixtures-container">
+          <h3>Fixtures</h3>
+          <ul class="fixture-list">
+            <TeamFixtureItem
+              v-for="fixture in fixtures"
+              :key="fixture.code"
+              :fixture="fixture"
+              tag="li"
+              class="fixture-item"
+            />
+          </ul>  
+        </div>
+        <!-- Players -->
         <h3>Players</h3>
         <ul class="player-list">
           <router-link
@@ -37,9 +52,11 @@
 import { 
   $getTeamById, 
   $getTeamPlayersByTeamCode,
-  $getTeamBadgeByTeamCode } from '@/helpers/teams.js'
+  $getTeamBadgeByTeamCode,
+  $getFixturesByTeamId } from '@/helpers/teams.js'
 import orderBy from 'lodash/orderBy'
 import BaseModalCard from '@/components/base/BaseModalCard.vue'
+import TeamFixtureItem from '@/components/stats/team/TeamFixtureItem.vue'
 import TeamPlayerItem from '@/components/stats/team/TeamPlayerItem'
 export default {
   name: 'TeamPage',
@@ -51,15 +68,15 @@ export default {
   },
   components: {
     BaseModalCard,
+    TeamFixtureItem,
     TeamPlayerItem
   },
   data() {
     return {
-      teams: this.$store.state.bootstrap.teams,
-      allPlayers: this.$store.state.bootstrap.elements,
       team: null,
       teamBadge: null,
       teamPlayers: null,
+      fixtures: null,
       teamPlayersPosition: [
         {
           position: 'goalkeepers',
@@ -91,6 +108,9 @@ export default {
     this.teamPlayers = $getTeamPlayersByTeamCode(this.team.code)
     this.teamBadge = $getTeamBadgeByTeamCode(this.team.code)
     this.setTeamPlayerPosition()
+
+    this.fixtures = $getFixturesByTeamId(this.teamId)
+    console.log(this.fixtures)
   },
   methods: {
     setTeamPlayerPosition () {
@@ -111,6 +131,19 @@ export default {
     .team-badge {
       margin-bottom: $m;
     }
+  }
+  .fixtures-container {
+    
+    .fixture-list {
+      overflow-x: auto;
+      display: flex;
+      flex-wrap: nowrap;
+
+      .fixture-item {
+        margin: 2%;
+      }
+    }
+
   }
   .player-list {
     margin: $m 0;
