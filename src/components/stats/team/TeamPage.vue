@@ -15,8 +15,14 @@
         </router-link>
         <!-- Cover -->
         <div class="cover">
-          <div @click="previousTeam()">
-            prev
+          <div
+            class="pagination-button"
+            @click="previousTeam()"
+          >
+            <fa-icon
+              icon="chevron-left"
+              class="item-icon"
+            />
           </div>
           <div class="team">
             <img 
@@ -26,8 +32,14 @@
             >
             <h2>{{team.name}}</h2>
           </div>
-          <div @click="nextTeam()">
-            next
+          <div
+            class="pagination-button"
+            @click="nextTeam()"
+          >
+            <fa-icon
+              icon="chevron-right"
+              class="item-icon"
+            />
           </div>
         </div>
         <!-- Fixtures -->
@@ -172,13 +184,20 @@ export default {
 <style lang="scss" scoped>
 
 .team-page {
-  //animation: fade-in 400ms ease-in;
+  // animation: fade-in 400ms ease-in;
   
   .cover {
-    padding: $xl 0;
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: space-between;
+    padding: $xl 0;
+
+    .pagination-button {
+      background: rgba(255,255,255,0.1);
+      padding: $l $m;
+      border-radius: $m;
+    }
+
     .team {
       display: flex;
       flex-direction: column;

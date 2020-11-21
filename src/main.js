@@ -8,6 +8,7 @@ import "normalize.css"
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faChevronLeft,
+  faChevronRight,
   faBars,
   faCog,
   faChartBar,
@@ -18,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import store from './store'
 library.add(
   faChevronLeft,
+  faChevronRight,
   faBars,
   faCog,
   faChartBar,
