@@ -1,8 +1,8 @@
 <template>
   <div v-if="team">
     <BaseModalCard
-      :backgroundColor="teamColor.primary"
-      :textColor="teamColor.secondary"
+      :backgroundColor="teamColor.teamBackground"
+      :textColor="teamColor.text"
     >
       <div
         class="team-page default-page-margin" 
@@ -193,7 +193,7 @@ export default {
     padding: $xl 0;
 
     .pagination-button {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.2);
       padding: $l $m;
       border-radius: $m;
     }
