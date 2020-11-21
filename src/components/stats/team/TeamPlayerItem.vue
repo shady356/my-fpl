@@ -2,8 +2,8 @@
   <div class="player">
     <img
       class="player-image" 
-      :src="pictureBase + player.code + '.png'" 
-      alt=""
+      :src="playerProfilePicture"
+      @error="setDefaultPlayerProfilePicture()"
     >
     <div class="player-name">
       <h6 class="first-name">{{player.first_name}}</h6>
@@ -51,13 +51,19 @@ export default {
   data() {
     return {
       playerPosition: null,
+      playerProfilePicture: '',
+      defaultPlayerProfilePicture: require('@/assets/default_profile.png'),
       pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p'
     }
   },
   mounted () {
     this.playerPosition = this.getPlayerPosition()
+    this.playerProfilePicture = this.pictureBase + this.player.code + '.png'
   },
   methods: {
+    setDefaultPlayerProfilePicture() {
+      this.playerProfilePicture = this.defaultPlayerProfilePicture
+    },
     getPlayerPosition () {
       switch (this.player.element_type) {
         case 1: return 'gk'
