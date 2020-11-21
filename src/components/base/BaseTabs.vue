@@ -46,7 +46,7 @@ export default {
 
   .tab-item {
     padding: $s $m;
-    border: 1px solid #ccc;
+    border: 1px solid #aaa;
 
     &:first-child {
       border-radius: $l 0 0 $l;
@@ -58,7 +58,8 @@ export default {
     }
 
     &.active {
-      background: $pl-blue;
+      background: #000;
+      color: #fff;
       font-weight: 700;
       border-color: transparent;
       transition: background-color 200ms ease-in, font-weight 200ms ease-in;
