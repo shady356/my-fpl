@@ -1,6 +1,9 @@
 <template>
   <div v-if="team">
-    <BaseModalCard>
+    <BaseModalCard
+      :backgroundColor="teamColor.primary"
+      :textColor="teamColor.secondary"
+    >
       <div class="default-page-margin">
         <router-link
           :to="{name: 'stats'}"
@@ -53,7 +56,8 @@ import {
   $getTeamById, 
   $getTeamPlayersByTeamCode,
   $getTeamBadgeByTeamCode,
-  $getFixturesByTeamId } from '@/helpers/teams.js'
+  $getFixturesByTeamId,
+  $getTeamColorByTeamCode } from '@/helpers/teams.js'
 import orderBy from 'lodash/orderBy'
 import BaseModalCard from '@/components/base/BaseModalCard.vue'
 import TeamFixtureItem from '@/components/stats/team/TeamFixtureItem.vue'
@@ -75,6 +79,7 @@ export default {
     return {
       team: null,
       teamBadge: null,
+      teamColor: '',
       teamPlayers: null,
       fixtures: null,
       teamPlayersPosition: [
@@ -107,6 +112,7 @@ export default {
     this.team = $getTeamById(this.teamId)
     this.teamPlayers = $getTeamPlayersByTeamCode(this.team.code)
     this.teamBadge = $getTeamBadgeByTeamCode(this.team.code)
+    this.teamColor = $getTeamColorByTeamCode(this.team.code)
     this.setTeamPlayerPosition()
 
     this.fixtures = $getFixturesByTeamId(this.teamId)
@@ -143,7 +149,6 @@ export default {
         margin: 2%;
       }
     }
-
   }
   .player-list {
     margin: $m 0;

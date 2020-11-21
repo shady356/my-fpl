@@ -4,7 +4,10 @@
       name="slide-v" 
       appear
     >
-      <div class="modal-window">
+      <div
+        class="modal-window"
+        :style="{'backgroundColor': backgroundColor, 'color': textColor }"
+      >
         <div class="modal-content">
           <slot />
         </div>
@@ -21,7 +24,19 @@
 
 <script>
 export default {
-  name: 'BaseModal',
+  name: 'BaseModalCard',
+  props: {
+    backgroundColor: {
+      type: String,
+      required: false,
+      default: '#fff'
+    },
+    textColor: {
+      type: String,
+      required: false,
+      default: ''
+    }
+  },
   data() {
     return {
       clear: require('@/assets/icons/clear-24px.svg')
@@ -61,7 +76,7 @@ export default {
       width: 96vw;
       height: 96vh;
       padding-bottom: 1rem;
-      background-image: linear-gradient(180deg, hsla(180, 100%, 50%, 0.85), hsla(249, 71%, 35%, 0.85));
+      //background-image: linear-gradient(180deg, hsla(180, 100%, 50%, 0.85), hsla(249, 71%, 35%, 0.85));
     }
     .close-button {
       background: #000;
