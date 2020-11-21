@@ -4,6 +4,7 @@
       class="player-image" 
       :src="playerProfilePicture"
       @error="setDefaultPlayerProfilePicture()"
+      alt=""
     >
     <div class="player-name">
       <h6 class="first-name">{{player.first_name}}</h6>

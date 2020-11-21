@@ -15,8 +15,9 @@
           <div class="player">
             <img
               class="player-image" 
-              :src="pictureBase + player.code + '.png'" 
-              alt="player image"
+              :src="playerProfilePicture"
+              @error="setDefaultPlayerProfilePicture()"
+              alt=""
             >
             <div class="player-name">
               <h3>{{player.first_name}}</h3>
@@ -162,6 +163,8 @@ export default {
       allPlayers: this.$store.state.bootstrap.elements,
       player: null,
       playerPosition: null,
+      playerProfilePicture: '',
+      defaultPlayerProfilePicture: require('@/assets/default_profile.png'),
       pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p',
       arrowBackIcon: require('@/assets/icons/arrow_back-24px.svg'),
       BASE_URL: process.env.VUE_APP_FPL_API_URL,
@@ -188,6 +191,7 @@ export default {
   mounted () {
     this.player = $getPlayerById(this.playerId)
     this.getPlayerSummary(this.playerId)
+    this.playerProfilePicture = this.pictureBase + this.player.code + '.png'
     this.playerPosition = $getPlayerPositionByType(this.player.element_type)
     this.selectChartStat(this.selectedChartStat)
   },
@@ -216,6 +220,9 @@ export default {
       this.playerChartData.key = key
       this.playerChartData.min = min
       this.playerChartData.stepSize = stepSize
+    },
+    setDefaultPlayerProfilePicture() {
+      this.playerProfilePicture = this.defaultPlayerProfilePicture
     },
     goBack() {
       this.$router.back()
