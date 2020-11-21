@@ -4,7 +4,10 @@
       :backgroundColor="teamColor.primary"
       :textColor="teamColor.secondary"
     >
-      <div class="default-page-margin">
+      <div
+        class="team-page default-page-margin" 
+        :key="teamId"
+      >
         <router-link
           :to="{name: 'stats'}"
         >
@@ -12,12 +15,20 @@
         </router-link>
         <!-- Cover -->
         <div class="cover">
-          <img 
-            :src="teamBadge" 
-            class="team-badge"
-            alt=""
-          >
-          <h2>{{team.name}}</h2>
+          <div @click="previousTeam()">
+            prev
+          </div>
+          <div class="team">
+            <img 
+              :src="teamBadge"
+              class="team-badge"
+              alt=""
+            >
+            <h2>{{team.name}}</h2>
+          </div>
+          <div @click="nextTeam()">
+            next
+          </div>
         </div>
         <!-- Fixtures -->
         <div class="fixtures-container">
@@ -106,36 +117,76 @@ export default {
   computed: {
     sortedTeam() {
       return orderBy(this.teamPlayers, ['element_type','total_points'],['asc', 'desc'])
+    },
+    isFirstTeamInList () {
+      const teamId = parseInt(this.teamId)
+      return teamId === 1
+    },
+    isLastTeamInList () {
+      const teamId = parseInt(this.teamId)
+      return teamId === 20
+    }
+  },
+  watch: {
+    teamId: {
+      handler(id) {
+        this.initTeam(id)
+      }
     }
   },
   mounted () {
-    this.team = $getTeamById(this.teamId)
-    this.teamPlayers = $getTeamPlayersByTeamCode(this.team.code)
-    this.teamBadge = $getTeamBadgeByTeamCode(this.team.code)
-    this.teamColor = $getTeamColorByTeamCode(this.team.code)
-    this.setTeamPlayerPosition()
-
-    this.fixtures = $getFixturesByTeamId(this.teamId)
-    console.log(this.fixtures)
+    this.initTeam()
   },
   methods: {
+    initTeam () {
+      this.team = $getTeamById(this.teamId)
+      this.teamPlayers = $getTeamPlayersByTeamCode(this.team.code)
+      this.teamBadge = $getTeamBadgeByTeamCode(this.team.code)
+      this.teamColor = $getTeamColorByTeamCode(this.team.code)
+      this.setTeamPlayerPosition()
+      this.fixtures = $getFixturesByTeamId(this.teamId)
+    },
     setTeamPlayerPosition () {
       this.teamPlayers.forEach(player => {
         this.teamPlayersPosition[player.element_type-1].players.push(player)
       })
+    },
+    nextTeam () {
+      if(!this.isLastTeamInList) {
+        const teamId = parseInt(this.teamId)
+        this.changeTeamPage(teamId + 1)
+      }
+    },
+    previousTeam () {
+      if(!this.isFirstTeamInList) {
+        const teamId = parseInt(this.teamId)
+        this.changeTeamPage(teamId - 1)
+      }
+    },
+    changeTeamPage(teamId) {
+      this.$router.replace({ name: 'teamPage', params: {teamId: teamId }})
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+
+.team-page {
+  //animation: fade-in 400ms ease-in;
+  
   .cover {
     padding: $xl 0;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    
-    .team-badge {
-      margin-bottom: $m;
+    justify-content: space-between;
+    .team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .team-badge {
+        margin-bottom: $m;
+      }
     }
   }
   .fixtures-container {
@@ -152,5 +203,23 @@ export default {
   }
   .player-list {
     margin: $m 0;
+  }
+}
+
+  @keyframes slide-left {
+    0% {
+      transform: translateX(-100px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slide-right {
+    0% {
+      transform: translateX(100px);
+    }
+    100% {
+      transform: translateX(0);
+    }
   }
 </style>

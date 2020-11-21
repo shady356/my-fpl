@@ -29,12 +29,12 @@ export default {
     backgroundColor: {
       type: String,
       required: false,
-      default: '#fff'
+      default: '#222'
     },
     textColor: {
       type: String,
       required: false,
-      default: ''
+      default: '#fff'
     }
   },
   data() {
@@ -76,6 +76,7 @@ export default {
       width: 96vw;
       height: 96vh;
       padding-bottom: 1rem;
+      transition: background-color 400ms ease-in;
       //background-image: linear-gradient(180deg, hsla(180, 100%, 50%, 0.85), hsla(249, 71%, 35%, 0.85));
     }
     .close-button {
