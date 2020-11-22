@@ -34,6 +34,7 @@
           v-if="playerSummary"
           class="player-gameweeks-results-container"
           :playerSummary="playerSummary"
+          :teamBadge="teamBadge"
         />
         <!-- Chart -->
         <div class="player-stat-chart-master-container">
@@ -143,6 +144,9 @@ import BaseModalCard from '@/components/base/BaseModalCard.vue'
 import PlayerStatsChartController from '@/components/stats/player/PlayerStatsChartController.vue'
 import PlayerGameweeksResults from '@/components/stats/player/PlayerGameweeksResults.vue'
 import { $getPlayerById, $getPlayerPositionByType } from '@/helpers/players.js'
+import { 
+  $getTeamCodeByTeamId,
+  $getTeamBadgeByTeamCode } from '@/helpers/teams.js'
 export default {
   name: 'PlayerPage',
   components: {
@@ -177,6 +181,7 @@ export default {
       playerProfilePicture: '',
       defaultPlayerProfilePicture: require('@/assets/default_profile.png'),
       pictureBase: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p',
+      teamBadge: null,
       arrowBackIcon: require('@/assets/icons/arrow_back-24px.svg'),
       BASE_URL: process.env.VUE_APP_FPL_API_URL,
       
@@ -202,6 +207,7 @@ export default {
   mounted () {
     this.player = $getPlayerById(this.playerId)
     this.getPlayerSummary(this.playerId)
+    this.teamBadge = this.getTeamBadge()
     this.playerProfilePicture = this.pictureBase + this.player.code + '.png'
     this.playerPosition = $getPlayerPositionByType(this.player.element_type)
     this.selectChartStat(this.selectedChartStat)
@@ -234,6 +240,10 @@ export default {
     },
     setDefaultPlayerProfilePicture() {
       this.playerProfilePicture = this.defaultPlayerProfilePicture
+    },
+    getTeamBadge() {
+      const teamCode = $getTeamCodeByTeamId(this.player.team)
+      return $getTeamBadgeByTeamCode(teamCode)
     },
     goBack() {
       this.$router.back()

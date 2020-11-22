@@ -16,6 +16,7 @@
        <GameweekItem
         :gameweek="gameweek"
         :isActive="isGameweekActive(index)"
+        :teamBadge="teamBadge"
        />
       </li>
     </ul>
@@ -33,6 +34,11 @@ export default {
     playerSummary: {
       type: Object,
       required: true
+    },
+    teamBadge: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data() {

@@ -5,9 +5,17 @@
         {{ gameweek.round }}
       </div>
       <div class="gameweek-result">
-        <div>Home</div>
+        <img
+          :src="homeTeam"
+          class="team-badge"
+          alt="away team badge"
+        >
         <div>{{ getGameweekResult(gameweek) }}</div>
-        <div>Away</div>
+        <img
+          :src="awayTeam"
+          class="team-badge"
+          alt="away team badge"
+        >
       </div>
       <div>
         £{{(gameweek.value / 10).toFixed(1)}}m
@@ -57,6 +65,9 @@
 </template>
 
 <script>
+import { 
+  $getTeamCodeByTeamId,
+  $getTeamBadgeByTeamCode } from '@/helpers/teams.js'
 export default {
   name: 'GameweekItem',
   props: {
@@ -68,11 +79,45 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    teamBadge: {
+      type: String,
+      required: false,
+      default: ''
     }
+  },
+  data () {
+    return {
+      opponentTeamBadge: null,
+      homeTeam: null,
+      awayTeam: null
+    }
+  },
+  computed: {
+    isHomeTeam() {
+      return this.gameweek.was_home
+    }
+  },
+  mounted () {
+    this.opponentTeamBadge = this.getOpponentTeamBadge()
+    this.setTeams()
   },
   methods: {
     getGameweekResult (gameweek) {
       return gameweek.team_h_score + '-' + gameweek.team_a_score
+    },
+    getOpponentTeamBadge () {
+      const teamCode = $getTeamCodeByTeamId(this.gameweek.opponent_team)
+      return $getTeamBadgeByTeamCode(teamCode)
+    },
+    setTeams () {
+      if (this.isHomeTeam) {
+        this.homeTeam = this.teamBadge
+        this.awayTeam = this.opponentTeamBadge
+      } else {
+        this.homeTeam = this.opponentTeamBadge
+        this.awayTeam = this.teamBadge
+      }
     }
   }
 }
@@ -97,7 +142,13 @@ export default {
     }
     .gameweek-result {
       display: flex;
+      align-items: center;
       width: 30%;
+
+      .team-badge {
+        width: 20px;
+        margin: 0 4px;
+      }
     }
     .gameweek-points {
       width: 12%;
