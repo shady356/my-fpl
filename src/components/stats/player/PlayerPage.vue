@@ -5,6 +5,7 @@
       @close="goBack"
     >
       <div class="default-page-margin">
+        <!-- Cover -->
         <div class="cover">
           <!-- <router-link :to="{name: 'stats'}">
             <img
@@ -28,6 +29,13 @@
             </div>
           </div>
         </div>
+        <!-- Gameweeks results -->
+        <PlayerGameweeksResults
+          v-if="playerSummary"
+          class="player-gameweeks-results-container"
+          :playerSummary="playerSummary"
+        />
+        <!-- Chart -->
         <div class="player-stat-chart-master-container">
           <div class="stat-selector-container">
             <select
@@ -50,6 +58,7 @@
             :playerSummary="playerSummary"
           />
         </div>
+        <!-- Meta -->
         <div>
           <!-- Cost / Selection / tot points -->
           <div class="stats-container">
@@ -132,12 +141,14 @@
 import axios from "axios";
 import BaseModalCard from '@/components/base/BaseModalCard.vue'
 import PlayerStatsChartController from '@/components/stats/player/PlayerStatsChartController.vue'
+import PlayerGameweeksResults from '@/components/stats/player/PlayerGameweeksResults.vue'
 import { $getPlayerById, $getPlayerPositionByType } from '@/helpers/players.js'
 export default {
   name: 'PlayerPage',
   components: {
     BaseModalCard,
-    PlayerStatsChartController
+    PlayerStatsChartController,
+    PlayerGameweeksResults
   },
   props: {
     playerId: {
@@ -275,6 +286,9 @@ export default {
         }
       }
     }
+  }
+  .player-gameweeks-results-container {
+    margin: $l 0;
   }
   .player-stat-chart-master-container {
     .stat-selector-container {
