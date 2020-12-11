@@ -63,7 +63,7 @@ export default {
     },
     setFixturesData () {
       axios
-        .get(`${this.BASE_URL}api/fixtures/`)
+        .get(`${this.BASE_URL}/api/fixtures/`)
         .then((response) => {
           this.isFixturesLoaded = true
           this.commitSetFixturesData(response.data)
