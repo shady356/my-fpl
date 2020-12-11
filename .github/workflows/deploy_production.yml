@@ -25,7 +25,8 @@ jobs:
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: ftp://ftp.domeneshop.no/www/myfpl
+        server: ftp://ftp.domeneshop.no
         username: henriko
         password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: www/myfpl/
         local-dir: dist/ # This folder is NOT going to upload by default unless you add it to .git-ftp-include
