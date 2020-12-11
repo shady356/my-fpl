@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
     proxy: 'https://fantasy.premierleague.com/'
   },
-  publicPath: '/my-fpl',
+  publicPath: '/myfpl',
   css: {
     loaderOptions: {
       sass: {
