@@ -25,7 +25,7 @@ jobs:
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: ftp://ftp.domeneshop.no
+        server: http://ftp.domeneshop.no
         username: henriko
         password: ${{ secrets.FTP_PASSWORD }}
         server-dir: www/myfpl/
