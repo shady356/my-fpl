@@ -46,22 +46,9 @@ export default {
   created () {
     this.setBootstrapData()
     this.setFixturesData()
-    this.testFakeApi ()
   },
   methods: {
     ...mapActions(['commitSetBootstrapData', 'commitSetFixturesData']),
-    testFakeApi () {
-      axios
-        .get(`https://api.mocki.io/v1/b043df5a`)
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-          // this.errored = true;
-        })
-      
-    },
     setBootstrapData() {
       axios
         .get(`${this.BASE_URL}/api/bootstrap-static/`)
