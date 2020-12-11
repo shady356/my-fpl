@@ -30,6 +30,7 @@ export default {
   },
   data () {
     return {
+      config: { headers:{'Access-Control-Allow-Origin': '*'}},
       isBootstrapLoaded: false,
       isFixturesLoaded: false,
       BASE_URL: process.env.VUE_APP_FPL_API_URL
@@ -51,7 +52,7 @@ export default {
     ...mapActions(['commitSetBootstrapData', 'commitSetFixturesData']),
     setBootstrapData() {
       axios
-        .get(`${this.BASE_URL}/api/bootstrap-static/`)
+        .get(`${this.BASE_URL}/api/bootstrap-static/`, this.config)
         .then((response) => {
           this.isBootstrapLoaded = true
           this.commitSetBootstrapData(response.data)
