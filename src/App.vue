@@ -52,7 +52,7 @@ export default {
     ...mapActions(['commitSetBootstrapData', 'commitSetFixturesData']),
     setBootstrapData() {
       axios
-        .get(`${this.BASE_URL}/api/bootstrap-static/`, this.config)
+        .get(`${this.BASE_URL}/api/bootstrap-static/`)
         .then((response) => {
           this.isBootstrapLoaded = true
           this.commitSetBootstrapData(response.data)
