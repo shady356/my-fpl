@@ -2,14 +2,15 @@ import axios from 'axios'
 
 const createAxiosInstance = () => {
   let config = axios.create({
-    baseURL: process.env.VUE_APP_FPL_API_URL,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-    }
+    baseURL: process.env.VUE_APP_FPL_API_URL
   })
 
   return config
+}
+
+const headers = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
 }
 
 const responseHandler = (response) => {
@@ -34,7 +35,7 @@ export default {
 
   async getBootstrapData () {
     try {
-      let response = await this.axiosInstance.get(`/api/bootstrap-static/`)
+      let response = await this.axiosInstance.get(`/api/bootstrap-static/`, headers)
       return responseHandler(response)
     } catch (error) {
       return errorHandler(error)
@@ -42,7 +43,7 @@ export default {
   },
   async getFixturesData () {
     try {
-      let response = await this.axiosInstance.get(`/api/fixtures/`)
+      let response = await this.axiosInstance.get(`/api/fixtures/`, headers)
       return responseHandler(response)
     } catch (error) {
       return errorHandler(error)
