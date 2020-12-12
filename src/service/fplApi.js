@@ -2,7 +2,11 @@ import axios from 'axios'
 
 const createAxiosInstance = () => {
   let config = axios.create({
-    baseURL: process.env.VUE_APP_FPL_API_URL
+    baseURL: process.env.VUE_APP_FPL_API_URL,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    }
   })
 
   return config
