@@ -215,7 +215,7 @@ export default {
   methods: {
     getPlayerSummary (id) {
       axios
-        .get(`${this.BASE_URL}api/element-summary/${id}/`)
+        .get(`${this.BASE_URL}/api/element-summary/${id}/`)
         .then((response) => {
           this.playerSummary = response.data;
         })
