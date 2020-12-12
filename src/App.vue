@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapActions } from "vuex";
+import fplApi from '@/service/fplApi.js'
 import Menu from "@/components/layout/Menu.vue";
 export default {
   name: "App",
@@ -50,30 +50,22 @@ export default {
   },
   methods: {
     ...mapActions(['commitSetBootstrapData', 'commitSetFixturesData']),
-    setBootstrapData() {
-      axios
-        .get(`${this.BASE_URL}/api/bootstrap-static/`)
-        .then((response) => {
-          this.isBootstrapLoaded = true
-          this.commitSetBootstrapData(response.data)
-        })
-        .catch((error) => {
-          console.log(error)
-          // this.errored = true;
-        })
+    async setBootstrapData () {
+      const response = await fplApi.getBootstrapData()
+      this.isBootstrapLoaded = true
+      this.commitSetBootstrapData(response.data)
+      if (response.error) {
+        console.log('error') // TODO: replace with toast
+      }
     },
-    setFixturesData () {
-      axios
-        .get(`${this.BASE_URL}/api/fixtures/`)
-        .then((response) => {
-          this.isFixturesLoaded = true
-          this.commitSetFixturesData(response.data)
-        })
-        .catch((error) => {
-          console.log(error);
-          // this.errored = true;
-        });
-    },
+    async setFixturesData () {
+      const response = await fplApi.getFixturesData()
+      this.isFixturesLoaded = true
+      this.commitSetFixturesData(response.data)
+      if (response.error) {
+        console.log('error') // TODO: replace with toast
+      }
+    }
   }
 };
 </script>
