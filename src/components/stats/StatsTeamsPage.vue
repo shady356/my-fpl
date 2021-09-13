@@ -10,7 +10,6 @@
           class="team-item"
           :to="{ name: 'teamPage', params: {teamId: team.id }}"
         >
-          <h4>{{team.code}}</h4>
           <TeamItemCard :team="team"/>
         </router-link>
       </ul>

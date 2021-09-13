@@ -61,10 +61,10 @@ export default {
 <style lang="scss" scoped>
   .player-mini {
     align-items: center;
-    // background: #0346f2;
-    background: cyan;
+    background: #ddd;
     border-radius: $s;
-    box-shadow: 0 5px $s #ddd;
+    //box-shadow: 0 0 $s #bbc;
+    //border: 1px solid #ccd;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -94,19 +94,22 @@ export default {
       padding: $m 0;
 
       .stat-value {
-        padding: 0 $s;
+        padding: 0 $xs;
+        color: #111;
       }
 
       .player-name {
         padding: 0 $s;
 
         .first-name {
-          line-height: 8px;
+          line-height: 10px;
           margin-top: 8px;
+          color: #222;
         }
         .last-name {
           white-space: nowrap;
           font-weight: 700;
+          color: #333;
         }
       }
     }

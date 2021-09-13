@@ -1,19 +1,19 @@
 <template>
   <div class="player">
-    <img
-      class="player-image" 
-      :src="playerProfilePicture"
-      @error="setDefaultPlayerProfilePicture()"
-      alt=""
-    >
-    <div class="player-name">
-      <h6 class="first-name">{{player.first_name}}</h6>
-      <h5 class="last-name">{{player.web_name}}</h5>
-      <h4 :class="['position-tag', playerPosition]">{{playerPosition}}</h4>
+    <div class="player-profile">
+      <img
+        class="player-image" 
+        :src="playerProfilePicture"
+        @error="setDefaultPlayerProfilePicture()"
+        alt=""
+      >
+      <div class="player-name">
+        <h6 class="first-name">{{player.first_name}}</h6>
+        <h5 class="last-name">{{player.web_name}}</h5>
+        <h4 :class="['position-tag', playerPosition]">{{playerPosition}}</h4>
+      </div>
     </div>
-    <div 
-      class="player-stats"
-    >
+    <div class="player-stats">
       <h6 :class="['cost', costChange]">
         {{player.now_cost | playerCost}}m
       </h6>
@@ -84,27 +84,32 @@ export default {
   border-radius: $s;
   box-shadow: 0 5px $s #00000022;
   display: flex;
+  justify-content: space-between;
   margin: $m 0;
-  padding: $m $m 0;
-  position: relative;
+  padding: 0;
 
-  .player-image {
-    width: 64px;
-    margin-right: $m;
-  }
-  .player-name {
-    .first-name {
-      font-size: 0.9rem;
+  .player-profile {
+    display: flex;
+    padding: $l $m 0;
+
+    .player-image {
+      width: 64px;
+      height: auto;
+      object-fit: contain;
+      margin-right: $m;
+    }
+    .player-name {
+      .first-name {
+        font-size: 0.9rem;
+      }
     }
   }
   .player-stats {
-    position: absolute;
+    padding: $m;
     display: flex;
     flex-direction: column;
     text-align: right;
-    right: $m;
-    bottom: $s;
-
+    
     .cost {
       &.green {
         color: $pl-green;
