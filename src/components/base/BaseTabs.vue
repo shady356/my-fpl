@@ -1,13 +1,13 @@
 <template>
   <div>
-    <ul class="tabs-list">
+    <ul :class="['tabs-list', {'horisontal-list': horisontalList }]">
       <li
-        v-for="(tab, index) in items"
-        :key="tab.name"
+        v-for="(item, index) in items"
+        :key="item.name"
         :class="['tab-item', {'active': isTabActive(index)}]"
-        @click="selectTab(index)"
+        @click="selectTab(item, index)"
       >
-        {{ tab.name }}
+        {{ item.name }}
       </li>
     </ul>
   </div>
@@ -24,14 +24,19 @@ export default {
     activeIndex: {
       type: Number,
       required: true
+    },
+    horisontalList: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   methods: {
     isTabActive (index) {
       return index === this.activeIndex
     },
-    selectTab (index) {
-      this.$emit('selectTab', index)
+    selectTab (item, index) {
+      this.$emit('selectTab', {value: item.value, index: index})
     }
   }
 }
@@ -41,28 +46,44 @@ export default {
 .tabs-list {
   display: inline-flex;
   flex-wrap: nowrap;
+  align-items: center;
   background: #eee;
   border-radius: $l;
+  padding: $xs;
 
   .tab-item {
     padding: $s $m;
-    border: 1px solid #aaa;
-
-    &:first-child {
-      border-radius: $l 0 0 $l;
-      //border-right: none;
-    }
-    &:last-child {
-      border-radius: 0 $l $l 0;
-      //border-left: none;
-    }
+    border-radius: $l;
 
     &.active {
-      background: #000;
-      color: #fff;
+      background: #fff;
       font-weight: 700;
       border-color: transparent;
-      transition: background-color 200ms ease-in, font-weight 200ms ease-in;
+    }
+  }
+  &.horisontal-list {
+    display: flex;
+    align-items: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: $xs;
+
+    &::-webkit-scrollbar {
+      height: 0;  /* Remove scrollbar space */
+      background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+
+    .tab-item {
+      white-space: nowrap;
+      margin: 0 $xs;
+      scroll-snap-align: start;
+
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 }

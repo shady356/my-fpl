@@ -30,6 +30,7 @@
           </div>
         </div>
         <!-- Gameweeks results -->
+        <h2>Gameweeks</h2>
         <PlayerGameweeksResults
           v-if="playerSummary"
           class="player-gameweeks-results-container"
@@ -38,19 +39,14 @@
         />
         <!-- Chart -->
         <div class="player-stat-chart-master-container">
+          <h2>Charts</h2>
           <div class="stat-selector-container">
-            <select
-              class="dropdown"
-              name="select-stat-list"
-              v-model="selectedChartStat"
-              @change="selectChartStat(selectedChartStat)"
-            >
-              <option value="goals_scored">Goals scored</option>
-              <option value="minutes">Minutes</option>
-              <option value="assists">Assists</option>
-              <option value="value">Value</option>
-              <option value="saves">Saves</option>
-            </select>
+            <BaseTabs 
+              :items="chartStatList"
+              :activeIndex="selectedChartStatTabIndex"
+              horisontal-list
+              @selectTab="selectChartStat"
+            />
           </div>
           <PlayerStatsChartController
             v-if="playerSummary"
@@ -61,19 +57,20 @@
         </div>
         <!-- Meta -->
         <div>
+          <h2>Details</h2>
           <!-- Cost / Selection / tot points -->
           <div class="stats-container">
             <div class="stat-item">
               <h6>Value</h6>
-              <h1>{{player.now_cost | playerCost}}</h1>
+              <h3>{{player.now_cost | playerCost}}</h3>
             </div>
             <div class="stat-item">
               <h6>Selected By</h6>
-              <h1>{{player.selected_by_percent}}%</h1>
+              <h3>{{player.selected_by_percent}}%</h3>
             </div>
             <div class="stat-item">
               <h6>Total Points</h6>
-              <h1>{{player.total_points}}</h1>
+              <h3>{{player.total_points}}</h3>
             </div>
           </div>
           <!-- ICT detailed -->
@@ -106,30 +103,30 @@
           <!-- ICT index -->
           <div class="stats-container">
             <div class="stat-item">
-              <h4>ICT Index</h4>
-              <h1>{{player.ict_index}}</h1>
+              <h6>ICT Index</h6>
+              <h3>{{player.ict_index}}</h3>
             </div>
             <div class="stat-item">
-              <h4>Rank</h4>
-              <h1>{{player.ict_index_rank | toRank}}</h1>
+              <h6>Rank</h6>
+              <h3>{{player.ict_index_rank | toRank}}</h3>
             </div>
           </div>
           <!-- Goals / Assists -->
           <div class="stats-container">
             <div class="stat-item">
-              <h4>Goals</h4>
-              <h1>{{player.goals_scored}}</h1>
+              <h6>Goals</h6>
+              <h3>{{player.goals_scored}}</h3>
             </div>
             <div class="stat-item">
-              <h4>Assists</h4>
-              <h1>{{player.assists}}</h1>
+              <h6>Assists</h6>
+              <h3>{{player.assists}}</h3>
             </div>
           </div>
           <!-- Clean sheets -->
           <div class="stats-container">
             <div class="stat-item">
-              <h4>Clean sheets</h4>
-              <h1>{{player.clean_sheets}}</h1>
+              <h6>Clean sheets</h6>
+              <h3>{{player.clean_sheets}}</h3>
             </div>
           </div>
         </div>
@@ -140,6 +137,7 @@
 
 <script>
 import axios from "axios";
+import BaseTabs from '@/components/base/BaseTabs.vue'
 import BaseModalCard from '@/components/base/BaseModalCard.vue'
 import PlayerStatsChartController from '@/components/stats/player/PlayerStatsChartController.vue'
 import PlayerGameweeksResults from '@/components/stats/player/PlayerGameweeksResults.vue'
@@ -150,6 +148,7 @@ import {
 export default {
   name: 'PlayerPage',
   components: {
+    BaseTabs,
     BaseModalCard,
     PlayerStatsChartController,
     PlayerGameweeksResults
@@ -191,7 +190,15 @@ export default {
         min: 0,
         stepSize: 1
       },
-      selectedChartStat: 'minutes'
+      selectedChartStat: 'minutes',
+      selectedChartStatTabIndex: 0,
+      chartStatList: [
+        {name: 'Goals scored', value: 'goals_scored'},
+        {name: 'Assists', value: 'assists'},
+        {name: 'Value', value: 'value'},
+        {name: 'Minutes played', value: 'minutes'},
+        {name: 'Saves', value: 'saves'}
+      ]
     }
   },
   computed: {
@@ -210,7 +217,7 @@ export default {
     this.teamBadge = this.getTeamBadge()
     this.playerProfilePicture = this.pictureBase + this.player.code + '.png'
     this.playerPosition = $getPlayerPositionByType(this.player.element_type)
-    this.selectChartStat(this.selectedChartStat)
+    this.selectChartStat({value: this.selectedChartStat, index: this.selectedChartStatTabIndex})
   },
   methods: {
     getPlayerSummary (id) {
@@ -224,8 +231,9 @@ export default {
           // this.errored = true;
         });
     },
-    selectChartStat(statName) {
-      switch(statName) {
+    selectChartStat(payload) {
+      this.selectedChartStatTabIndex = payload.index
+      switch(payload.value) {
         case 'goals_scored': this.setChartDataAttributes('goals_scored', 0, 1); break;
         case 'assists': this.setChartDataAttributes('assists', 0, 1); break;
         case 'minutes': this.setChartDataAttributes('minutes', 0, 45); break;
@@ -257,6 +265,7 @@ export default {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #ddd;
+    margin-bottom: $l;
 
     .player {
       margin-top: $l;
@@ -302,17 +311,7 @@ export default {
   }
   .player-stat-chart-master-container {
     .stat-selector-container {
-      display: flex;
-      justify-content: center;
-      margin: $l 0;
-      
-      .dropdown {
-        font-size: 1.5rem;
-        background: none;
-        border: none;
-        text-align: right;
-        font-weight: 700;
-      }
+      margin: $m 0;
     }
   }
   .stats-container {

@@ -52,8 +52,8 @@ export default {
       activePageTabIndex: 0,
       showPlayerStatFilters: false,
       pageTabItems: [
-        { name: 'Players' },
-        { name: 'Teams' }
+        { name: 'Players', value: 'players' },
+        { name: 'Teams', value: 'teams' }
       ]
     }
   },
@@ -69,8 +69,8 @@ export default {
     closePlayerStatFilters() {
       this.showPlayerStatFilters = false
     },
-    setPageTab(index) {
-      this.activePageTabIndex = index
+    setPageTab(payload) {
+      this.activePageTabIndex = payload.index
     }
   }
 }
