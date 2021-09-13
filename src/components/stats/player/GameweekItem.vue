@@ -131,9 +131,9 @@ export default {
     justify-content: space-between;
 
     .node-circle {
-      background: #222;
+      background: #eee;
       border-radius: 50%;
-      border: 1px solid #aaa;
+      border: 1px solid #ddd;
       height: 20px;
       line-height: 20px;
       margin-left: -10px;
@@ -156,16 +156,16 @@ export default {
     }
 
     &.active {
-      color: $pl-yellow;
+      color: #000;
       font-weight: 700;
 
       .node-circle {
-        border-color: $pl-yellow;
+        border-color: $pl-purple;
       }
     }
   }
   .node-data {
-    color: #fff;
+    color: #333;
     padding: 16px;
     display: flex;
     align-items: center;
@@ -181,7 +181,7 @@ export default {
         th {
           padding-bottom: 8px;
           font-weight: 400;
-          color: #ddd;
+          color: #666;
 
           &.value {
             text-align: center;
@@ -194,7 +194,7 @@ export default {
           padding: 4px 0;
 
           &.breakdown {
-            color: #aaa;
+            color: #666;
           }
           &.value {
             text-align: center;
@@ -203,7 +203,7 @@ export default {
           &.points {
             text-align: center;
             font-weight: 700;
-            color: #eee;
+            color: #333;
           }
         }
       }

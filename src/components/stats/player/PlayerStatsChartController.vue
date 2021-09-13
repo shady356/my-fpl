@@ -35,7 +35,7 @@ export default {
         labels: [],
         datasets: [
           {
-            backgroundColor: '#05F26C22',
+            backgroundColor: '#05F26C66',
             borderColor: '#05F26C',
             pointRadius: 2,
             borderWidth: 2,
@@ -60,7 +60,7 @@ export default {
             },
             ticks: {
               fontFamily: "Roboto condensed",
-              fontColor: '#fff'
+              fontColor: '#333'
             }
           }],
           yAxes:[{
@@ -71,7 +71,7 @@ export default {
               stepSize: 1,
               min: 0,
               fontFamily: "Roboto condensed",
-              fontColor: '#fff',
+              fontColor: '#333',
               fontSize: 12
             }
           }],

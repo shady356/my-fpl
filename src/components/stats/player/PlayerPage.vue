@@ -256,7 +256,7 @@ export default {
   .cover {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid #33333366;
+    border-bottom: 1px solid #ddd;
 
     .player {
       margin-top: $l;
@@ -310,16 +310,14 @@ export default {
         font-size: 1.5rem;
         background: none;
         border: none;
-        color: #fff;
         text-align: right;
         font-weight: 700;
       }
     }
   }
   .stats-container {
-    border-bottom: 1px solid $pl-blue;
+    border-bottom: 1px solid $pl-purple;
     box-sizing: border-box;
-    color: $pl-blue;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;

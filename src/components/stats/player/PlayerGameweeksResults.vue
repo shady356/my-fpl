@@ -65,11 +65,11 @@ export default {
     position: sticky;
     top: 0px;
     padding: $m 0;
-    background: #222;
-    border-bottom: 1px solid #aaa;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
   }
   .gameweek-list {
-    border-left: 1px solid #aaa;
+    border-left: 1px solid #ddd;
     margin-left: 10px;
 
     .gameweek-item {

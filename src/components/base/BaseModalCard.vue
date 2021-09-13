@@ -29,12 +29,12 @@ export default {
     backgroundColor: {
       type: String,
       required: false,
-      default: '#222'
+      default: '#fff'
     },
     textColor: {
       type: String,
       required: false,
-      default: '#fff'
+      default: '#333'
     }
   },
   data() {

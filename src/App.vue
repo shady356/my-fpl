@@ -78,7 +78,7 @@ export default {
 
 #app {
   font-family: "Roboto Condensed", sans-serif;
-  color: $pl-purple;
+  color: #333;
 }
 
 .disable-scroll {
