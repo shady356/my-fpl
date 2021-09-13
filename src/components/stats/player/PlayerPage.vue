@@ -190,7 +190,7 @@ export default {
         min: 0,
         stepSize: 1
       },
-      selectedChartStat: 'minutes',
+      selectedChartStat: 'goals_scored',
       selectedChartStatTabIndex: 0,
       chartStatList: [
         {name: 'Goals scored', value: 'goals_scored'},
