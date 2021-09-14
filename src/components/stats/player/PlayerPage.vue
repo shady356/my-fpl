@@ -190,13 +190,21 @@ export default {
         min: 0,
         stepSize: 1
       },
-      selectedChartStat: 'goals_scored',
+      selectedChartStat: '',
       selectedChartStatTabIndex: 0,
       chartStatList: [
-        {name: 'Goals scored', value: 'goals_scored'},
+        {name: 'Total Points', value: 'total_points'},
+        {name: 'Selected', value: 'selected'},
+        {name: 'Goals Scored', value: 'goals_scored'},
         {name: 'Assists', value: 'assists'},
+        {name: 'Bonus', value: 'bonus'},
+        {name: 'Influence', value: 'influence'},
+        {name: 'Creativity', value: 'creativity'},
+        {name: 'Threat', value: 'threat'},
         {name: 'Value', value: 'value'},
-        {name: 'Minutes played', value: 'minutes'},
+        {name: 'Transfers Balance', value: 'transfers_balance'},
+        {name: 'Minutes Played', value: 'minutes'},
+        {name: 'Clean Sheets', value: 'clean_sheets'},
         {name: 'Saves', value: 'saves'}
       ]
     }
@@ -217,7 +225,7 @@ export default {
     this.teamBadge = this.getTeamBadge()
     this.playerProfilePicture = this.pictureBase + this.player.code + '.png'
     this.playerPosition = $getPlayerPositionByType(this.player.element_type)
-    this.selectChartStat({value: this.selectedChartStat, index: this.selectedChartStatTabIndex})
+    this.selectChartStat({value: this.chartStatList[0].value, index: this.selectedChartStatTabIndex})
   },
   methods: {
     getPlayerSummary (id) {
@@ -234,11 +242,19 @@ export default {
     selectChartStat(payload) {
       this.selectedChartStatTabIndex = payload.index
       switch(payload.value) {
-        case 'goals_scored': this.setChartDataAttributes('goals_scored', 0, 1); break;
-        case 'assists': this.setChartDataAttributes('assists', 0, 1); break;
-        case 'minutes': this.setChartDataAttributes('minutes', 0, 45); break;
-        case 'value': this.setChartDataAttributes('value', this.playerMinimumCost, 1); break;
-        case 'saves': this.setChartDataAttributes('saves', 0, 1); break;
+        case 'total_points': this.setChartDataAttributes(payload.value, -4, 2); break;
+        case 'selected': this.setChartDataAttributes(payload.value, 0, 1000000); break;
+        case 'goals_scored': this.setChartDataAttributes(payload.value, 0, 1); break;
+        case 'assists': this.setChartDataAttributes(payload.value, 0, 1); break;
+        case 'bonus': this.setChartDataAttributes(payload.value, 0, 1); break;
+        case 'minutes': this.setChartDataAttributes(payload.value, 0, 15); break;
+        case 'influence': this.setChartDataAttributes(payload.value, 0, 10); break;
+        case 'creativity': this.setChartDataAttributes(payload.value, 0, 10); break;
+        case 'threat': this.setChartDataAttributes(payload.value, 0, 10); break;
+        case 'value': this.setChartDataAttributes(payload.value, this.playerMinimumCost, 1); break;
+        case 'transfers_balance': this.setChartDataAttributes(payload.value, -1500000, 100000); break;
+        case 'clean_sheets': this.setChartDataAttributes(payload.value, 0, 1); break;
+        case 'saves': this.setChartDataAttributes(payload.value, 0, 1); break;
       }
     },
     setChartDataAttributes(key, min, stepSize) {
