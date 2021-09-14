@@ -1,67 +1,56 @@
 <template>
-  <div v-if="players">
-    <section class="section">
-      <h2>Top scorers</h2>
-      <div class="horizontal-list">
-        <router-link
-          v-for="player in topScorers"
-          :key="player.id"
-          :to="{ name: 'playerPage', params: { playerId: player.id }}"
-        >
-          <PlayerItemCard
-            class="top-scorer-player-item"
-            :player="player"
-            :statValue="player.goals_scored"
-          />
-        </router-link>
-      </div>
-    </section>
+  <div>
+    <ul>
+      <li v-for="playerList in playerLists" :key="playerList.key">
+        <FeaturedPlayerList
+          :playerList="playerList"
+        />
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import orderBy from "lodash/orderBy";
-import PlayerItemCard from "@/components/stats/player/PlayerItemCard";
+import FeaturedPlayerList from "@/components/stats/player/FeaturedPlayerList.vue";
 export default {
   name: "StatsTeamsPage",
   components: {
-    PlayerItemCard
+    FeaturedPlayerList
   },
-  data() {
+  data () {
     return {
-      players: this.$store.state.bootstrap.elements
-    };
-  },
-  computed: {
-    playersSortedByGoalsScored() {
-      return orderBy(this.players, "goals_scored", "desc");
-    },
-    topScorers() {
-      return this.playersSortedByGoalsScored.filter((player, index) => {
-        if (index < 10) {
-          return player;
+      playerLists: [
+        {
+          title: 'Top Scorers',
+          key: 'goals_scored',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
+          title: 'Top Assisters',
+          key: 'assists',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
+          title: 'Top Form',
+          key: 'form',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
+          title: 'Cost change',
+          key: 'cost_change_event',
+          listSort: 'desc',
+          maxPlayers: 10
         }
-      });
+      ]
     }
   }
+  
 };
 </script>
 
 <style lang="scss" scoped>
-.section {
-  margin: $l 0;
 
-  .horizontal-list {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    width: calc(100vw - 33px);
-    padding: $s 0;
-
-    .top-scorer-player-item {
-      margin: $s;
-      min-width: 164px;
-    }
-  }
-}
 </style>
