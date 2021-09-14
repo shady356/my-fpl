@@ -1,8 +1,8 @@
 <template>
   <div>
     <section class="section">
-      <h2 @click="showTeams = !showTeams">Teams</h2>
-      <ul class="horizontal-list">
+      <h2>Teams</h2>
+      <ul class="team-grid-list">
         <router-link
           v-for="team in teams"
           :key="team.id"
@@ -36,16 +36,14 @@ export default {
 .section {
     margin: $l 0;
 
-    .horizontal-list {
+    .team-grid-list {
       display: flex;
-      flex-wrap: nowrap;
-      overflow-x: scroll;
-      width: calc(100vw - 33px);
+      flex-wrap: wrap;
       padding: $s 0;
 
       .team-item {
-        margin: $s;
-        min-width: 110px;
+        width: 30%;
+        margin: 1.5%;
       }
     }
   }
