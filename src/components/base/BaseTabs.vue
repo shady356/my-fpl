@@ -65,8 +65,6 @@ export default {
     display: flex;
     align-items: flex-start;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding: $xs;
 
     &::-webkit-scrollbar {
       height: 0;  /* Remove scrollbar space */
@@ -76,7 +74,6 @@ export default {
     .tab-item {
       white-space: nowrap;
       margin: 0 $xs;
-      scroll-snap-align: start;
 
       &:first-child {
         margin-left: 0;
