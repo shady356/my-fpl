@@ -1,26 +1,27 @@
 <template>
   <div
-    class="player-mini"
+    class="player-item"
   >
-    <div class="text-container">
-      <div class="stat-value">
-        <h1>{{statValue}}</h1>
-      </div>
+    <div class="left-content">
+      <img
+        class="player-image"
+        :src="pictureBase + player.code + '.png'"
+        alt=""
+      >
+      <!-- <img
+        class="team-logo"
+        :src="teamBadge"
+        alt=""
+      > -->
       <div class="player-name">
-        <h6 class="first-name">{{player.first_name}}</h6>
-        <h4 class="last-name">{{player.web_name}}</h4>
+        <p class="first-name">{{player.first_name}}</p>
+        <p class="last-name">{{player.web_name}}</p>
       </div>
     </div>
-    <!-- <img
-      class="team-logo"
-      :src="teamBadge"
-      alt=""
-    > -->
-    <img
-      class="player-image" 
-      :src="pictureBase + player.code + '.png'"
-      alt=""
-    >
+
+    <div class="stat-value">
+      <h3>{{statValue}}</h3>
+    </div>
   </div>
 </template>
 
@@ -33,6 +34,11 @@ export default {
     }
   },
   props: {
+    index: {
+      type: Number,
+      required: false,
+      default: 0
+    },
     player: {
       type: Object,
       required: true
@@ -49,7 +55,7 @@ export default {
     },
     teamBadge () {
       return `https://fantasy.premierleague.com/dist/img/badges/badge_${this.player.team_code}_80.png#/`
-    }
+    },
   },
   data () {
     return {
@@ -59,59 +65,50 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .player-mini {
-    align-items: center;
-    background: #ddd;
-    border-radius: $s;
-    //box-shadow: 0 0 $s #bbc;
-    //border: 1px solid #ccd;
+  .player-item {
+    background: #fff;
+    box-shadow: 0 0 40px #ddd;
+    border-radius: $m;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-
-    .team-logo {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: $l;
-      border-radius: $s 0 $s 0;
-      background: #fff;
-      padding: $xs;
-    }
-
-    .player-image {
-      border-radius: $m;
-      height: 116px;
-      object-fit: cover;
-      object-position: 50% 0%;
-      width: 130px;
-    }
-
-    .text-container {
+    align-items: center;
+    justify-content: space-between;
+    
+    .left-content {
       display: flex;
-      justify-content: flex-start;
-      padding: $m 0;
-
-      .stat-value {
-        padding: 0 $xs;
-        color: #111;
+      align-items: center;
+      .player-image {
+        border-radius: $m;
+        height: $xl;
+        width: $xl;
+        object-fit: cover;
+        object-position: 50% 0%;
+        margin: $s $s 0;
       }
-
+      .team-logo {
+        width: $l;
+        border-radius: $s 0 $s 0;
+        background: #fff;
+        padding: $xs;
+      }
       .player-name {
-        padding: 0 $s;
+        margin: 0 $s;
+        text-align: left;
 
         .first-name {
           line-height: 10px;
-          margin-top: 8px;
-          color: #222;
+          color: #666;
         }
         .last-name {
-          white-space: nowrap;
           font-weight: 700;
           color: #333;
+          font-size: 1.3rem;
         }
       }
     }
+    .stat-value {
+      margin: 0 $m;
+      color: #111;
+    }
+
   }
 </style>

@@ -3,12 +3,13 @@
     <h2>{{ playerList.title }}</h2>
     <div class="horizontal-list">
       <router-link
-        v-for="player in filteredList"
+        v-for="(player, index) in filteredList"
         :key="player.id"
         :to="{ name: 'playerPage', params: { playerId: player.id }}"
       >
         <PlayerItemCard
-          class="top-scorer-player-item"
+          class="player-item"
+          :index="index"
           :player="player"
           :statValue="player[playerList.key]"
         />
@@ -57,14 +58,11 @@ export default {
 
   .horizontal-list {
     display: flex;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    width: calc(100vw - 33px);
+    flex-direction: column;
     padding: $s 0;
 
-    .top-scorer-player-item {
+    .player-item {
       margin: $s;
-      min-width: 164px;
     }
   }
 }
