@@ -53,7 +53,7 @@ export default {
   padding: $s;
   position: sticky;
   top: 0;
-  padding: 16px 16px 0;
+  padding: $m;
   background: #eee;
 
   .row {

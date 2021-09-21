@@ -51,7 +51,7 @@ export default {
       myPicksIds: null,
       bootstrap: null,
       localhostBase: process.env.VUE_APP_FPL_API_URL,
-      teamId: 82673,
+      teamId: 412110,
     };
   },
   computed: {
