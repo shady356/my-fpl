@@ -30,13 +30,7 @@
           </div>
         </div>
         <!-- Gameweeks results -->
-        <h2>Gameweeks</h2>
-        <PlayerGameweeksResults
-          v-if="playerSummary"
-          class="player-gameweeks-results-container"
-          :playerSummary="playerSummary"
-          :teamBadge="teamBadge"
-        />
+        
         <!-- Chart -->
         <div class="player-stat-chart-master-container">
           <h2>Charts</h2>
@@ -130,6 +124,14 @@
             </div>
           </div>
         </div>
+
+        <h2>Gameweeks</h2>
+        <PlayerGameweeksResults
+          v-if="playerSummary"
+          class="player-gameweeks-results-container"
+          :playerSummary="playerSummary"
+          :teamBadge="teamBadge"
+        />
       </div>
     </BaseModalCard>
   </div>

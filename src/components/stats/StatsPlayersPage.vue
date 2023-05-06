@@ -27,8 +27,32 @@ export default {
           maxPlayers: 10
         },
         {
+          title: 'Top xG',
+          key: 'expected_goals',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
+          title: 'Top xG per 90',
+          key: 'expected_goals_per_90',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
+          title: 'Top xG involvement',
+          key: 'expected_goal_involvements',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
           title: 'Top Assisters',
           key: 'assists',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
+          title: 'Top xA',
+          key: 'expected_assists',
           listSort: 'desc',
           maxPlayers: 10
         },

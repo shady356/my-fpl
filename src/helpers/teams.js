@@ -43,7 +43,9 @@ export const $getTeamPlayersByTeamCode = (teamCode) => {
   })
 }
 export const $getTeamBadgeByTeamCode = (teamCode) => {
-  return `https://fantasy.premierleague.com/dist/img/badges/badge_${teamCode}_80.png#/`
+  return `https://resources.premierleague.com/premierleague/badges/70/t${teamCode}.png`
+  
+  
 }
 export const $getFixturesByTeamId = (teamId) => {
   teamId = parseInt(teamId)

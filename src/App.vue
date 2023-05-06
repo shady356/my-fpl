@@ -52,6 +52,7 @@ export default {
     ...mapActions(['commitSetBootstrapData', 'commitSetFixturesData']),
     async setBootstrapData () {
       const response = await fplApi.getBootstrapData()
+      console.log(response)
       this.isBootstrapLoaded = true
       this.commitSetBootstrapData(response.data)
       if (response.error) {
