@@ -1,16 +1,14 @@
 <template>
   <div>
-    <Header>
-      <template #title>
-        <h3>Settings</h3>
-      </template> 
-    </Header>
+
+    <h3>Settings</h3>
+
     <div class="default-page-margin">
       <h1>Settings</h1>
-      
+
       <ul class="settings-list">
-        <li 
-          v-for="item in settingsList" 
+        <li
+          v-for="item in settingsList"
           :key="item.name"
         >
           <img
@@ -21,7 +19,7 @@
           <h3>{{item.name}}</h3>
         </li>
       </ul>
-      
+
       <!-- About button -->
       <router-link to="/about">
         <base-button class="ghost">
@@ -34,15 +32,14 @@
 </template>
 
 <script>
-import Header from '@/components/layout/Header.vue'
+
 import BaseButton from '@/components/base/BaseButton.vue'
 export default {
   name: 'Settings',
   components: {
     BaseButton,
-    Header
   },
-  data() {
+  data () {
     return {
       settingsList: [
         {
@@ -65,13 +62,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
 
-
   li {
     display: flex;
     flex-direction: column;
     height: 100px;
     flex-basis: 50%;
-    
+
     justify-content: center;
     text-align: center;
 

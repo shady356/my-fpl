@@ -13,12 +13,12 @@
         </div>
       </div>
     </transition>
-    <div
+    <button
       class="close-button"
       @click="closeModal()"
     >
       <img :src="clear" alt="">
-    </div>
+    </button>
   </div>
 </template>
 
@@ -77,11 +77,15 @@ export default {
       height: 96vh;
       padding-bottom: 1rem;
       transition: background-color 400ms ease-in;
-      //background-image: linear-gradient(180deg, hsla(180, 100%, 50%, 0.85), hsla(249, 71%, 35%, 0.85));
+      //background-image: linear-gradient(180deg, hsla(300, 79%, 94%, 0.85), hsla(250, 75%, 89%, 0.85));
     }
     .close-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background: #000;
       border-radius: 50%;
+      border: none;
       transform: translateX(50%);
       bottom: 4vh;
       color: #fff;

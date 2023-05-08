@@ -1,10 +1,8 @@
 <template>
   <div>
-    <Header>
-      <template #title>
-        <h1>Stats</h1>
-      </template> 
-    </Header>
+
+    <h1>Stats</h1>
+
     <BaseTabs
       :items="pageTabItems"
       :activeIndex="activePageTabIndex"
@@ -14,13 +12,14 @@
 
     <div class="stats-container default-page-margin">
       <h4 @click="openPlayerStatFilters()">Filter</h4>
-      
+
       <StatsPlayersPage v-if="isPlayersPage" />
       <StatsTeamsPage v-else />
     </div>
     <BaseModal
       v-if="showPlayerStatFilters"
-      @closeModal="closePlayerStatFilters()">
+      @closeModal="closePlayerStatFilters()"
+    >
       <template #header>
         Players stat filters
       </template>
@@ -32,7 +31,7 @@
 </template>
 
 <script>
-import Header from '@/components/layout/Header.vue'
+
 import BaseModal from '@/components/base/BaseModal.vue'
 import BaseTabs from '@/components/base/BaseTabs.vue'
 import StatsPlayersPage from '@/components/stats/StatsPlayersPage.vue'
@@ -43,7 +42,7 @@ export default {
   components: {
     BaseModal,
     BaseTabs,
-    Header,
+
     StatsPlayersPage,
     StatsTeamsPage
   },
@@ -63,13 +62,13 @@ export default {
     }
   },
   methods: {
-    openPlayerStatFilters() {
+    openPlayerStatFilters () {
       this.showPlayerStatFilters = true
     },
-    closePlayerStatFilters() {
+    closePlayerStatFilters () {
       this.showPlayerStatFilters = false
     },
-    setPageTab(payload) {
+    setPageTab (payload) {
       this.activePageTabIndex = payload.index
     }
   }
@@ -77,7 +76,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .page-tabs-layout {
   text-align: center;
   margin: $l 0;

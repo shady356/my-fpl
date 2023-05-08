@@ -4,7 +4,9 @@
       <button :disabled="GW < 2" @click="changeGameweek(GW - 1)">
         Prev
       </button>
-      <h4>Gameweek {{ GW }}</h4>
+      <select class="gameweek__select" v-model="GW" @change="selectGameWeek()">
+        <option v-for="gw in gameweeks.current" :key="gw.event" :value="gw.event">Game week {{gw.event}}</option>
+      </select>
       <button
         :disabled="GW === gameweeks.current.length"
         @click="changeGameweek(GW + 1)"
@@ -39,6 +41,11 @@ export default {
       }).format(value)
     },
   },
+  data() {
+    return {
+      selectedGameWeek: null,
+    }
+  },
   props: {
     GW: {
       type: Number,
@@ -55,21 +62,30 @@ export default {
   },
   methods: {
     changeGameweek (gw) {
+      console.log(gw)
       this.$emit('updateGameweek', gw)
+    },
+    selectGameWeek() {
+      this.$emit('updateGameweek', this.GW)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.gameweek {
+  &__select {
+    background: none;
+    border: none;
+    font-style: italic;
+    font-size: 1.25rem;
+
+  }
+}
 .gameweek-pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  h4 {
-    font-style: italic;
-  }
 
   button {
     padding: $xs $m;
@@ -78,6 +94,7 @@ export default {
     font-weight: 700;
     background: $pl-blue;
     margin: $s;
+    border-radius: $s;
 
     :disabled {
       background: #f00;

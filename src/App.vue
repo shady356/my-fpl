@@ -1,16 +1,10 @@
 <template>
   <div id="app">
     <div v-if="isAppLoaded">
-      <transition name="opacity" mode="out-in">
-        <router-view class="main-layout" />
-      </transition>
-      <Menu
-        v-if="isMenuOpen"
-        class="menu"
-        @closeMenu="closeMenu()"
-      />
+      <router-view class="main-layout" />
+      <GlobalNavigation class="global-navigation" />
     </div>
-    <div 
+    <div
       v-else
       class="loading-app-feedback"
     >
@@ -22,15 +16,15 @@
 <script>
 import { mapActions } from "vuex";
 import fplApi from '@/service/fplApi.js'
-import Menu from "@/components/layout/Menu.vue";
+import GlobalNavigation from "@/components/layout/GlobalNavigation.vue";
 export default {
   name: "App",
   components: {
-    Menu
+    GlobalNavigation
   },
   data () {
     return {
-      config: { headers:{'Access-Control-Allow-Origin': '*'}},
+      config: { headers: { 'Access-Control-Allow-Origin': '*' } },
       isBootstrapLoaded: false,
       isFixturesLoaded: false,
       BASE_URL: process.env.VUE_APP_FPL_API_URL
@@ -41,7 +35,7 @@ export default {
       return this.$store.state.isMenuOpen
     },
     isAppLoaded () {
-      return this.isBootstrapLoaded && this.isFixturesLoaded 
+      return this.isBootstrapLoaded && this.isFixturesLoaded
     }
   },
   created () {
@@ -99,5 +93,10 @@ ul li {
   height: 100vh;
   justify-content: center;
   align-items: center;
+}
+
+.global-navigation {
+  position: sticky;
+  bottom: 0;
 }
 </style>

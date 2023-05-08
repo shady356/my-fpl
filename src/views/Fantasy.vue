@@ -1,27 +1,25 @@
 <template>
   <div>
-    <Header>
-      <template #title>
-        <h3>Fantasy</h3>
-      </template> 
-    </Header>
+
+    <h3>Fantasy</h3>
+
     <div v-if="!hasTeamId">
       <login />
     </div>
-    <div 
+    <div
       v-else
       class="fantasy-container"
     >
       <div v-if="this.isLoaded">
-        <FantasyHeader 
+        <FantasyHeader
           :GW="GW"
           :bootstrap="bootstrap"
           :gameweeks="gameweeks"
           @updateGameweek="updateGameweek"
         />
-        <pitch-formation 
-          :players="myPlayers" 
-          :GW="GW" 
+        <pitch-formation
+          :players="myPlayers"
+          :GW="GW"
         />
       </div>
     </div>
@@ -30,19 +28,17 @@
 
 <script>
 import FantasyHeader from '@/components/fantasy/FantasyHeader.vue'
-import Header from '@/components/layout/Header.vue'
 import PitchFormation from "@/components/pitch/PitchFormation.vue";
 import Login from "@/views/Login.vue";
 import axios from "axios";
 export default {
   name: "Fantasy",
   components: {
-    Header,
     FantasyHeader,
     "pitch-formation": PitchFormation,
     login: Login,
   },
-  data() {
+  data () {
     return {
       GW: 1,
       gameweeks: null,
@@ -55,37 +51,37 @@ export default {
     };
   },
   computed: {
-    BASE_URL() {
+    BASE_URL () {
       return this.localhostBase;
     },
-    hasTeamId() {
+    hasTeamId () {
       return !!this.teamId;
     },
-    isLoaded() {
+    isLoaded () {
       return (
         this.isBootstrapLoaded && this.isMyPicksLoaded && this.isGameweeksLoaded
       );
     },
-    isBootstrapLoaded() {
+    isBootstrapLoaded () {
       return !!this.bootstrap;
     },
-    isMyPicksLoaded() {
+    isMyPicksLoaded () {
       return !!this.myPicks;
     },
-    isGameweeksLoaded() {
+    isGameweeksLoaded () {
       return !!this.gameweeks;
     },
-    numberOfPlayersLoaded() {
+    numberOfPlayersLoaded () {
       return this.countPlayerScoreFetched;
     },
-    currentGw() {
+    currentGw () {
       if (this.gameweeks !== null) {
         return this.gameweeks.current[this.gameweeks.current.length - 1];
       } else {
         return null;
       }
     },
-    myPlayers() {
+    myPlayers () {
       let index = 0;
       return this.allPlayers.filter((player) => {
         if (this.myPicksIds.includes(player.id)) {
@@ -96,17 +92,17 @@ export default {
       });
     },
   },
-  mounted() {
+  mounted () {
     this.getBootstrap();
     this.getGameWeeks();
     this.getMyPicks(this.GW);
   },
   methods: {
-    findPlayerIndexById(id) {
+    findPlayerIndexById (id) {
       return this.myPicks.findIndex((player) => player.element === id);
     },
     // Axios
-    getBootstrap() {
+    getBootstrap () {
       axios
         .get(`${this.BASE_URL}/api/bootstrap-static/`)
         .then((response) => {
@@ -118,7 +114,7 @@ export default {
           this.errored = true;
         });
     },
-    getMyPicks(gw) {
+    getMyPicks (gw) {
       axios
         .get(`${this.BASE_URL}/api/entry/${this.teamId}/event/${gw}/picks/`)
         .then((response) => {
@@ -130,7 +126,7 @@ export default {
           this.errored = true;
         });
     },
-    getGameWeeks() {
+    getGameWeeks () {
       axios
         .get(`${this.BASE_URL}/api/entry/${this.teamId}/history/`)
         .then((response) => {
@@ -141,7 +137,7 @@ export default {
           this.errored = true;
         });
     },
-    updateGameweek(gw) {
+    updateGameweek (gw) {
       this.GW = gw;
       this.getMyPicks(gw);
     },
@@ -150,7 +146,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .fantasy-container {
-    margin-top: $l;
-  }
+.fantasy-container {
+  margin-top: $l;
+}
 </style>

@@ -27,6 +27,7 @@ export default {
     font-weight: 700;
     letter-spacing: 1px;
     padding: $s $m;
+    cursor: pointer;
 
     &.ghost {
       background: none;

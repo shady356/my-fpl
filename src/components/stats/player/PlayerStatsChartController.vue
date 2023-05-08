@@ -35,12 +35,12 @@ export default {
         labels: [],
         datasets: [
           {
-            backgroundColor: '#05F26C66',
-            borderColor: '#05F26C',
+            backgroundColor: '#1f5fe999',
+            borderColor: '#1f5fe944',
             pointRadius: 2,
             borderWidth: 2,
             lineTension: 0.8,
-            pointBackgroundColor: '#05F26C',
+            pointBackgroundColor: '#1f5fe944',
             pointBorderWidth: 2,
             cubicInterpolationMode: 'monotone',
             data: []
@@ -90,7 +90,7 @@ export default {
   computed: {
     chartStyles () {
       return {
-        width: '99%',
+        width: '100%',
         position: 'relative'
       }
     }

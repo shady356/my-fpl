@@ -1,15 +1,15 @@
 <template>
   <div>
-    <ul :class="['tabs-list', {'horisontal-list': horisontalList }]">
-      <li
+    <nav :class="['tabs-list', {'horisontal-list': horisontalList }]">
+      <button
         v-for="(item, index) in items"
         :key="item.name"
-        :class="['tab-item', {'active': isTabActive(index)}]"
+        :class="['tab-button', {'tab-button--active': isTabActive(index)}]"
         @click="selectTab(item, index)"
       >
         {{ item.name }}
-      </li>
-    </ul>
+      </button>
+    </nav>
   </div>
 </template>
 
@@ -47,16 +47,21 @@ export default {
   display: inline-flex;
   flex-wrap: nowrap;
   align-items: center;
-  background: #eee;
+  background: #eeeeff;
   border-radius: $l;
-  padding: $xs;
+  padding: $s;
 
-  .tab-item {
+  .tab-button {
     padding: $s $m;
     border-radius: $l;
+    background: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
 
-    &.active {
-      background: #fff;
+    &--active {
+      background: #1f5fe9;
+      color: #fff;
       font-weight: 700;
       border-color: transparent;
     }
