@@ -2,17 +2,10 @@
   <section class="section">
     <h2>{{ playerList.title }}</h2>
     <div class="horizontal-list">
-      <router-link
-        v-for="(player, index) in filteredList"
-        :key="player.id"
-        :to="{ name: 'playerPage', params: { playerId: player.id }}"
-      >
-        <PlayerItemCard
-          class="player-item"
-          :index="index"
-          :player="player"
-          :statValue="player[playerList.key]"
-        />
+      <router-link v-for="(player, index) in filteredList" :key="player.id"
+        :to="{ name: 'playerPage', params: { playerId: player.id } }">
+        <PlayerItemCard class="player-item" :index="index" :player="player"
+          :statValue="player[playerList.key]" />
       </router-link>
     </div>
   </section>
@@ -30,7 +23,7 @@ export default {
     playerList: {
       type: Object,
       required: false,
-      default: () => {}
+      default: () => { }
     }
   },
   data() {

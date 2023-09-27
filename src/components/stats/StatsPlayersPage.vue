@@ -2,9 +2,7 @@
   <div>
     <ul>
       <li v-for="playerList in playerLists" :key="playerList.key">
-        <FeaturedPlayerList
-          :playerList="playerList"
-        />
+        <FeaturedPlayerList :playerList="playerList" />
       </li>
     </ul>
   </div>
@@ -17,9 +15,33 @@ export default {
   components: {
     FeaturedPlayerList
   },
-  data () {
+  data() {
     return {
       playerLists: [
+        {
+          title: 'Expected goals',
+          key: 'expected_goals',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
+          title: 'Expected assists',
+          key: 'expected_assists',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
+          title: 'Expected goal involvements',
+          key: 'expected_goal_involvements',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
+        {
+          title: 'Expected goals conceded',
+          key: 'expected_goals_conceded',
+          listSort: 'desc',
+          maxPlayers: 10
+        },
         {
           title: 'Top Scorers',
           key: 'goals_scored',
@@ -43,14 +65,18 @@ export default {
           key: 'cost_change_event',
           listSort: 'desc',
           maxPlayers: 10
+        },
+        {
+          title: 'Selected by (%)',
+          key: 'selected_by_percent',
+          listSort: 'desc',
+          maxPlayers: 10
         }
       ]
     }
   }
-  
+
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
