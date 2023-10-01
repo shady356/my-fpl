@@ -4,33 +4,35 @@
       <h2>Team stats</h2>
       <table>
         <thead>
+          <th>#</th>
           <th>Team</th>
           <th>Games</th>
-          <th>Pts</th>
+          <!--     <th>Pts</th> -->
           <th>xPts</th>
           <th>G</th>
           <th>xG</th>
           <th>GA</th>
           <th>xGA</th>
-          <th>points</th>
+          <!--           <th>points</th>
           <th>attack</th>
           <th>defense</th>
-          <th>total</th>
+          <th>total</th> -->
         </thead>
         <tbody>
           <tr v-for="team in teams" :key="team.id">
+            <td>{{ team.id }}</td>
             <td>{{ team.name }}</td>
             <td>{{ team.stats.played }}</td>
-            <td>{{ team.stats.pts }}</td>
-            <td>{{ team.stats.xPts }}</td>
-            <td>{{ team.stats.g }}</td>
-            <td>{{ team.stats.xG }}</td>
+            <!--  <td>{{ team.stats.pts }}</td> -->
+            <td>{{ team.stats.xpts }}</td>
+            <td>{{ team.stats.goals }}</td>
+            <td>{{ team.stats.xg }}</td>
             <td>{{ team.stats.ga }}</td>
-            <td>{{ team.stats.xGa }}</td>
-            <td>{{ team.stats.rating.points }}</td>
+            <td>{{ team.stats.xga }}</td>
+            <!--             <td>{{ team.stats.rating.points }}</td>
             <td>{{ team.stats.rating.attack }}</td>
             <td>{{ team.stats.rating.defense }}</td>
-            <td>{{ team.stats.rating.total }}</td>
+            <td>{{ team.stats.rating.total }}</td> -->
           </tr>
         </tbody>
       </table>
@@ -50,7 +52,7 @@
 
 <script>
 import TeamItemCard from '@/components/stats/team/TeamItemCard.vue'
-import { $getTeamStats } from '../../helpers/teams';
+import { $getStats } from '../../helpers/teams';
 export default {
   name: 'StatsTeamsPage',
   components: {
@@ -63,10 +65,11 @@ export default {
     }
   },
   mounted() {
-    this.teams.forEach(team => {
-      team.stats = $getTeamStats(team.code)
-      team.stats.rating = this.getTeamRating(team.stats)
-    });
+    const data = $getStats(23)
+
+    data.forEach((team, index) => {
+      this.teams[index].stats = team
+    })
     this.isDataLoaded = true
   },
   methods: {
@@ -101,7 +104,7 @@ export default {
         points: points,
         attack: attack,
         defense: defense,
-        total: Math.round((points + attack + defense) / 3)
+        total: Math.round(((points + attack + defense) / 3))
       }
     }
   }

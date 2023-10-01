@@ -7,6 +7,7 @@ export const $getTeamById = (teamId) => {
     return team.id === teamId
   })
 }
+
 export const $getTeamColorByTeamCode = (teamCode) => {
   teamCode = parseInt(teamCode)
   switch (teamCode) {
@@ -36,15 +37,18 @@ export const $getTeamColorByTeamCode = (teamCode) => {
     default: return { primary: '#FDB913', secondary: '#231F20', teamBackground: '#eDc993', text: '#231F20' }; // Default - Man United
   }
 }
+
 export const $getTeamPlayersByTeamCode = (teamCode) => {
   const allPlayers = store.state.bootstrap.elements
   return allPlayers.filter(player => {
     return player.team_code === teamCode
   })
 }
+
 export const $getTeamBadgeByTeamCode = (teamCode) => {
   return `https://resources.premierleague.com/premierleague/badges/t${teamCode}.png`
 }
+
 export const $getFixturesByTeamId = (teamId) => {
   teamId = parseInt(teamId)
   const allFixtures = store.state.fixtures
@@ -52,6 +56,7 @@ export const $getFixturesByTeamId = (teamId) => {
     return fixture.team_a === teamId || fixture.team_h === teamId
   })
 }
+
 export const $getTeamCodeByTeamId = (teamId) => {
   teamId = parseInt(teamId)
   const teams = store.state.bootstrap.teams
@@ -92,6 +97,52 @@ export const $getTeamStats = (teamCode) => {
     case 39: return getWolverhamptonStats() // Wolves
   }
 }
+
+export const $getStats = (season) => {
+  const data = require(`../stats/stats${season}.json`)
+  const teams = []
+
+  for (let i = 0; i < 20; i++) {
+    teams[i] = {
+      played: 0,
+      goals: 0,
+      ga: 0,
+      xg: 0,
+      xga: 0,
+      games: []
+    }
+    const team = data.filter(item => item.team_id == i + 1)
+
+    teams[i].played = team.length
+
+    team.forEach(game => {
+      const teamGameData = {
+        chances_percentage: Number(game.chances_percentage),
+        deep: Number(game.deep),
+        goals: Number(game.goals),
+        ga: Number(game.ga),
+        xga: Number(game.xga),
+        is_home: game.is_home === "TRUE",
+        ppda: Number(game.ppda),
+        shots: Number(game.shots),
+        shots_on_target: Number(game.shots_on_target),
+        x_pts: Number(game.x_pts),
+        xg: Number(game.xg),
+        team_name: game.team_name
+      }
+
+      teams[i].goals += teamGameData.goals
+      teams[i].ga += teamGameData.ga
+      teams[i].xg += teamGameData.xg
+      teams[i].xga += teamGameData.xga
+
+      teams[i].games.push(teamGameData)
+    })
+  }
+
+  return teams
+}
+
 
 const getArsenalStats = () => {
   return {
