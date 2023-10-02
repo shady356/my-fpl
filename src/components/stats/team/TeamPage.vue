@@ -3,8 +3,6 @@
     <BaseModalCard :backgroundColor="teamColor.teamBackground"
       :textColor="teamColor.text">
 
-      <pre>{{ team }}</pre>
-
       <div class="team-page default-page-margin" :key="teamId">
         <router-link :to="{ name: 'stats' }">
           <img :src="arrowBackIcon" alt="Go back: teams">
@@ -26,7 +24,7 @@
         <div class="fixtures-container">
           <h3>Fixtures</h3>
           <ul class="fixture-list">
-            <TeamFixtureItem v-for="fixture in fixtures" :key="fixture.code"
+            <TeamPageFixtureItem v-for="fixture in fixtures" :key="fixture.code"
               :fixture="fixture" tag="li" class="fixture-item" />
           </ul>
           <pre>{{ fixtures }}</pre>
@@ -55,7 +53,7 @@ import {
 } from '@/helpers/teams.js'
 import orderBy from 'lodash/orderBy'
 import BaseModalCard from '@/components/base/BaseModalCard.vue'
-import TeamFixtureItem from '@/components/stats/team/TeamFixtureItem.vue'
+import TeamPageFixtureItem from '@/components/stats/team/TeamPageFixtureItem.vue'
 import TeamPlayerItem from '@/components/stats/team/TeamPlayerItem'
 export default {
   name: 'TeamPage',
@@ -67,7 +65,7 @@ export default {
   },
   components: {
     BaseModalCard,
-    TeamFixtureItem,
+    TeamPageFixtureItem,
     TeamPlayerItem
   },
   data() {
