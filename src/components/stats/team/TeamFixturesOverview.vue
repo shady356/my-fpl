@@ -8,7 +8,7 @@
     </thead>
     <tbody>
       <TeamFixturesOverviewTeam v-for="team in teams" :key="team.id" :team="team"
-        :currentGameWeek="gameweeks[0]" />
+        :currentGameWeek="gameweeks[0]" :ratingType="ratingType" />
     </tbody>
   </table>
 </template>
@@ -24,6 +24,11 @@ export default {
     teams: {
       type: Array,
       required: true
+    },
+    ratingType: {
+      type: String,
+      required: false,
+      default: 'totalRounded'
     }
   },
   data() {
@@ -34,7 +39,7 @@ export default {
   computed: {
     gameweeks() {
       let gameweeks = []
-      for (let i = 8; i <= 38; i++) {
+      for (let i = 9; i <= 38; i++) {
         gameweeks.push(i)
       }
       return gameweeks

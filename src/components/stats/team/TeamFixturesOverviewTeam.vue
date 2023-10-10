@@ -2,7 +2,7 @@
   <tr>
     <td class="freeze">{{ team.name }}</td>
     <td v-for="fixture in filteredFixtures" :key="fixture.id">
-      <TeamFixturesOverviewTeamOpponent
+      <TeamFixturesOverviewTeamOpponent :ratingType="ratingType"
         :opponent="findTeamOpponent(fixture, team)" />
     </td>
   </tr>
@@ -30,6 +30,11 @@ export default {
     currentGameWeek: {
       type: Number,
       required: true,
+    },
+    ratingType: {
+      type: String,
+      required: false,
+      default: 'totalRounded'
     }
   },
   data() {
@@ -42,7 +47,7 @@ export default {
   },
   computed: {
     filteredFixtures() {
-      return this.fixtures.filter(fixture => fixture.event >= 8)
+      return this.fixtures.filter(fixture => fixture.event >= this.currentGameWeek)
     }
   },
   methods: {

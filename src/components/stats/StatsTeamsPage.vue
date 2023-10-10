@@ -3,7 +3,8 @@
     <section class="section">
 
       <h2>Team fixtures</h2>
-      <TeamFixturesOverview :teams="teams" style="margin-bottom: 40px;" />
+      <TeamFixturesOverview :teams="teams" style="margin-bottom: 40px;"
+        ratingType="attackRounded" />
 
       <h2>Team stats</h2>
       <table>
@@ -33,6 +34,10 @@
 
           <th class="number" :class="{ 'sorted': isSortKey('rating.total') }"
             @click="setTeamsSort('rating.total')">Rating
+          </th>
+          <th class="number"
+            :class="{ 'sorted': isSortKey('rating.totalRounded') }"
+            @click="setTeamsSort('rating.totalRounded')">RatingRounded
           </th>
           <!-- End: Rating -->
 
@@ -93,6 +98,7 @@
             <td class="number">{{ team.rating.attack }}</td>
             <td class="number">{{ team.rating.defense }}</td>
             <td class="number">{{ team.rating.total }}</td>
+            <td class="number">{{ team.rating.totalRounded }}</td>
             <td class="number">{{ team.stats.pts }}</td>
             <td class="number">{{ team.stats.xpts }}</td>
             <td class="number">{{ team.stats.goals }}</td>
@@ -150,51 +156,103 @@ export default {
   mounted() {
     const data = $getStats(23)
 
-    this.calcRating(18, 18)
+    const extremum = {}
+
+    extremum.ptsMax = Math.max(...data.map(o => o.pts))
+    extremum.ptsMin = Math.min(...data.map(o => o.pts))
+    extremum.xPtsMax = Math.max(...data.map(o => o.xpts))
+    extremum.xPtsMin = Math.min(...data.map(o => o.xpts))
+    extremum.gMax = Math.max(...data.map(o => o.goals))
+    extremum.gMin = Math.min(...data.map(o => o.goals))
+    extremum.xGMax = Math.max(...data.map(o => o.xg))
+    extremum.xGMin = Math.min(...data.map(o => o.xg))
+    extremum.gAMax = Math.max(...data.map(o => o.ga))
+    extremum.gAMin = Math.min(...data.map(o => o.ga))
+    extremum.xGaMax = Math.max(...data.map(o => o.xga))
+    extremum.xGaMin = Math.min(...data.map(o => o.xga))
 
     data.forEach((teamStats, index) => {
       this.teams[index].stats = teamStats
-      this.teams[index].rating = this.getTeamRating(teamStats)
+      this.teams[index].rating = this.calcTeamRating(teamStats, extremum, false)
+    })
+
+    extremum.totalMax = Math.max(...this.teams.map(o => o.rating.totalCrude))
+    extremum.totalMin = Math.min(...this.teams.map(o => o.rating.totalCrude))
+
+    this.teams.forEach((team) => {
+      team.rating.total = this.calcTeamRatingTotalRounded(team.rating.totalCrude, extremum.totalMax, extremum.totalMin, 2)
+      team.rating.totalRounded = this.calcTeamRatingTotalRounded(team.rating.totalCrude, extremum.totalMax, extremum.totalMin)
     })
 
     this.isDataLoaded = true
   },
   methods: {
-    getTeamRating(stats) {
-      const ptsMax = 18
-      const ptsMin = 1
-      const xPtsMax = 16.12
-      const xPtsMin = 2.25
-      const gMax = 21
-      const gMin = 4
-      const xGMax = 16.82
-      const xGMin = 5.16
-      const gAMax = 19
-      const gAMin = 5
-      const xGaMax = 20.71
-      const xGaMin = 5.09
+    calcTeamRating(stats, extremum, expectedOnly = false) {
+      const ptsMax = extremum.ptsMax
+      const ptsMin = extremum.ptsMin
+      const xPtsMax = extremum.xPtsMax
+      const xPtsMin = extremum.xPtsMin
+      const gMax = extremum.gMax
+      const gMin = extremum.gMin
+      const xGMax = extremum.xGMax
+      const xGMin = extremum.xGMin
+      const gAMax = extremum.gAMax
+      const gAMin = extremum.gAMin
+      const xGaMax = extremum.xGaMax
+      const xGaMin = extremum.xGaMin
 
-      /* const ptsScore = this.calcRating(ptsMax, ptsMin, stats.pts)
-      const xPtsScore = this.calcRating(xPtsMax, xPtsMin, stats.xpts)
+      let points, attack, defense = 0
 
-      const attackScore = this.calcRating(gMax, gMin, stats.goals)
-      const xAttackScore = this.calcRating(xGMax, xGMin, stats.xg)
-
-      const defenseScore = this.calcRating(gAMax, gAMin, stats.ga, true)
-      const xDefenseScore = this.calcRating(xGaMax, xGaMin, stats.xga, true) */
-
-      const points = this.calcRating(round(ptsMax + xPtsMax, 2), round(ptsMin + xPtsMin, 2), round(stats.pts + stats.xpts, 2))
-      const attack = this.calcRating(round(gMax + xGMax, 2), round(gMin + xGMin, 2), round(stats.goals + stats.xg, 2))
-      const defense = this.calcRating(round(gAMax + xGaMax, 2), round(gAMin + xGaMin, 2), round(stats.ga + stats.xga, 2), true)
+      if (expectedOnly) {
+        points = this.calcRating(
+          xPtsMax,
+          xPtsMin,
+          stats.xpts
+        )
+        attack = this.calcRating(
+          xGMax,
+          xGMin,
+          stats.xg
+        )
+        defense = this.calcRating(
+          xGaMax,
+          xGaMin,
+          stats.xga,
+          true
+        )
+      } else {
+        points = this.calcRating(
+          round(ptsMax + xPtsMax, 2),
+          round(ptsMin + xPtsMin, 2),
+          round(stats.pts + stats.xpts, 2)
+        )
+        attack = this.calcRating(
+          round(gMax + xGMax, 2),
+          round(gMin + xGMin, 2),
+          round(stats.goals + stats.xg, 2)
+        )
+        defense = this.calcRating(
+          round(gAMax + xGaMax, 2),
+          round(gAMin + xGaMin, 2),
+          round(stats.ga + stats.xga, 2),
+          true
+        )
+      }
 
       return {
         points: points,
         attack: attack,
-        defense: defense,
+        attackRounded: round(attack),
 
-        total: round(((points + attack + defense) / 3), 2),
-        totalRounded: round(((points + attack + defense) / 3))
+        defense: defense,
+        defenseRounded: round(defense),
+
+        totalCrude: round(((points + attack + defense) / 3), 2),
       }
+    },
+
+    calcTeamRatingTotalRounded(ratingCrude, max, min, decimal = 0) {
+      return round(this.calcRating(max, min, ratingCrude), decimal)
     },
 
     calcRating(scoreMax, scoreMin, score, reverse = false) {
@@ -255,6 +313,11 @@ table {
 
     &:nth-child(odd) {
       background: hsl(200, 100%, 88%);
+    }
+
+    &:hover {
+      background: rgb(123, 0, 255);
+      color: #fff;
     }
   }
 
