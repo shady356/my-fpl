@@ -4,7 +4,7 @@
 
       <h2>Team fixtures</h2>
       <TeamFixturesOverview :teams="teams" style="margin-bottom: 40px;"
-        ratingType="attackRounded" />
+        ratingType="totalRounded" />
 
       <h2>Team stats</h2>
       <table>
@@ -182,6 +182,7 @@ export default {
     this.teams.forEach((team) => {
       team.rating.total = this.calcTeamRatingTotalRounded(team.rating.totalCrude, extremum.totalMax, extremum.totalMin, 2)
       team.rating.totalRounded = this.calcTeamRatingTotalRounded(team.rating.totalCrude, extremum.totalMax, extremum.totalMin)
+      team.rating.totalRounded = this.reviseTotalRating(team.rating.total)
     })
 
     this.isDataLoaded = true
@@ -253,6 +254,15 @@ export default {
 
     calcTeamRatingTotalRounded(ratingCrude, max, min, decimal = 0) {
       return round(this.calcRating(max, min, ratingCrude), decimal)
+    },
+
+    reviseTotalRating(rating) {
+      const decimal = rating - Math.floor(rating)
+      if (decimal >= 0.75) {
+        return Math.floor(rating + 1)
+      } else {
+        return Math.floor(rating)
+      }
     },
 
     calcRating(scoreMax, scoreMin, score, reverse = false) {

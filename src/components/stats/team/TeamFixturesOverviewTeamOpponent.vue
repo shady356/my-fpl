@@ -47,13 +47,13 @@ export default {
   &--rating-4 {
     background: rgb(255, 23, 81);
     color: #fff;
-    opacity: .1;
+    opacity: 0;
   }
 
   &--rating-5 {
     background: rgb(128, 7, 45);
     color: #fff;
-    opacity: .1;
+    opacity: 0;
   }
 }
 </style>

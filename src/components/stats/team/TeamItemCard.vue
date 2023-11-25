@@ -1,7 +1,7 @@
 <template>
   <div class="team-container">
     <img :src="teamBadge" alt="team-badge" class="team-badge">
-    <h4 class="team-name">{{ team.name }}</h4>
+    <!--   <h4 class="team-name">{{ team.name }}</h4> -->
   </div>
 </template>
 

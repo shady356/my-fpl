@@ -41,6 +41,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ '@/views/Settings.vue')
     },
     {
+      path: '/ludo',
+      name: 'ludo',
+      component: () => import(/* webpackChunkName: "about" */ '@/views/Ludo.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
